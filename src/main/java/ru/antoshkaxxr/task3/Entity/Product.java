@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3.entity;
+package ru.antoshkaxxr.task3.Entity;
 
 public class Product {
     private Long id;
