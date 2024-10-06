@@ -1,6 +1,5 @@
 package ru.antoshkaxxr.task3.Config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +10,12 @@ import java.util.Scanner;
 @Configuration
 public class Config
 {
-    @Autowired
-    private CommandProcessor commandProcessor;
+    private final CommandProcessor commandProcessor;
+
+    public Config(CommandProcessor commandProcessor) {
+        this.commandProcessor = commandProcessor;
+    }
+
     @Bean
     public CommandLineRunner commandScanner()
     {
@@ -20,19 +23,26 @@ public class Config
         {
             try (Scanner scanner = new Scanner(System.in))
             {
-                System.out.println("Введите команду. 'exit' для выхода.");
+                System.out.println("Введите команду: ");
+                System.out.println("1) create <productName> <caloriesNumber>");
+                System.out.println("2) delete <productName>");
+                System.out.println("3) update <productName> <newCaloriesNumber>");
+                System.out.println("4) add <productName> (<eatingDate>)?");
+                System.out.println("5) statistic <date> OR statistic <date1> <date2>");
+                System.out.println("6) exit");
+                System.out.println("* date format: YYYY-MM-DD");
+
                 while (true)
                 {
-// Показать приглашение для ввода
                     System.out.print("> ");
                     String input = scanner.nextLine();
-// Выход из цикла, если введена команда "exit"
+
                     if ("exit".equalsIgnoreCase(input.trim()))
                     {
                         System.out.println("Выход из программы...");
                         break;
                     }
-// Обработка команды
+
                     commandProcessor.processCommand(input);
                 }
             }
