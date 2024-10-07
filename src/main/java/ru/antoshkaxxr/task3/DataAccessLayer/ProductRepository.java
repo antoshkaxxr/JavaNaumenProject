@@ -2,7 +2,7 @@ package ru.antoshkaxxr.task3.DataAccessLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.antoshkaxxr.task3.Entity.Product;
+import ru.antoshkaxxr.task3.Entities.Product;
 
 import java.util.Map;
 

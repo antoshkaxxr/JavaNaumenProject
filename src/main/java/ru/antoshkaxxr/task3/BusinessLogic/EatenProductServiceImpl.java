@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.task3.DataAccessLayer.EatenProductRepository;
 import ru.antoshkaxxr.task3.DataAccessLayer.ProductRepository;
-import ru.antoshkaxxr.task3.Entity.EatenProduct;
-import ru.antoshkaxxr.task3.Entity.Product;
+import ru.antoshkaxxr.task3.Entities.EatenProduct;
+import ru.antoshkaxxr.task3.Entities.Product;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,7 +38,9 @@ public class EatenProductServiceImpl implements EatenProductService {
         }
 
         EatenProduct eatenProduct = new EatenProduct();
-        eatenProduct.setProduct(product);
+        eatenProduct.setId(product.getId());
+        eatenProduct.setName(name);
+        eatenProduct.setCaloriesNumber(product.getCaloriesNumber());
         eatenProduct.setEatingDate(eatingDate);
         eatenProductRepository.add(eatenProduct);
         return true;

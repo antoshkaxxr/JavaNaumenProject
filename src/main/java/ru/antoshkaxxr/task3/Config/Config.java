@@ -27,7 +27,7 @@ public class Config
                 System.out.println("1) create <productName> <caloriesNumber>");
                 System.out.println("2) delete <productName>");
                 System.out.println("3) update <productName> <newCaloriesNumber>");
-                System.out.println("4) add <productName> (<eatingDate>)?");
+                System.out.println("4) eat <productName> (<eatingDate>)?");
                 System.out.println("5) statistic <date> OR statistic <date1> <date2>");
                 System.out.println("6) exit");
                 System.out.println("* date format: YYYY-MM-DD");

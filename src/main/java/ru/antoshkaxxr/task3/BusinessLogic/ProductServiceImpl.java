@@ -3,7 +3,7 @@ package ru.antoshkaxxr.task3.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.task3.DataAccessLayer.ProductRepository;
-import ru.antoshkaxxr.task3.Entity.Product;
+import ru.antoshkaxxr.task3.Entities.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {

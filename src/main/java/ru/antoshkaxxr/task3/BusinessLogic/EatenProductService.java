@@ -1,6 +1,6 @@
 package ru.antoshkaxxr.task3.BusinessLogic;
 
-import ru.antoshkaxxr.task3.Entity.EatenProduct;
+import ru.antoshkaxxr.task3.Entities.EatenProduct;
 
 import java.util.Date;
 import java.util.List;

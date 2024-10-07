@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.antoshkaxxr.task3.BusinessLogic.EatenProductService;
 import ru.antoshkaxxr.task3.BusinessLogic.ProductService;
-import ru.antoshkaxxr.task3.Entity.EatenProduct;
-import ru.antoshkaxxr.task3.Entity.Product;
+import ru.antoshkaxxr.task3.Entities.EatenProduct;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,10 +116,9 @@ public class CommandProcessor {
 
             Integer overallCalories = 0;
             for (EatenProduct eatenProduct : eatenProducts) {
-                Product product = eatenProduct.getProduct();
                 String formattedDate = dateFormat.format(eatenProduct.getEatingDate());
-                overallCalories += product.getCaloriesNumber();
-                System.out.printf("%s %s %d cal.%n", formattedDate, product.getName(), product.getCaloriesNumber());
+                overallCalories += eatenProduct.getCaloriesNumber();
+                System.out.printf("%s %s %d cal.%n", formattedDate, eatenProduct.getName(), eatenProduct.getCaloriesNumber());
             }
 
             System.out.printf("Общее число калорий за период: %d cal.%n", overallCalories);
