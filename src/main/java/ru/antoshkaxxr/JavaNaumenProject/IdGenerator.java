@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3;
+package ru.antoshkaxxr.JavaNaumenProject;
 
 import java.util.concurrent.atomic.AtomicLong;
 

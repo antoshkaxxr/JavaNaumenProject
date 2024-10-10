@@ -1,9 +1,9 @@
-package ru.antoshkaxxr.task3.BusinessLogic;
+package ru.antoshkaxxr.JavaNaumenProject.BusinessLogic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.antoshkaxxr.task3.DataAccessLayer.ProductRepository;
-import ru.antoshkaxxr.task3.Entities.Product;
+import ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer.ProductRepository;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {

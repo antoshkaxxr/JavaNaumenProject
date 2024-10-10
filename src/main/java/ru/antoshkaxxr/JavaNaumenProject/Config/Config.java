@@ -1,9 +1,9 @@
-package ru.antoshkaxxr.task3.Config;
+package ru.antoshkaxxr.JavaNaumenProject.Config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.antoshkaxxr.task3.ConsoleInput.CommandProcessor;
+import ru.antoshkaxxr.JavaNaumenProject.ConsoleInput.CommandProcessor;
 
 import java.util.Scanner;
 

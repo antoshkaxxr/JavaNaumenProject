@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3.BusinessLogic;
+package ru.antoshkaxxr.JavaNaumenProject.BusinessLogic;
 
 public interface ProductService {
     boolean createProduct(String name, Integer caloriesNumber);

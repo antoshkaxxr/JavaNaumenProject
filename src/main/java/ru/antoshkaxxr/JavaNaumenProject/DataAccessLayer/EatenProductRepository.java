@@ -1,9 +1,9 @@
-package ru.antoshkaxxr.task3.DataAccessLayer;
+package ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.antoshkaxxr.task3.Entities.EatenProduct;
-import ru.antoshkaxxr.task3.IdGenerator;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
+import ru.antoshkaxxr.JavaNaumenProject.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package ru.antoshkaxxr.task3.BusinessLogic;
+package ru.antoshkaxxr.JavaNaumenProject.BusinessLogic;
 
-import ru.antoshkaxxr.task3.Entities.EatenProduct;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 
 import java.util.Date;
 import java.util.List;

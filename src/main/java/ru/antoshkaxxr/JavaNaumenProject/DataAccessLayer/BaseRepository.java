@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3.DataAccessLayer;
+package ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer;
 
 import java.util.List;
 

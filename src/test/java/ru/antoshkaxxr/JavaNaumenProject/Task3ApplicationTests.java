@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3;
+package ru.antoshkaxxr.JavaNaumenProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

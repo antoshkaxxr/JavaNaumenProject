@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3;
+package ru.antoshkaxxr.JavaNaumenProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

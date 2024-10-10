@@ -1,8 +1,8 @@
-package ru.antoshkaxxr.task3.DataAccessLayer;
+package ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.antoshkaxxr.task3.Entities.Product;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 
 import java.util.Map;
 

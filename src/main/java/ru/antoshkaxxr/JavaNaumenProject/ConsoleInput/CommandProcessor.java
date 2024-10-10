@@ -1,10 +1,10 @@
-package ru.antoshkaxxr.task3.ConsoleInput;
+package ru.antoshkaxxr.JavaNaumenProject.ConsoleInput;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.antoshkaxxr.task3.BusinessLogic.EatenProductService;
-import ru.antoshkaxxr.task3.BusinessLogic.ProductService;
-import ru.antoshkaxxr.task3.Entities.EatenProduct;
+import ru.antoshkaxxr.JavaNaumenProject.BusinessLogic.EatenProductService;
+import ru.antoshkaxxr.JavaNaumenProject.BusinessLogic.ProductService;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

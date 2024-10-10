@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3.Entities;
+package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
 public class Product {
     private Long id;

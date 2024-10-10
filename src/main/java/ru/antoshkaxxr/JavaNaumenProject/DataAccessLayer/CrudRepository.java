@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.task3.DataAccessLayer;
+package ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer;
 
 public interface CrudRepository<T, ID> {
     boolean create(T entity);

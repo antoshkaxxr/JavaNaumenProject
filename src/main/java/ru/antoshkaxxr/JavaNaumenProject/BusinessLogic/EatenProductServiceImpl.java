@@ -1,11 +1,11 @@
-package ru.antoshkaxxr.task3.BusinessLogic;
+package ru.antoshkaxxr.JavaNaumenProject.BusinessLogic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.antoshkaxxr.task3.DataAccessLayer.EatenProductRepository;
-import ru.antoshkaxxr.task3.DataAccessLayer.ProductRepository;
-import ru.antoshkaxxr.task3.Entities.EatenProduct;
-import ru.antoshkaxxr.task3.Entities.Product;
+import ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer.EatenProductRepository;
+import ru.antoshkaxxr.JavaNaumenProject.DataAccessLayer.ProductRepository;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
