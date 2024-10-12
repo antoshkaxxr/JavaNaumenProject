@@ -1,9 +1,28 @@
 package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(nullable = false, length = 30)
     private String name;
-    private Integer caloriesNumber;
+
+    @Column(nullable = false)
+    private Double caloriesNumberHundred;
+
+    public Product(String name, Double caloriesNumberHundred) {
+        this.name = name;
+        this.caloriesNumberHundred = caloriesNumberHundred;
+    }
 
     public Long getId() {
         return id;
@@ -21,11 +40,11 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getCaloriesNumber() {
-        return caloriesNumber;
+    public Double getCaloriesNumber() {
+        return caloriesNumberHundred;
     }
 
-    public void setCaloriesNumber(Integer caloriesNumber) {
-        this.caloriesNumber = caloriesNumber;
+    public void setCaloriesNumber(Double caloriesNumber) {
+        this.caloriesNumberHundred = caloriesNumber;
     }
 }

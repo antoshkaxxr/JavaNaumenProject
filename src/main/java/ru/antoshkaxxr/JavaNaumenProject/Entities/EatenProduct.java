@@ -1,15 +1,53 @@
 package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
 
-public class EatenProduct extends Product {
-    private Date eatingDate;
+import java.time.LocalDate;
 
-    public Date getEatingDate() {
+@Entity
+@Table(name = "eaten_products")
+public class EatenProduct {
+    @Id
+    @GeneratedValue
+    private Long eatenProductId;
+
+    @ManyToOne
+    private Product product;
+
+    @Column(nullable = false)
+    private LocalDate eatingDate;
+
+    public EatenProduct(Product product, LocalDate eatingDate) {
+        this.product = product;
+        this.eatingDate = eatingDate;
+    }
+
+    public Long getEatenProductId() {
+        return eatenProductId;
+    }
+
+    public void setEatenProductId(Long eatenProductId) {
+        this.eatenProductId = eatenProductId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public LocalDate getEatingDate() {
         return eatingDate;
     }
 
-    public void setEatingDate(Date eatingDate) {
+    public void setEatingDate(LocalDate eatingDate) {
         this.eatingDate = eatingDate;
     }
 }
