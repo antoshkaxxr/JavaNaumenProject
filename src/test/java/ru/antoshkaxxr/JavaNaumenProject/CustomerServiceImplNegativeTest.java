@@ -12,7 +12,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.*;
-import ru.antoshkaxxr.JavaNaumenProject.Repositories.CustomerRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.FoodDiaryEntryRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.RatingRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Service.CustomerServiceImpl;
@@ -30,9 +29,6 @@ public class CustomerServiceImplNegativeTest {
 
     @Mock
     private RatingRepository ratingRepository;
-
-    @Mock
-    private CustomerRepository customerRepository;
 
     @Mock
     private PlatformTransactionManager transactionManager;

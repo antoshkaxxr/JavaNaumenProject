@@ -32,6 +32,10 @@ public class Rating {
         this.annotation = annotation;
     }
 
+    public Rating() {
+
+    }
+
     public Long getRecordId() {
         return recordId;
     }

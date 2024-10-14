@@ -24,6 +24,10 @@ public class Product {
         this.caloriesNumberHundred = caloriesNumberHundred;
     }
 
+    public Product() {
+
+    }
+
     public Long getId() {
         return id;
     }

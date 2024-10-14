@@ -32,6 +32,10 @@ public class Customer {
         this.height = height;
     }
 
+    public Customer() {
+
+    }
+
     public Long getId() {
         return id;
     }

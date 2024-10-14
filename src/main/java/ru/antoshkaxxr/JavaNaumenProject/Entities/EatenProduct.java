@@ -27,6 +27,10 @@ public class EatenProduct {
         this.eatingDate = eatingDate;
     }
 
+    public EatenProduct() {
+
+    }
+
     public Long getEatenProductId() {
         return eatenProductId;
     }

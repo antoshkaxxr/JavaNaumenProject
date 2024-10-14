@@ -29,6 +29,10 @@ public class FoodDiaryEntry {
         this.eatenAmount = eatenAmount;
     }
 
+    public FoodDiaryEntry() {
+
+    }
+
     public Long getRecordId() {
         return recordId;
     }
