@@ -55,14 +55,18 @@ public class RatingTest {
         ratingRepository.save(rating4);
 
         List<Rating> ratings1 = ratingRepository.findByProductId(product1.getId());
+        String first1 = ratings1.getFirst().getCustomer().getName();
+        String second1 = ratings1.get(1).getCustomer().getName();
         Assertions.assertEquals(2, ratings1.size());
-        Assertions.assertEquals(customer1.getName(), ratings1.getFirst().getCustomer().getName());
-        Assertions.assertEquals(customer2.getName(), ratings1.get(1).getCustomer().getName());
+        Assertions.assertEquals(customer1.getName(), first1);
+        Assertions.assertEquals(customer2.getName(), second1);
 
         List<Rating> ratings2 = ratingRepository.findByProductId(product2.getId());
+        String first2 = ratings2.getFirst().getCustomer().getName();
+        String second2 = ratings2.get(1).getCustomer().getName();
         Assertions.assertEquals(2, ratings2.size());
-        Assertions.assertEquals(customer2.getName(), ratings2.getFirst().getCustomer().getName());
-        Assertions.assertEquals(customer1.getName(), ratings2.get(1).getCustomer().getName());
+        Assertions.assertEquals(customer2.getName(), first2);
+        Assertions.assertEquals(customer1.getName(), second2);
     }
 
     /**

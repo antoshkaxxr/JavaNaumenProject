@@ -2,8 +2,13 @@ package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
 import jakarta.persistence.*;
 
+/**
+ * Класс-сущность, представляющий оценку продукта.
+ * Содержит информацию о клиенте, продукте и оценках, выставляемых клиентом.
+ * Этот класс соответствует таблице rating в базе данных.
+ */
 @Entity
-@Table(name = "rating")
+@Table
 public class Rating {
     @Id
     @GeneratedValue
@@ -21,7 +26,7 @@ public class Rating {
     @Column(nullable = false)
     private Integer usefulnessAssessment;
 
-    @Column(nullable = false)
+    @Column
     private String annotation;
 
     public Rating(Customer customer, Product product, Integer tasteAssessment, Integer usefulnessAssessment, String annotation) {

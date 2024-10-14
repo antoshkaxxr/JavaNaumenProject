@@ -6,8 +6,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
+/**
+ * Класс-сущность, представляющий клиента в приложении.
+ * Содержит информацию об имени, электронной почте, весе и росте клиента.
+ * Этот класс соответствует таблице "customers" в базе данных.
+ */
 @Entity
-@Table(name = "customers")
+@Table
 public class Customer {
     @Id
     @GeneratedValue
@@ -16,7 +21,7 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

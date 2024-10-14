@@ -6,14 +6,19 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Column;
 
+/**
+ * Класс-сущность, представляющий продукт.
+ * Содержит информацию о названии продукта и количестве калорий на 100 грамм.
+ * Этот класс соответствует таблице products в базе данных.
+ */
 @Entity
-@Table(name = "products")
+@Table
 public class Product {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)

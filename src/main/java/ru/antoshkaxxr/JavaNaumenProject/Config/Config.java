@@ -4,18 +4,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Scanner;
-
 @Configuration
-public class Config
-{
+public class Config {
     @Bean
-    public CommandLineRunner commandScanner()
-    {
-        return args ->
-        {
-            try (Scanner scanner = new Scanner(System.in))
-            {
+    public CommandLineRunner commandScanner() {
+        return args -> {
+            try {
                 System.out.println("Введите команду: ");
                 System.out.println("1) create <productName> <caloriesNumber>");
                 System.out.println("2) delete <productName>");
@@ -24,20 +18,8 @@ public class Config
                 System.out.println("5) statistic <date> OR statistic <date1> <date2>");
                 System.out.println("6) exit");
                 System.out.println("* date format: YYYY-MM-DD");
-
-//                while (true)
-//                {
-//                    System.out.print("> ");
-//                    String input = scanner.nextLine();
-//
-//                    if ("exit".equalsIgnoreCase(input.trim()))
-//                    {
-//                        System.out.println("Выход из программы...");
-//                        break;
-//                    }
-//
-//                    commandProcessor.processCommand(input);
-//                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         };
     }

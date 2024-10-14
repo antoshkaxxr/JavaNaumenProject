@@ -6,6 +6,11 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Репозиторий для работы с сущностью {@link EatenProduct}.
+ * Позволяет выполнять основные операции CRUD (Создание, Чтение, Обновление, Удаление)
+ * с объектами класса {@link EatenProduct}.
+ */
 public interface EatenProductRepository extends CrudRepository<EatenProduct, Long> {
     /**
      * Находит все продукты, съеденные в определенный день.

@@ -5,7 +5,12 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface FoodDiaryEntryRepositoryCustom {
+/**
+ * Репозиторий для работы с записями дневника питания {@link FoodDiaryEntry}.
+ * Предоставляет методы для извлечения данных о записях дневника питания
+ * для определенного пользователя и по конкретной дате.
+ */
+public interface FoodDiaryEntryRepository {
     /**
      * Находит все записи из дневника питания определенного пользователя
      * @param customerId id пользователя

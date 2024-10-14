@@ -39,9 +39,9 @@ class EatenProductTest {
 		productRepository.save(product2);
 		productRepository.save(product3);
 
-		EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 9, 12));
-		EatenProduct eatenProduct2 = new EatenProduct(product2, LocalDate.of(2024, 10, 12));
-		EatenProduct eatenProduct3 = new EatenProduct(product3, LocalDate.of(2024, 10, 13));
+		EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 9, 12), 1.0);
+		EatenProduct eatenProduct2 = new EatenProduct(product2, LocalDate.of(2024, 10, 12), 1.0);
+		EatenProduct eatenProduct3 = new EatenProduct(product3, LocalDate.of(2024, 10, 13), 1.0);
 		eatenProductRepository.save(eatenProduct1);
 		eatenProductRepository.save(eatenProduct2);
 		eatenProductRepository.save(eatenProduct3);
@@ -49,8 +49,9 @@ class EatenProductTest {
 		List<EatenProduct> eatenProducts = eatenProductRepository
 				.findByEatingDate(LocalDate.of(2024, 10, 13));
 
+		String firstElement = eatenProducts.getFirst().getProduct().getName();
 		Assertions.assertEquals(1, eatenProducts.size());
-		Assertions.assertEquals("banana", eatenProducts.getFirst().getProduct().getName());
+		Assertions.assertEquals("banana", firstElement);
 	}
 
 	/**
@@ -69,10 +70,10 @@ class EatenProductTest {
 		productRepository.save(product3);
 		productRepository.save(product4);
 
-		EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12));
-		EatenProduct eatenProduct2 = new EatenProduct(product2, LocalDate.of(2024, 10, 13));
-		EatenProduct eatenProduct3 = new EatenProduct(product3, LocalDate.of(2024, 10, 14));
-		EatenProduct eatenProduct4 = new EatenProduct(product4, LocalDate.of(2024, 10, 15));
+		EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 1.0);
+		EatenProduct eatenProduct2 = new EatenProduct(product2, LocalDate.of(2024, 10, 13), 1.0);
+		EatenProduct eatenProduct3 = new EatenProduct(product3, LocalDate.of(2024, 10, 14), 1.0);
+		EatenProduct eatenProduct4 = new EatenProduct(product4, LocalDate.of(2024, 10, 15), 1.0);
 		eatenProductRepository.save(eatenProduct1);
 		eatenProductRepository.save(eatenProduct2);
 		eatenProductRepository.save(eatenProduct3);
@@ -82,8 +83,10 @@ class EatenProductTest {
 				.findByEatingDateBetween(LocalDate.of(2024, 10, 13),
 						LocalDate.of(2024, 10, 14));
 
+		String firstElement = eatenProducts.getFirst().getProduct().getName();
+		String secondElement = eatenProducts.get(1).getProduct().getName();
 		Assertions.assertEquals(2, eatenProducts.size());
-		Assertions.assertEquals("apple", eatenProducts.getFirst().getProduct().getName());
-		Assertions.assertEquals("banana", eatenProducts.get(1).getProduct().getName());
+		Assertions.assertEquals("apple", firstElement);
+		Assertions.assertEquals("banana", secondElement);
 	}
 }

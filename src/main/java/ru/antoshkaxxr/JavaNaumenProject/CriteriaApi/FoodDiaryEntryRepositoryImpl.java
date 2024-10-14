@@ -11,8 +11,14 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Реализация пользовательского репозитория для работы с записями дневника питания.
+ * Этот класс использует Criteria API для выполнения запросов к базе данных
+ * через объект {@link EntityManager}. Все методы взаимодействуют с сущностью
+ * {@link FoodDiaryEntry} и используют различные критерии для фильтрации данных.
+ */
 @Repository
-public class FoodDiaryEntryRepositoryImpl implements FoodDiaryEntryRepositoryCustom {
+public class FoodDiaryEntryRepositoryImpl implements FoodDiaryEntryRepository {
     private final EntityManager entityManager;
 
     @Autowired

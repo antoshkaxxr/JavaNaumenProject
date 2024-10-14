@@ -9,8 +9,13 @@ import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
 
+/**
+ * Класс-сущность, представляющий продукт, который был съеден клиентом.
+ * Содержит информацию о продукте и дате его употребления.
+ * Этот класс соответствует таблице "eaten_products" в базе данных.
+ */
 @Entity
-@Table(name = "eaten_products")
+@Table
 public class EatenProduct {
     @Id
     @GeneratedValue
@@ -20,11 +25,15 @@ public class EatenProduct {
     private Product product;
 
     @Column(nullable = false)
+    private Double eatenAmount;
+
+    @Column(nullable = false)
     private LocalDate eatingDate;
 
-    public EatenProduct(Product product, LocalDate eatingDate) {
+    public EatenProduct(Product product, LocalDate eatingDate, Double eatenAmount) {
         this.product = product;
         this.eatingDate = eatingDate;
+        this.eatenAmount = eatenAmount;
     }
 
     public EatenProduct() {
@@ -45,6 +54,14 @@ public class EatenProduct {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Double getEatenAmount() {
+        return eatenAmount;
+    }
+
+    public void setEatenAmount(Double eatenAmount) {
+        this.eatenAmount = eatenAmount;
     }
 
     public LocalDate getEatingDate() {

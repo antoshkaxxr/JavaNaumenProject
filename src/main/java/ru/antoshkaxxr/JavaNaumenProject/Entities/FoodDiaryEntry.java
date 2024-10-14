@@ -4,11 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Класс-сущность, представляющий запись в дневнике питания.
+ * Содержит информацию о клиенте, съеденном продукте и количестве съеденного.
+ * Этот класс соответствует таблице "food_diary" в базе данных.
+ */
 @Entity
-@Table(name = "food_diary")
+@Table
 public class FoodDiaryEntry {
     @Id
     @GeneratedValue
@@ -20,13 +24,9 @@ public class FoodDiaryEntry {
     @ManyToOne
     private EatenProduct eatenProduct;
 
-    @Column(nullable = false)
-    private Double eatenAmount;
-
-    public FoodDiaryEntry(Customer customer, EatenProduct eatenProduct, Double eatenAmount) {
+    public FoodDiaryEntry(Customer customer, EatenProduct eatenProduct) {
         this.customer = customer;
         this.eatenProduct = eatenProduct;
-        this.eatenAmount = eatenAmount;
     }
 
     public FoodDiaryEntry() {
@@ -55,13 +55,5 @@ public class FoodDiaryEntry {
 
     public void setEatenProduct(EatenProduct eatenProduct) {
         this.eatenProduct = eatenProduct;
-    }
-
-    public Double getEatenAmount() {
-        return eatenAmount;
-    }
-
-    public void setEatenAmount(Double eatenAmount) {
-        this.eatenAmount = eatenAmount;
     }
 }

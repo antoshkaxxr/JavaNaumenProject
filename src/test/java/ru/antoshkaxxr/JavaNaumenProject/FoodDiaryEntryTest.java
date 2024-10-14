@@ -51,23 +51,25 @@ public class FoodDiaryEntryTest {
         Product product1 = new Product("apple", 50.0);
         productRepository.save(product1);
 
-        EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12));
-        EatenProduct eatenProduct2 = new EatenProduct(product1, LocalDate.of(2024, 10, 13));
+        EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
+        EatenProduct eatenProduct2 = new EatenProduct(product1, LocalDate.of(2024, 10, 13), 1.0);
         eatenProductRepository.save(eatenProduct1);
         eatenProductRepository.save(eatenProduct2);
 
-        FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1, 2.0);
-        FoodDiaryEntry foodDiaryEntry2 = new FoodDiaryEntry(customer2, eatenProduct2, 1.0);
+        FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1);
+        FoodDiaryEntry foodDiaryEntry2 = new FoodDiaryEntry(customer2, eatenProduct2);
         foodDiaryEntryRepository.save(foodDiaryEntry1);
         foodDiaryEntryRepository.save(foodDiaryEntry2);
 
         List<FoodDiaryEntry> foodDiaryEntries1 = foodDiaryEntryRepositoryImpl.findByCustomerId(customer1.getId());
         List<FoodDiaryEntry> foodDiaryEntries2 = foodDiaryEntryRepositoryImpl.findByCustomerId(customer2.getId());
 
+        String result1 = foodDiaryEntries1.getFirst().getCustomer().getName();
+        String result2 = foodDiaryEntries2.getFirst().getCustomer().getName();
         Assertions.assertEquals(1, foodDiaryEntries1.size());
         Assertions.assertEquals(1, foodDiaryEntries2.size());
-        Assertions.assertEquals(customer1.getName(), foodDiaryEntries1.getFirst().getCustomer().getName());
-        Assertions.assertEquals(customer2.getName(), foodDiaryEntries2.getFirst().getCustomer().getName());
+        Assertions.assertEquals(customer1.getName(), result1);
+        Assertions.assertEquals(customer2.getName(), result2);
     }
 
     /**
@@ -83,22 +85,23 @@ public class FoodDiaryEntryTest {
         Product product1 = new Product("apple", 50.0);
         productRepository.save(product1);
 
-        EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12));
-        EatenProduct eatenProduct2 = new EatenProduct(product1, LocalDate.of(2024, 10, 13));
-        EatenProduct eatenProduct3 = new EatenProduct(product1, LocalDate.of(2024, 10, 13));
+        EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
+        EatenProduct eatenProduct2 = new EatenProduct(product1, LocalDate.of(2024, 10, 13), 1.0);
+        EatenProduct eatenProduct3 = new EatenProduct(product1, LocalDate.of(2024, 10, 13), 4.0);
         eatenProductRepository.save(eatenProduct1);
         eatenProductRepository.save(eatenProduct2);
         eatenProductRepository.save(eatenProduct3);
 
-        FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1, 2.0);
-        FoodDiaryEntry foodDiaryEntry2 = new FoodDiaryEntry(customer1, eatenProduct2, 1.0);
-        FoodDiaryEntry foodDiaryEntry3 = new FoodDiaryEntry(customer1, eatenProduct3, 4.0);
+        FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1);
+        FoodDiaryEntry foodDiaryEntry2 = new FoodDiaryEntry(customer1, eatenProduct2);
+        FoodDiaryEntry foodDiaryEntry3 = new FoodDiaryEntry(customer1, eatenProduct3);
         foodDiaryEntryRepository.save(foodDiaryEntry1);
         foodDiaryEntryRepository.save(foodDiaryEntry2);
         foodDiaryEntryRepository.save(foodDiaryEntry3);
 
         List<FoodDiaryEntry> foodDiaryEntries = foodDiaryEntryRepositoryImpl.findByEatingDate(LocalDate.of(2024, 10, 13));
+        Double result2 = foodDiaryEntries.get(1).getEatenProduct().getEatenAmount();
         Assertions.assertEquals(2, foodDiaryEntries.size());
-        Assertions.assertEquals(4.0, foodDiaryEntries.get(1).getEatenAmount());
+        Assertions.assertEquals(4.0, result2);
     }
 }

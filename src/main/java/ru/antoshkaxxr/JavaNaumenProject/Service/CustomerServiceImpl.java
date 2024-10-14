@@ -14,6 +14,11 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.RatingRepository;
 
 import java.util.List;
 
+/**
+ * Реализация сервиса для работы с пользователями.
+ * Обрабатывает операции, связанные с управлением данными пользователей,
+ * включая удаление пользователей, их записей в журнале питания и оценок.
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final FoodDiaryEntryRepository foodDiaryEntryRepository;
