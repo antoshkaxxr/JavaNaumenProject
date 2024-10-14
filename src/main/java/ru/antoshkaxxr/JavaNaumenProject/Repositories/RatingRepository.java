@@ -12,7 +12,7 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
      * @param productId название продукта
      */
     @Query("SELECT r FROM Rating r WHERE r.product.id = :productId")
-    List<Rating> findOnProductId(Long productId);
+    List<Rating> findByProductId(Long productId);
 
     /**
      * Находит все оценки определенного пользователя

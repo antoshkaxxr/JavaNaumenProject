@@ -34,7 +34,7 @@ public class RatingTest {
     @Test
     @Transactional
     @Rollback
-    void testFindOnProductId() {
+    void testFindByProductId() {
         Product product1 = new Product("soup", 350.0);
         Product product2 = new Product("cheese", 150.0);
         productRepository.save(product1);
@@ -54,12 +54,12 @@ public class RatingTest {
         ratingRepository.save(rating3);
         ratingRepository.save(rating4);
 
-        List<Rating> ratings1 = ratingRepository.findOnProductId(product1.getId());
+        List<Rating> ratings1 = ratingRepository.findByProductId(product1.getId());
         Assertions.assertEquals(2, ratings1.size());
         Assertions.assertEquals(customer1.getName(), ratings1.getFirst().getCustomer().getName());
         Assertions.assertEquals(customer2.getName(), ratings1.get(1).getCustomer().getName());
 
-        List<Rating> ratings2 = ratingRepository.findOnProductId(product2.getId());
+        List<Rating> ratings2 = ratingRepository.findByProductId(product2.getId());
         Assertions.assertEquals(2, ratings2.size());
         Assertions.assertEquals(customer2.getName(), ratings2.getFirst().getCustomer().getName());
         Assertions.assertEquals(customer1.getName(), ratings2.get(1).getCustomer().getName());
@@ -71,7 +71,7 @@ public class RatingTest {
     @Test
     @Transactional
     @Rollback
-    void testFindOnCustomerId() {
+    void testFindByCustomerId() {
         Product product1 = new Product("cabbage", 150.0);
         Product product2 = new Product("pumpkin", 400.0);
         Product product3 = new Product("coconut oil", 90.0);
