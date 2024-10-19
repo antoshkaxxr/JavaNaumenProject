@@ -49,11 +49,11 @@ public class Product {
         this.name = name;
     }
 
-    public Double getCaloriesNumber() {
+    public Double getCaloriesNumberHundred() {
         return caloriesNumberHundred;
     }
 
-    public void setCaloriesNumber(Double caloriesNumber) {
+    public void setCaloriesNumberHundred(Double caloriesNumber) {
         this.caloriesNumberHundred = caloriesNumber;
     }
 }
