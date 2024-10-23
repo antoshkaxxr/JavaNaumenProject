@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.Role;
 
 /**
  * Класс-сущность, представляющий клиента в приложении.
@@ -29,6 +30,10 @@ public class Customer {
 
     @Column(nullable = false)
     private Double height;
+
+    private String password;
+
+    private Role role;
 
     public Customer(String name, String email, Double weight, Double height) {
         this.name = name;
@@ -79,5 +84,21 @@ public class Customer {
 
     public void setHeight(Double height) {
         this.height = height;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
