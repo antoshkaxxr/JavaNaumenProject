@@ -3,6 +3,7 @@ package ru.antoshkaxxr.JavaNaumenProject.CriteriaApi;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
@@ -18,6 +19,7 @@ import java.util.List;
  * {@link FoodDiaryEntry} и используют различные критерии для фильтрации данных.
  */
 @Repository
+@RepositoryRestResource
 public class FoodDiaryEntryRepositoryImpl implements FoodDiaryEntryRepository {
     private final EntityManager entityManager;
 
