@@ -11,5 +11,9 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
  */
 @RepositoryRestResource(path = "customers")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-
+    /**
+     * Находит пользователя по имени
+     * @param name имя пользователя
+     */
+    Customer findByName(String name);
 }
