@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,7 +39,11 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomerServiceImpl(FoodDiaryEntryRepository foodDiaryEntryRepository, RatingRepository ratingRepository, CustomerRepository customerRepository, PlatformTransactionManager transactionManager, PasswordEncoder passwordEncoder) {
+    public CustomerServiceImpl(FoodDiaryEntryRepository foodDiaryEntryRepository,
+                               RatingRepository ratingRepository,
+                               CustomerRepository customerRepository,
+                               PlatformTransactionManager transactionManager,
+                               PasswordEncoder passwordEncoder) {
         this.foodDiaryEntryRepository = foodDiaryEntryRepository;
         this.ratingRepository = ratingRepository;
         this.customerRepository = customerRepository;
@@ -85,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = findByCustomerName(username);
-        return new org.springframework.security.core.userdetails.User(customer.getName(), customer.getPassword(),
+        return new User(customer.getName(), customer.getPassword(),
                 mapRoleToAuthority(customer.getRole()));
     }
 

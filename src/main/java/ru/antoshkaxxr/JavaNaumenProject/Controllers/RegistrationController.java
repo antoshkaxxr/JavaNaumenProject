@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Service.CustomerServiceImpl;
 
+/**
+ * Контроллер для обработки регистрации пользователей
+ */
 @Controller
 public class RegistrationController {
     private final CustomerServiceImpl customerService;
@@ -17,11 +20,19 @@ public class RegistrationController {
         this.customerService = customerService;
     }
 
+    /**
+     * Метод для отображения формы регистрации
+     */
     @GetMapping("/registration")
     public String registration() {
         return "registrationForm";
     }
 
+    /**
+     * Метод для добавления нового клиента
+     * @param customer объект клиента, который нужно добавить
+     * @param model модель для передачи данных в представление
+     */
     @PostMapping("/registration")
     public String addCustomer(Customer customer, Model model) {
         if (customerService.addCustomer(customer)) {
