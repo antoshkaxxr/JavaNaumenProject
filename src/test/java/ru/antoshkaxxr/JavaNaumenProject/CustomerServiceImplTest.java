@@ -14,7 +14,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.*;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.*;
-import ru.antoshkaxxr.JavaNaumenProject.Service.CustomerServiceImpl;
+import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;

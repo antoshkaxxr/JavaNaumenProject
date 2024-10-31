@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Service;
+package ru.antoshkaxxr.JavaNaumenProject.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

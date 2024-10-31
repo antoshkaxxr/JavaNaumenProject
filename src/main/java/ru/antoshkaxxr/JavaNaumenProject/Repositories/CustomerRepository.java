@@ -16,4 +16,9 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
      * @param name имя пользователя
      */
     Customer findByName(String name);
+
+    /**
+     * Возвращает число пользователей
+     */
+    long count();
 }

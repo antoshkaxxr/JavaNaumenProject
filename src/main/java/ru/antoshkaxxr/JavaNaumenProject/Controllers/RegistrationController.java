@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
-import ru.antoshkaxxr.JavaNaumenProject.Service.CustomerServiceImpl;
+import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 
 /**
  * Контроллер для обработки регистрации пользователей

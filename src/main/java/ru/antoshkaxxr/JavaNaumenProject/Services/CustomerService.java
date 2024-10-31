@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Service;
+package ru.antoshkaxxr.JavaNaumenProject.Services;
 
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 
