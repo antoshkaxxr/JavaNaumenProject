@@ -50,12 +50,13 @@ public class ReportController {
             Report report = reportService.getReport(id);
             if (report.getStatus() == ReportStatus.CREATED) {
                 return new ResponseEntity<>("Отчет еще не сформирован", HttpStatus.PROCESSING);
-            } else if (report.getStatus() == ReportStatus.ERROR) {
+            }
+            if (report.getStatus() == ReportStatus.ERROR) {
                 return new ResponseEntity<>("Формирование отчета завершилось с ошибкой", HttpStatus.INTERNAL_SERVER_ERROR);
             }
             return new ResponseEntity<>(report.getContent(), HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

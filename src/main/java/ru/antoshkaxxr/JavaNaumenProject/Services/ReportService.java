@@ -12,7 +12,7 @@ public interface ReportService {
      * Возвращает отчет по его id
      * @param reportId id отчета
      */
-    Report getReport(Long reportId);
+    Report getReport(Long reportId) throws Exception;
 
     /**
      * Создает объект отчета в БД и возвращает id этого объекта

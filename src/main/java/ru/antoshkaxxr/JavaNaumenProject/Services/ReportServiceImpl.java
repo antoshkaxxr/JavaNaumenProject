@@ -37,10 +37,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report getReport(Long reportId) {
+    public Report getReport(Long reportId) throws Exception {
         Report report = reportRepository.findById(reportId).orElse(null);
         if (report == null) {
-            throw new RuntimeException("Отчет не найден");
+            throw new Exception("Отчет не найден");
         }
 
         return report;
@@ -49,20 +49,24 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Long createReport() {
         Report report = new Report();
-        report.setStatus(ReportStatus.CREATED);
         reportRepository.save(report);
         return report.getReportId();
     }
 
     @Override
     public void generateReport(Long reportId) {
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-            Report report = getReport(reportId);
+        CompletableFuture.runAsync(() -> {
+            Report report;
+            try {
+                report = getReport(reportId);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             AtomicLong customerCountTime = new AtomicLong();
             AtomicLong entriesTime = new AtomicLong();
 
-            long startTime;
+            long startTime = System.currentTimeMillis();
 
             CompletableFuture<Long> customerCountFuture = CompletableFuture.supplyAsync(() -> {
                 long start = System.currentTimeMillis();
@@ -80,7 +84,6 @@ public class ReportServiceImpl implements ReportService {
             });
 
             try {
-                startTime = System.currentTimeMillis();
                 Long customerCount = customerCountFuture.join();
                 List<FoodDiaryEntry> objectList = entriesFuture.join();
 
@@ -109,7 +112,5 @@ public class ReportServiceImpl implements ReportService {
 
             reportRepository.save(report);
         });
-
-        future.join();
     }
 }

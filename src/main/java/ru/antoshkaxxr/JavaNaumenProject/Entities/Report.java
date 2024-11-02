@@ -16,6 +16,10 @@ public class Report {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    public Report() {
+        setStatus(ReportStatus.CREATED);
+    }
+
     public Long getReportId() {
         return reportId;
     }

@@ -27,7 +27,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/swagger-ui/index.html").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable);
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/reports/create"));
         return http.build();
     }
 }
