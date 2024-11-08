@@ -89,4 +89,21 @@
 		</plugins>
 	</build>
 
+	<reporting>
+		<plugins>
+			<plugin>
+<!--				run with mvn checkstyle:check in terminal -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<configLocation>sun_checks.xml.</configLocation>
+					<consoleOutput>true</consoleOutput>
+					<logViolationsToConsole>true</logViolationsToConsole>
+					<failsOnError>true</failsOnError>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
 </project>
