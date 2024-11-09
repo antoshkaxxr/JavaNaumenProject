@@ -1,5 +1,7 @@
 HELP.md
 /src/main/resources/application.yml
+### Logging ###
+/slf4jlogbackexample.log
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
