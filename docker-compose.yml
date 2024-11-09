@@ -1,0 +1,27 @@
+services:
+  java-app:
+    image: eb05b21d698f
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    networks:
+      - backend
+  postgresql:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: naumendb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  postgresql: { }
+
+networks:
+  backend: { }
