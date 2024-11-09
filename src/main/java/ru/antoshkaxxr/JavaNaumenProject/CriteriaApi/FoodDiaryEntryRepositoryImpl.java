@@ -1,16 +1,20 @@
 package ru.antoshkaxxr.JavaNaumenProject.CriteriaApi;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Реализация пользовательского репозитория для работы с записями дневника питания.
@@ -23,6 +27,11 @@ import java.util.List;
 public class FoodDiaryEntryRepositoryImpl implements FoodDiaryEntryRepository {
     private final EntityManager entityManager;
 
+    /**
+     * Конструктор для внедрения зависимости EntityManager.
+     *
+     * @param entityManager Менеджер сущностей для работы с базой данных
+     */
     @Autowired
     public FoodDiaryEntryRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;

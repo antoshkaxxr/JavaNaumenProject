@@ -1,5 +1,8 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,10 +24,6 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.CustomerRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.FoodDiaryEntryRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.RatingRepository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Реализация сервиса для работы с пользователями.
  * Обрабатывает операции, связанные с управлением данными пользователей,
@@ -38,6 +37,15 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     private final PlatformTransactionManager transactionManager;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Конструктор для инициализации сервиса.
+     *
+     * @param foodDiaryEntryRepository Репозиторий для работы с записями в дневнике питания.
+     * @param ratingRepository Репозиторий для работы с оценками.
+     * @param customerRepository Репозиторий для работы с пользователями.
+     * @param transactionManager Менеджер транзакций для управления транзакциями.
+     * @param passwordEncoder Кодировщик паролей для безопасного хранения паролей.
+     */
     @Autowired
     public CustomerServiceImpl(FoodDiaryEntryRepository foodDiaryEntryRepository,
                                RatingRepository ratingRepository,
@@ -70,7 +78,8 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
     @Override
     public void deleteByCustomerId(Long customerId) {
-        TransactionStatus transactionStatus = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
+        TransactionStatus transactionStatus = this.transactionManager
+                .getTransaction(new DefaultTransactionDefinition());
         try {
             List<FoodDiaryEntry> entries = foodDiaryEntryRepository.findByCustomerId(customerId);
             foodDiaryEntryRepository.deleteAll(entries);

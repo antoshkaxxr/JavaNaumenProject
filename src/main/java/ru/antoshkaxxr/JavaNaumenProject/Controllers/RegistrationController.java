@@ -14,24 +14,34 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 @Controller
 public class RegistrationController {
     private final CustomerServiceImpl customerService;
+    private static final String REGISTRATION_FORM_VIEW = "registrationForm";
 
+    /**
+     * Конструктор для внедрения зависимости CustomerServiceImpl.
+     *
+     * @param customerService Сервис для работы с пользователями
+     */
     @Autowired
     public RegistrationController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
 
     /**
-     * Метод для отображения формы регистрации
+     * Метод для отображения формы регистрации.
+     *
+     * @return Имя представления для формы регистрации
      */
     @GetMapping("/registration")
     public String registration() {
-        return "registrationForm";
+        return REGISTRATION_FORM_VIEW;
     }
 
     /**
-     * Метод для добавления нового клиента
-     * @param customer объект клиента, который нужно добавить
-     * @param model модель для передачи данных в представление
+     * Метод для добавления нового пользователя.
+     *
+     * @param customer Объект пользователя, который нужно добавить
+     * @param model Модель для передачи данных в представление
+     * @return Имя представления для перенаправления или формы регистрации с сообщением
      */
     @PostMapping("/registration")
     public String addCustomer(Customer customer, Model model) {
@@ -40,6 +50,6 @@ public class RegistrationController {
         }
 
         model.addAttribute("message", "User exists");
-        return "registrationForm";
+        return REGISTRATION_FORM_VIEW;
     }
 }

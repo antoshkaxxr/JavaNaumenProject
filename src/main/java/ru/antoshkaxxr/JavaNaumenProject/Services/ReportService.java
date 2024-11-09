@@ -9,19 +9,25 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Report;
  */
 public interface ReportService {
     /**
-     * Возвращает отчет по его id
-     * @param reportId id отчета
+     * Возвращает отчет по его идентификатору.
+     *
+     * @param reportId Идентификатор отчета.
+     * @return Объект {@link Report}, соответствующий указанному идентификатору.
+     * @throws Exception Если отчет не найден или произошла ошибка при получении отчета.
      */
     Report getReport(Long reportId) throws Exception;
 
     /**
-     * Создает объект отчета в БД и возвращает id этого объекта
+     * Создает новый объект отчета в базе данных и возвращает его идентификатор.
+     *
+     * @return Идентификатор созданного отчета.
      */
     Long createReport();
 
     /**
-     * Асинхронный метод, формирующий отчет
-     * @param reportId id отчета
+     * Асинхронный метод, формирующий отчет по указанному идентификатору.
+     *
+     * @param reportId Идентификатор отчета, который необходимо сформировать.
      */
     void generateReport(Long reportId);
 }
