@@ -11,6 +11,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.CustomerRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.FoodDiaryEntryRepository;
@@ -48,7 +49,7 @@ public class FoodDiaryEntryTest {
         customerRepository.save(customer1);
         customerRepository.save(customer2);
 
-        Product product1 = new Product("apple", 50.0);
+        Product product1 = new Product("apple", ProductCategory.FRUITS, 50.0);
         productRepository.save(product1);
 
         EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
@@ -82,7 +83,7 @@ public class FoodDiaryEntryTest {
         Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
         customerRepository.save(customer1);
 
-        Product product1 = new Product("apple", 50.0);
+        Product product1 = new Product("apple", ProductCategory.FRUITS,50.0);
         productRepository.save(product1);
 
         EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);

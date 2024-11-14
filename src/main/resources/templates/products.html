@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Мои продукты</title>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Мои продукты</h1>
+<div th:if="${message}" class="message" th:text="${message}"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Ккал на 100 граммов</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${categoryMap.get(product.category)}"></td>
+        <td th:text="${product.caloriesNumberHundred}"></td>
+        <td>
+            <form th:action="@{/products/delete}" method="post">
+                <input type="hidden" name="name" th:value="${product.name}">
+                <button type="submit">Удалить</button>
+            </form>
+            <form th:action="@{/products/update}" method="post">
+                <input type="hidden" name="name" th:value="${product.name}">
+                <input type="number" name="newCaloriesNumberHundred" step="0.01" placeholder="Новое количество ккал">
+                <button type="submit">Обновить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h2>Добавить новый продукт</h2>
+<form th:action="@{/products/add}" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name" required><br>
+    <label for="category">Категория:</label>
+    <select id="category" name="category" required>
+        <option th:each="category : ${categories}"
+                th:value="${categoryMap.get(category)}"
+                th:text="${categoryMap.get(category)}">
+        </option>
+    </select><br>
+    <label for="caloriesNumberHundred">Количество ккал на 100 граммов:</label>
+    <input type="number" id="caloriesNumberHundred" name="caloriesNumberHundred" step="0.01" required><br>
+    <button type="submit">Добавить</button>
+</form>
+</body>
+</html>

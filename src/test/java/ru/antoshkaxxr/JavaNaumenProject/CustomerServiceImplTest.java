@@ -13,6 +13,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.*;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.*;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 
@@ -61,7 +62,7 @@ public class CustomerServiceImplTest {
         Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
         customerRepository.save(customer1);
 
-        Product product1 = new Product("apple", 50.0);
+        Product product1 = new Product("apple", ProductCategory.FRUITS,50.0);
         productRepository.save(product1);
 
         EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
@@ -90,7 +91,7 @@ public class CustomerServiceImplTest {
     @Rollback
     public void testDeleteByCustomerIdTransactionFailure() {
         Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
-        Product product1 = new Product("apple", 50.0);
+        Product product1 = new Product("apple", ProductCategory.FRUITS, 50.0);
         EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
         FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1);
         Rating rating1 = new Rating(customer1, product1, 8, 9, "tasty");
