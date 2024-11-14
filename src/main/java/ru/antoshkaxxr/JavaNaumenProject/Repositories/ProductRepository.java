@@ -1,10 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.Repositories;
 
+import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
-
-import java.util.Optional;
 
 /**
  * Репозиторий для работы с сущностью {@link Product}.

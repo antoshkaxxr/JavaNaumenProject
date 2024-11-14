@@ -1,13 +1,12 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Реализация сервиса для работы с продуктами пользователя

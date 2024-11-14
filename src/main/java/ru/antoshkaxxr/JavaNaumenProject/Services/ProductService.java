@@ -1,9 +1,8 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
+import java.util.List;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
-
-import java.util.List;
 
 /**
  * Сервис для работы с продуктами, добавленными пользователем
