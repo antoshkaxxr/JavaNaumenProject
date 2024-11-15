@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">\<head>
+  <title>Spring Security Example </title>
+</head>
+<body>
+<form th:action="@{/calculator/evaluate}" method="post">
+  <div>
+    <label for="sex">Выберите пол:</label>
+    <select id="sex" name="sex">
+      <option value="MALE">М</option>
+      <option value="FEMALE">Ж</option>
+    </select>
+  </div>
+  <div><label> Weight: <input type="number" name="weight"/> </label></div>
+  <div><label> Height: <input type="number" name="height"/> </label></div>
+  <div>
+    <label for="formula">Выберите формулу для расчета калорий:</label>
+    <select id="formula" name="formula">
+      <option value="MIFFLIN_ST_GEORGE">Миффлина - Сан Жеора</option>
+      <option value="HARRIS_BENEDICT">Харриса-Бенедикта</option>
+    </select>
+  </div>
+  <div><input type="submit" value="Зарегистрироваться"/></div>
+</form>
+</body>
+</html>
