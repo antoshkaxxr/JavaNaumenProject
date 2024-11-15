@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отчет</title>
+    <title>Результат</title>
 </head>
 <body>
 <h1>Результаты</h1>
@@ -13,20 +13,40 @@
         <th>Значение</th>
     </tr>
     <tr>
-        <td>Рост</td>
+        <td>Возраст</td>
+        <td th:text="${age}"></td>
+    </tr>
+    <tr>
+        <td>Рост (см)</td>
         <td th:text="${height}"></td>
     </tr>
     <tr>
-        <td>Вес</td>
+        <td>Вес (кг)</td>
         <td th:text="${weight}"></td>
     </tr>
     <tr>
         <td>Пол</td>
-        <td th:text="${sex}"></td>
+        <td th:text="${sex.getRussianName()}"></td>
     </tr>
     <tr>
-        <td>Type</td>
-        <td th:text="${type}"></td>
+        <td>Формула для подсчета потребления калорий</td>
+        <td th:text="${type.getRussianName()}"></td>
+    </tr>
+    <tr>
+        <td>Индекс массы тела</td>
+        <td th:text="${bmi}"></td>
+    </tr>
+    <tr>
+        <td>Для сохранения веса нужно потреблять (ккал)</td>
+        <td th:text="${stable}"></td>
+    </tr>
+    <tr>
+        <td>Для набора веса нужно потреблять (ккал)</td>
+        <td th:text="${more}"></td>
+    </tr>
+    <tr>
+        <td>Для похудения нужно потреблять (ккал)</td>
+        <td th:text="${less}"></td>
     </tr>
 </table>
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">\<head>
-  <title>Spring Security Example </title>
+  <title>Калькулятор</title>
 </head>
 <body>
 <form th:action="@{/calculator/evaluate}" method="post">
@@ -12,8 +12,9 @@
       <option value="FEMALE">Ж</option>
     </select>
   </div>
-  <div><label> Weight: <input type="number" name="weight"/> </label></div>
-  <div><label> Height: <input type="number" name="height"/> </label></div>
+  <div><label> Weight: <input type="number" name="weight" min="1" max = "10000" required/> </label></div>
+  <div><label> Height: <input type="number" name="heightInSm" min="1" max = "10000" required/> </label></div>
+  <div><label> Age: <input type="number" name="age" step="1" min="0" max = "10000" required></label></div>
   <div>
     <label for="formula">Выберите формулу для расчета калорий:</label>
     <select id="formula" name="formula">
@@ -21,7 +22,7 @@
       <option value="HARRIS_BENEDICT">Харриса-Бенедикта</option>
     </select>
   </div>
-  <div><input type="submit" value="Зарегистрироваться"/></div>
+  <div><input type="submit" value="Узнать результат"/></div>
 </form>
 </body>
 </html>
