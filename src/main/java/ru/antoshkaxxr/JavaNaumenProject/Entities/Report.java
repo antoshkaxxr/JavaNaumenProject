@@ -7,6 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 
+/**
+ * Класс-сущность, представляющий отчет.
+ * Содержит информацию об уникальном идентификаторе отчета, статусе и содержании.
+ * Этот класс соответствует таблице report в базе данных.
+ */
 @Entity
 @Table
 public class Report {
