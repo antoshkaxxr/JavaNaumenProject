@@ -1,5 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.ExceptionHandler;
 
+/**
+ * Класс для представления и обработки исключения.
+ * Содержит сообщение об ошибке и методы для создания экземпляров исключений.
+ */
 public final class Exception {
     private String message;
 

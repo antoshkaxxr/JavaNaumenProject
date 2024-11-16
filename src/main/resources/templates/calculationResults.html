@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат</title>
+</head>
+<body>
+<h1>Результаты</h1>
+<table border="1">
+    <tr>
+        <th>Описание</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>Возраст</td>
+        <td th:text="${age}"></td>
+    </tr>
+    <tr>
+        <td>Рост (см)</td>
+        <td th:text="${height}"></td>
+    </tr>
+    <tr>
+        <td>Вес (кг)</td>
+        <td th:text="${weight}"></td>
+    </tr>
+    <tr>
+        <td>Пол</td>
+        <td th:text="${sex.getRussianName()}"></td>
+    </tr>
+    <tr>
+        <td>Формула для подсчета потребления калорий</td>
+        <td th:text="${type.getRussianName()}"></td>
+    </tr>
+    <tr>
+        <td>Индекс массы тела</td>
+        <td th:text="${#numbers.formatDecimal(bmi, 1, 1)}"></td>
+    </tr>
+    <tr>
+        <td>Состояние тела (по индексу массы тела)</td>
+        <td th:text="${bmiRange.getRussianName()}"></td>
+    </tr>
+    <tr>
+        <td>Уровень физической активности</td>
+        <td th:text="${physicalActivity.getRussianName()}"></td>
+    </tr>
+    <tr>
+        <td>Для сохранения веса нужно потреблять (ккал)</td>
+        <td th:text="${stable.intValue()}"></td>
+    </tr>
+    <tr>
+        <td>Для набора веса нужно потреблять (ккал)</td>
+        <td th:text="${more.intValue()}"></td>
+    </tr>
+    <tr>
+        <td>Для похудения нужно потреблять (ккал)</td>
+        <td th:text="${less.intValue()}"></td>
+    </tr>
+</table>
+</body>
+</html>
+
