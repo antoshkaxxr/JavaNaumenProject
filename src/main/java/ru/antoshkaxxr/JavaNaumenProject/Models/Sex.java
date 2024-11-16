@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Dto;
+package ru.antoshkaxxr.JavaNaumenProject.Models;
 
 public enum Sex {
     MALE("М"),

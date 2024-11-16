@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-import ru.antoshkaxxr.JavaNaumenProject.Dto.CalculatorData;
+import ru.antoshkaxxr.JavaNaumenProject.Models.CalculatorData;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CalculatorServiceImpl;
 
 @Controller
@@ -44,7 +44,9 @@ public class CalculatorController {
         model.addAttribute("age", calculatorData.age());
         model.addAttribute("sex", calculatorData.sex());
         model.addAttribute("type", calculatorData.formula());
-        model.addAttribute("bmi", bodyData.bodyMassIndex());
+        model.addAttribute("bmi", bodyData.bodyMassIndex().bmi());
+        model.addAttribute("bmiRange", bodyData.bodyMassIndex().range());
+        model.addAttribute("physicalActivity", calculatorData.physicalActivity());
         model.addAttribute("less", bodyData.bounds().less());
         model.addAttribute("stable", bodyData.bounds().stable());
         model.addAttribute("more", bodyData.bounds().more());

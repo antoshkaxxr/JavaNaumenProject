@@ -1,4 +1,4 @@
 package ru.antoshkaxxr.JavaNaumenProject.Models;
 
-public record BodyData(CaloriesBounds bounds, double bodyMassIndex) {
+public record BodyData(CaloriesBounds bounds, BMIData bodyMassIndex) {
 }
