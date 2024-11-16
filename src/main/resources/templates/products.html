@@ -36,7 +36,7 @@
     <tbody>
     <tr th:each="product : ${products}">
         <td th:text="${product.name}"></td>
-        <td th:text="${categoryMap.get(product.category)}"></td>
+        <td th:text="${product.category}"></td>
         <td th:text="${product.caloriesNumberHundred}"></td>
         <td>
             <form th:action="@{/products/delete}" method="post">
@@ -45,7 +45,7 @@
             </form>
             <form th:action="@{/products/update}" method="post">
                 <input type="hidden" name="name" th:value="${product.name}">
-                <input type="number" name="newCaloriesNumberHundred" step="0.01" placeholder="Новое количество ккал">
+                <input type="number" name="newCaloriesNumberHundred" step="0.01" min="0" placeholder="Новое количество ккал" required>
                 <button type="submit">Обновить</button>
             </form>
         </td>
@@ -59,12 +59,12 @@
     <label for="category">Категория:</label>
     <select id="category" name="category" required>
         <option th:each="category : ${categories}"
-                th:value="${categoryMap.get(category)}"
-                th:text="${categoryMap.get(category)}">
+                th:value="${category.toString()}"
+                th:text="${category.toString()}">
         </option>
     </select><br>
     <label for="caloriesNumberHundred">Количество ккал на 100 граммов:</label>
-    <input type="number" id="caloriesNumberHundred" name="caloriesNumberHundred" step="0.01" required><br>
+    <input type="number" id="caloriesNumberHundred" name="caloriesNumberHundred" step="0.01" min="0" required><br>
     <button type="submit">Добавить</button>
 </form>
 </body>

@@ -4,76 +4,42 @@ package ru.antoshkaxxr.JavaNaumenProject.Enums;
  * Перечисление для категорий продуктов
  */
 public enum ProductCategory {
-    /**
-     * Мясо
-     */
-    MEAT,
-    /**
-     * Рыба
-     */
-    FISH,
-    /**
-     * Яичные продукты
-     */
-    EGGS,
-    /**
-     * Молочные продукты
-     */
-    DAIRY,
-    /**
-     * Продукты, содержащие сою
-     */
-    SOY,
-    /**
-     * Овощи
-     */
-    VEGETABLES,
-    /**
-     * Фрукты
-     */
-    FRUITS,
-    /**
-     * Зелень
-     */
-    GREENERY,
-    /**
-     * Грибы
-     */
-    MUSHROOMS,
-    /**
-     * Масла
-     */
-    OILS,
-    /**
-     * Орехи
-     */
-    NUTS,
-    /**
-     * Крупы
-     */
-    GRITS,
-    /**
-     * Специи
-     */
-    SPICES,
-    /**
-     * Мучные изделия
-     */
-    FLOUR,
-    /**
-     * Сладости
-     */
-    SWEETS,
-    /**
-     * Фастфуд
-     */
-    FAST_FOOD,
-    /**
-     * Супы
-     */
-    SOUPS,
-    /**
-     * Напитки
-     */
-    DRINKS
+    MEAT("Мясо"),
+    FISH("Рыба"),
+    EGGS("Яичные продукты"),
+    DAIRY("Молочные продукты"),
+    SOY("Продукты, содержащие сою"),
+    VEGETABLES("Овощи"),
+    FRUITS("Фрукты"),
+    GREENERY("Зелень"),
+    MUSHROOMS("Грибы"),
+    OILS("Масла"),
+    NUTS("Орехи"),
+    GRITS("Крупы"),
+    SPICES("Специи"),
+    FLOUR("Мучные изделия"),
+    SWEETS("Сладости"),
+    FAST_FOOD("Фастфуд"),
+    SOUPS("Супы"),
+    DRINKS("Напитки");
+
+    private final String displayName;
+
+    ProductCategory(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+        return displayName;
+    }
+
+    public static ProductCategory fromDisplayName(String displayName) {
+        for (ProductCategory category : ProductCategory.values()) {
+            if (category.displayName.equals(displayName)) {
+                return category;
+            }
+        }
+        return null;
+    }
 }

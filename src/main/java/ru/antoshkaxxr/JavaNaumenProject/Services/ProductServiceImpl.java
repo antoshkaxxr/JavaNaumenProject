@@ -39,23 +39,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean deleteProduct(String name) {
         Optional<Product> productOptional = productRepository.findByName(name);
-        if (productOptional.isPresent()) {
-            productRepository.delete(productOptional.get());
-            return true;
+        if (productOptional.isEmpty()) {
+            return false;
         }
-        return false;
+
+        productRepository.delete(productOptional.get());
+        return true;
     }
 
     @Override
     public boolean updateProduct(String name, Double newCaloriesNumberHundred) {
         Optional<Product> productOptional = productRepository.findByName(name);
-        if (productOptional.isPresent()) {
-            Product product = productOptional.get();
-            product.setCaloriesNumberHundred(newCaloriesNumberHundred);
-            productRepository.save(product);
-            return true;
+        if (productOptional.isEmpty()) {
+            return false;
         }
-        return false;
+
+        Product product = productOptional.get();
+        product.setCaloriesNumberHundred(newCaloriesNumberHundred);
+        productRepository.save(product);
+        return true;
+
     }
 
     @Override

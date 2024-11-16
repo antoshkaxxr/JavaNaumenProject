@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
-import ru.antoshkaxxr.JavaNaumenProject.Mappers.ProductCategoryMapper;
 import ru.antoshkaxxr.JavaNaumenProject.Services.ProductService;
 
 /**
@@ -17,6 +17,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.ProductService;
  * Предоставляет методы для отображения списка продуктов, добавления, удаления и обновления продуктов.
  */
 @Controller
+@RequestMapping("/products")
 public class ProductController {
     private static final String PRODUCTS_VIEW = "products";
     private static final String REDIRECT_PRODUCTS = "redirect:/" + PRODUCTS_VIEW;
@@ -46,12 +47,11 @@ public class ProductController {
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
-    @GetMapping("/products")
+    @GetMapping
     public String getAllProducts(Model model) {
         List<Product> products = productService.findAllProducts();
         model.addAttribute(PRODUCTS_VIEW, products);
         model.addAttribute("categories", ProductCategory.values());
-        model.addAttribute("categoryMap", ProductCategoryMapper.getCategoryMap());
         return PRODUCTS_VIEW;
     }
 
@@ -64,13 +64,13 @@ public class ProductController {
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
-    @PostMapping("/products/add")
+    @PostMapping("/add")
     public String addProduct(
             @RequestParam String name,
             @RequestParam String category,
             @RequestParam Double caloriesNumberHundred,
             Model model) {
-        ProductCategory productCategory = ProductCategoryMapper.getCategoryByRussianName(category);
+        ProductCategory productCategory = ProductCategory.fromDisplayName(category);
         if (productCategory == null) {
             model.addAttribute(MESSAGE_ATTRIBUTE, INVALID_CATEGORY_MESSAGE);
             return REDIRECT_PRODUCTS;
@@ -92,7 +92,7 @@ public class ProductController {
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
-    @PostMapping("/products/delete")
+    @PostMapping("/delete")
     public String deleteProduct(@RequestParam String name, Model model) {
         boolean success = productService.deleteProduct(name);
         if (success) {
@@ -111,7 +111,7 @@ public class ProductController {
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
-    @PostMapping("/products/update")
+    @PostMapping("/update")
     public String updateProduct(
             @RequestParam String name,
             @RequestParam Double newCaloriesNumberHundred,
