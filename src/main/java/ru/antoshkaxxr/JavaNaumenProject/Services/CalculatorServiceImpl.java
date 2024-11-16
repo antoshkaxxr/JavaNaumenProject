@@ -1,6 +1,13 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
-import ru.antoshkaxxr.JavaNaumenProject.Models.*;
+
+import ru.antoshkaxxr.JavaNaumenProject.Models.BMIData;
+import ru.antoshkaxxr.JavaNaumenProject.Models.BMIRange;
+import ru.antoshkaxxr.JavaNaumenProject.Models.BodyData;
+import ru.antoshkaxxr.JavaNaumenProject.Models.CalculatorData;
+import ru.antoshkaxxr.JavaNaumenProject.Models.CaloriesBounds;
+
+
 
 @SuppressWarnings("checkstyle:MagicNumber")
 public class CalculatorServiceImpl {
@@ -15,12 +22,12 @@ public class CalculatorServiceImpl {
         return new BodyData(caloriesData, bmiData);
     }
 
-    public static double getBodyMassIndex(double weight, double heightInSm) {
+    private static double getBodyMassIndex(double weight, double heightInSm) {
         var heightInMeters = heightInSm / 100;
         return weight / (heightInMeters * heightInMeters);
     }
 
-    public static CaloriesBounds getCaloriesData(CalculatorData calculatorData) {
+    private static CaloriesBounds getCaloriesData(CalculatorData calculatorData) {
         var stable = switch (calculatorData.formula()) {
             case HARRIS_BENEDICT -> getCaloriesByHarrisBenedict(calculatorData);
             case MIFFLIN_ST_GEORGE -> getCaloriesByMifflinStGeorge(calculatorData);
