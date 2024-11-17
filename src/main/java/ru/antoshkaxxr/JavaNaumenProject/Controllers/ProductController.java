@@ -1,5 +1,6 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,12 +45,13 @@ public class ProductController {
     /**
      * Отображает страницу со списком всех продуктов.
      *
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
     @GetMapping
-    public String getAllProducts(Model model) {
-        List<Product> products = productService.findAllProducts();
+    public String getAllProducts(Principal principal, Model model) {
+        List<Product> products = productService.findAllProducts(principal.getName());
         model.addAttribute(PRODUCTS_VIEW, products);
         model.addAttribute("categories", ProductCategory.values());
         return PRODUCTS_VIEW;
@@ -61,6 +63,7 @@ public class ProductController {
      * @param name Название продукта.
      * @param category Категория продукта (русское название).
      * @param caloriesNumberHundred Число ккал на 100 граммов продукта.
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
@@ -69,6 +72,7 @@ public class ProductController {
             @RequestParam String name,
             @RequestParam String category,
             @RequestParam Double caloriesNumberHundred,
+            Principal principal,
             Model model) {
         ProductCategory productCategory = ProductCategory.fromDisplayName(category);
         if (productCategory == null) {
@@ -76,7 +80,8 @@ public class ProductController {
             return REDIRECT_PRODUCTS;
         }
 
-        boolean success = productService.createProduct(name, productCategory, caloriesNumberHundred);
+        boolean success = productService.createProduct(name, productCategory,
+                caloriesNumberHundred, principal.getName());
         if (success) {
             model.addAttribute(MESSAGE_ATTRIBUTE, PRODUCT_ADDED_MESSAGE);
         } else {
@@ -89,12 +94,13 @@ public class ProductController {
      * Обрабатывает запрос на удаление продукта.
      *
      * @param name Название продукта.
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
     @PostMapping("/delete")
-    public String deleteProduct(@RequestParam String name, Model model) {
-        boolean success = productService.deleteProduct(name);
+    public String deleteProduct(@RequestParam String name, Principal principal, Model model) {
+        boolean success = productService.deleteProduct(name, principal.getName());
         if (success) {
             model.addAttribute(MESSAGE_ATTRIBUTE, PRODUCT_DELETED_MESSAGE);
         } else {
@@ -108,6 +114,7 @@ public class ProductController {
      *
      * @param name Название продукта.
      * @param newCaloriesNumberHundred Новое число ккал на 100 граммов продукта.
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @param model Модель для передачи данных в представление.
      * @return Имя представления для отображения.
      */
@@ -115,8 +122,9 @@ public class ProductController {
     public String updateProduct(
             @RequestParam String name,
             @RequestParam Double newCaloriesNumberHundred,
+            Principal principal,
             Model model) {
-        boolean success = productService.updateProduct(name, newCaloriesNumberHundred);
+        boolean success = productService.updateProduct(name, newCaloriesNumberHundred, principal.getName());
         if (success) {
             model.addAttribute(MESSAGE_ATTRIBUTE, PRODUCT_UPDATED_MESSAGE);
         } else {

@@ -6,6 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 
@@ -31,17 +32,34 @@ public class Product {
     @Column(nullable = false)
     private Double caloriesNumberHundred;
 
+    @ManyToOne
+    private Customer customer;
+
     /**
      * Конструктор для создания нового продукта с указанными параметрами.
      *
      * @param name Название продукта.
      * @param category Категория продукта.
      * @param caloriesNumberHundred Количество ккал на 100 граммов продукта.
+     * @param customer Пользователь, который добавил продукт.
      */
-    public Product(String name, ProductCategory category, Double caloriesNumberHundred) {
+    public Product(String name, ProductCategory category,
+                   Double caloriesNumberHundred, Customer customer) {
         this.name = name;
         this.category = category;
         this.caloriesNumberHundred = caloriesNumberHundred;
+        this.customer = customer;
+    }
+
+    /**
+     * Конструктор для создания продукта без привязки к пользователю.
+     *
+     * @param name Название продукта.
+     * @param category Категория продукта.
+     * @param caloriesNumberHundred Количество ккал на 100 граммов продукта.
+     */
+    public Product(String name, ProductCategory category, Double caloriesNumberHundred) {
+        this(name, category, caloriesNumberHundred, null);
     }
 
     /**
@@ -120,5 +138,23 @@ public class Product {
      */
     public void setCaloriesNumberHundred(Double caloriesNumber) {
         this.caloriesNumberHundred = caloriesNumber;
+    }
+
+    /**
+     * Возвращает пользователя, который добавил продукт.
+     *
+     * @return Пользователь, добавивший продукт.
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * Устанавливает пользователя, который добавил продукт.
+     *
+     * @param customer Пользователь, добавивший продукт.
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

@@ -25,15 +25,31 @@ public enum ProductCategory {
 
     private final String displayName;
 
+    /**
+     * Конструктор для создания категории продукта с указанным отображаемым именем.
+     *
+     * @param displayName Отображаемое имя категории.
+     */
     ProductCategory(String displayName) {
         this.displayName = displayName;
     }
 
+    /**
+     * Возвращает отображаемое имя категории.
+     *
+     * @return Отображаемое имя категории.
+     */
     @Override
     public String toString() {
         return displayName;
     }
 
+    /**
+     * Возвращает категорию продукта по ее отображаемому имени.
+     *
+     * @param displayName Отображаемое имя категории.
+     * @return Категория продукта, соответствующая отображаемому имени, или null, если категория не найдена.
+     */
     public static ProductCategory fromDisplayName(String displayName) {
         for (ProductCategory category : ProductCategory.values()) {
             if (category.displayName.equals(displayName)) {
