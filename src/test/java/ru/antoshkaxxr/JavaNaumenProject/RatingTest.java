@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Rating;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.CustomerRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.RatingRepository;
@@ -35,8 +36,8 @@ public class RatingTest {
     @Transactional
     @Rollback
     void testFindByProductId() {
-        Product product1 = new Product("soup", 350.0);
-        Product product2 = new Product("cheese", 150.0);
+        Product product1 = new Product("soup", ProductCategory.SOUPS, 350.0);
+        Product product2 = new Product("cheese", ProductCategory.DAIRY, 150.0);
         productRepository.save(product1);
         productRepository.save(product2);
 
@@ -76,9 +77,9 @@ public class RatingTest {
     @Transactional
     @Rollback
     void testFindByCustomerId() {
-        Product product1 = new Product("cabbage", 150.0);
-        Product product2 = new Product("pumpkin", 400.0);
-        Product product3 = new Product("coconut oil", 90.0);
+        Product product1 = new Product("cabbage", ProductCategory.VEGETABLES,150.0);
+        Product product2 = new Product("pumpkin", ProductCategory.VEGETABLES, 400.0);
+        Product product3 = new Product("coconut oil", ProductCategory.OILS,90.0);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
