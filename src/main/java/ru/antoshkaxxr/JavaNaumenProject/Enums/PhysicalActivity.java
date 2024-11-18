@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Models;
+package ru.antoshkaxxr.JavaNaumenProject.Enums;
 
 /**
  * Перечисление, представляющее уровни физической активности, их русские названия и коэффициенты.

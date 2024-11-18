@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Models;
+package ru.antoshkaxxr.JavaNaumenProject.Enums;
 
 /**
  * Перечисление, представляющее формулы для расчета калорий и их русские названия.

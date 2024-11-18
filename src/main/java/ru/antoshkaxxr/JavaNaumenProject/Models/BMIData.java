@@ -1,5 +1,7 @@
 package ru.antoshkaxxr.JavaNaumenProject.Models;
 
+import ru.antoshkaxxr.JavaNaumenProject.Enums.BMIRange;
+
 /**
  * Записывает данные о индексе массы тела (ИМТ) и соответствующем диапазоне.
  * Этот класс представляет собой неизменяемую запись, содержащую информацию о

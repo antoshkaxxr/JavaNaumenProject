@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import ru.antoshkaxxr.JavaNaumenProject.Enums.BMIRange;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.CalculationFormula;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.PhysicalActivity;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.Sex;
 import ru.antoshkaxxr.JavaNaumenProject.Models.*;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CalculatorServiceImpl;
 
