@@ -42,6 +42,7 @@ public class GoalController {
     /**
      * Обрабатывает GET-запрос для отправки формы текущего пользователя с его целями
      *
+     * @param model Объект Model, используемый для передачи данных на представление.
      * @return Форма текущего пользователя с его целями
      */
     @GetMapping
@@ -98,6 +99,7 @@ public class GoalController {
                                 @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate endDateForViewStatistic,
                                 Model model) {
         var statisticGoal = goalServiceImpl.getStatisticGoal(goalId, startDateForViewStatistic, endDateForViewStatistic);
+        model.addAttribute("len", statisticGoal.labelsDate().length);
         model.addAttribute("labelsDate", statisticGoal.labelsDate());
         model.addAttribute("valuesConsumptionReal", statisticGoal.valuesRealConsumption());
         model.addAttribute("valuesConsumptionPlan", statisticGoal.valuesPlanConsumption());

@@ -32,6 +32,9 @@ public class FoodDiaryController {
      * Конструктор для инициализации контроллера.
      *
      * @param customerServiceImpl Сервис для работы с пользователями
+     * @param foodDiaryServiceImpl Сервис для работы с приёмами пищи
+     * @param productServiceImpl Сервис для работы с продуктами
+     * @param eatenProductRepository Репозиторий для работы с продуктами
      */
     public FoodDiaryController(CustomerServiceImpl customerServiceImpl, FoodDiaryServiceImpl foodDiaryServiceImpl,
                                ProductServiceImpl productServiceImpl, EatenProductRepository eatenProductRepository) {
@@ -44,6 +47,7 @@ public class FoodDiaryController {
     /**
      * Обрабатывает Get-запрос для отображения всех приёмов пищи текущего пользователя
      *
+     * @param model Объект Model, используемый для передачи данных на представление.
      * @return Форма с отображением всех приёмов пищи
      */
     @GetMapping
@@ -57,6 +61,8 @@ public class FoodDiaryController {
     /**
      * Обрабатывает Get-запрос отправки формы для создания нового приёма пищи пользователем
      *
+     * @param model Объект Model, используемый для передачи данных на представление.
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @return Форма для создания нового приёма пищи пользователем
      */
     @GetMapping("/add-form")
@@ -67,19 +73,15 @@ public class FoodDiaryController {
         return "newFoodDiary";
     }
 
+    /**
+     * Обрабатывает Post-запрос создание нового приёма пищи
+     *
+     * @param eatenProductData Данные об употреблённом продукте на основе которого создаться приём пищи
+     * @return Форма с приёмами пищами пользователя
+     */
     @PostMapping("/add")
     public String saveNewFoodDiary(@Valid @ModelAttribute("eatenProduct") EatenProductData eatenProductData) {
-        var foodDiary = new FoodDiaryEntry();
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
-
-        var product = productServiceImpl.getProducts(eatenProductData.getId());
-        var eatenProduct= new EatenProduct(product, eatenProductData.getData(), eatenProductData.getAmount());
-        eatenProductRepository.save(eatenProduct);
-
-        foodDiary.setCustomer(customer);
-        foodDiary.setEatenProduct(eatenProduct);
-        foodDiaryServiceImpl.save(foodDiary);
-
+        foodDiaryServiceImpl.save(eatenProductData);
         return "redirect:/food-diary";
     }
 

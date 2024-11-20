@@ -30,8 +30,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="i : ${#numbers.sequence(0, 24)}">
-        <td th:text="${labelsDate[i]}"></td>  <!-- Форматирование LocalDate -->
+    <tr th:each="i : ${#numbers.sequence(0, len - 1)}">
+        <td th:text="${labelsDate[i]}"></td>
         <td th:text="${valuesConsumptionReal[i]}"></td>
         <td th:text="${valuesConsumptionPlan[i]}"></td>
     </tr>

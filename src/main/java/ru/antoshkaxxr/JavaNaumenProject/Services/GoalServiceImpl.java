@@ -15,8 +15,6 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.FoodDiaryEntryRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -24,7 +22,8 @@ import java.util.*;
  *
  * <p>Класс предоставляет метод createGoal,
  * который по данный от пользователя о цели
- * создаёт эту цель и возвращает её</p>
+ * создаёт эту цель и возвращает её
+ * Предоставляет getStatisticGoal , который возвращает статистику по цели</p>
  */
 @Service
 @SuppressWarnings("checkstyle:MagicNumber")
@@ -148,11 +147,13 @@ public class GoalServiceImpl {
         var dates = new LocalDate[statisticConsumptionFoodAccordingPlan.length];
         var consumptionReal = new Double[statisticConsumptionFoodAccordingPlan.length];
         Arrays.fill(consumptionReal, 0.0);
+        for (var i=0; i < statisticConsumptionFoodAccordingPlan.length; i++){
+            dates[i] = dataCreateGoal.plusDays(i);
+        }
         for (var key: dictForFoodConsumptionStatistic.keySet()){
             var index = convertDateInDays(key) - startDay;
             if (index >= statisticConsumptionFoodAccordingPlan.length)
                 continue;
-            dates[index] = key;
             consumptionReal[index] += dictForFoodConsumptionStatistic.get(key);
         }
         return new DataStatistic(dates, consumptionReal, statisticConsumptionFoodAccordingPlan);
@@ -184,6 +185,7 @@ public class GoalServiceImpl {
     private Integer convertDateInDays(LocalDate date){
         return (int)(date.toEpochDay());
     }
+
     /**
      * Основной метод, который создаёт цель,
      * созданную на основе данных, введённых пользователем
