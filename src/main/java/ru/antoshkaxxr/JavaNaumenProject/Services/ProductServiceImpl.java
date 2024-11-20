@@ -89,4 +89,14 @@ public class ProductServiceImpl implements ProductService {
 
         return productRepository.findByCustomer(customer);
     }
+
+    public Product getProducts(Long productId) {
+        var resultFind = productRepository.findById(productId);
+        if (resultFind.isPresent()) {
+            return resultFind.get();
+        } else {
+            throw new RuntimeException("Product not found");
+        }
+
+    }
 }

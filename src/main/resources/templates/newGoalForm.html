@@ -6,7 +6,7 @@
     <title>Составление цели похудения</title>
 </head>
 <body>
-<form th:action="@{/target/evaluate}" method="post">
+<form th:action="@{/goal/evaluate}" method="post">
     <div>
         <label for="sex">Выберите пол:</label>
         <select id="sex" name="sex">
@@ -39,7 +39,7 @@
 
     <div>
         <label for="weightChangeSpeed">В каком темпе вы хотите начать достигать цели</label>
-        <select id="weightChangeSpeed" name="weightLossSpeed">
+        <select id="weightChangeSpeed" name="weightChangeSpeed">
             <option value="COMFORT_SPEED">Комфортно</option>
             <option value="HARD_SPEED">Экстремально быстро</option>
         </select>

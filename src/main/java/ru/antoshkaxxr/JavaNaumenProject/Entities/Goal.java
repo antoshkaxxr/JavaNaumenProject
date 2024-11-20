@@ -3,7 +3,7 @@ package ru.antoshkaxxr.JavaNaumenProject.Entities;
 import jakarta.persistence.*;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeMode;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 /**
  * Класс-сущность, представляющий цель по изменению веса.
@@ -29,7 +29,7 @@ public class Goal {
     private Double caloriesStablePerDay;
 
     @Column(nullable = false)
-    private OffsetDateTime startDate;
+    private LocalDate startDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,7 +48,7 @@ public class Goal {
      * @param weightChangeMode Режим изменения веса
      * @param customer Пользователь, который добавил цель
      */
-    public Goal(Double caloriesNeedChange, OffsetDateTime startDate, Double caloriesChangeToPlanPerDay,
+    public Goal(Double caloriesNeedChange, LocalDate startDate, Double caloriesChangeToPlanPerDay,
                 Double caloriesStablePerDay, WeightChangeMode weightChangeMode, Customer customer) {
         this.caloriesNeedChange = caloriesNeedChange;
         this.startDate = startDate;
@@ -97,14 +97,14 @@ public class Goal {
      *
      * @return Дата создания цели
      */
-    public OffsetDateTime getStartDate() { return startDate; }
+    public LocalDate getStartDate() { return startDate; }
 
     /**
      * Возвращает дату создания цели
      *
      * @param startDate Дата создания цели
      */
-    public void setStartDate(OffsetDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 

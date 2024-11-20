@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои приёмы пищи</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    th:first-child, td:first-child {
+      width: 20%;
+    }
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+  <tbody>
+  <tr>
+    <td>
+      <form th:action="@{/food-diary/add-form}" method="get">
+        <button type="submit">Добавить приём пищи</button>
+      </form>
+    </td>
+    <td th:each="entry : ${foodDiary}">
+      <div>
+        <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+        <p> Кол-во съеденного продукта </p>
+      </div>
+    </td>
+    <td th:each="entry : ${foodDiary}">
+      <div>
+        <p th:text="${entry.eatenProduct.eatenAmount}"></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+        <p>Дата приёма пищи</p>
+      </div>
+    </td>
+    <td th:each="entry : ${foodDiary}">
+      <div>
+        <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div>
+        <p>Удалить приём пищи</p>
+      </div>
+    </td>
+    <td th:each="entry : ${foodDiary}">
+      <form th:action="@{/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -23,19 +23,18 @@
 
 <table>
     <thead>
-        <tr>
-            <th>Label</th>
-            <th>Value</th>
-        </tr>
+    <tr>
+        <th>Дата</th>
+        <th>Фактическое потребление</th>
+        <th>Планируемое потребление</th>
+    </tr>
     </thead>
     <tbody>
-        <th:block th:each="i : ${#numbers.sequence(labelsDate.size() -1)}">
-            <tr>
-                <td th:text="${labelsDate[i]}"></td>
-                <td th:text="${valuesConsumptionReal[i]}"></td>
-                <td th:text="${valuesConsumptionPlan[i]}"></td>
-            </tr>
-        </th:block>
+    <tr th:each="i : ${#numbers.sequence(0, 24)}">
+        <td th:text="${labelsDate[i]}"></td>  <!-- Форматирование LocalDate -->
+        <td th:text="${valuesConsumptionReal[i]}"></td>
+        <td th:text="${valuesConsumptionPlan[i]}"></td>
+    </tr>
     </tbody>
 </table>
 

@@ -25,12 +25,12 @@
     <thead>
     <tr>
         <td>
-            <form th:action="@{/form}" method="get">
+            <form th:action="@{/goal/form}" method="get">
                 <button type="submit">Добавить цель</button>
             </form>
         </td>
         <td th:each="goal : ${goals}">
-            <form th:action="@{/statistic/{goal-id}(goalId=${goal.getGoalId()})}" method="get">
+            <form th:action="@{/goal/statistic/{goal-id}(goalId=${goal.getGoalId()})}" method="get">
                 <button type="submit" th:text="${goal.getStartDate()}">Перейти к статистике</button>
             </form>
         </td>

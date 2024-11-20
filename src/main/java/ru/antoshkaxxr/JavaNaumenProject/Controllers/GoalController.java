@@ -10,6 +10,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.GoalServiceImpl;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 /**
@@ -43,7 +44,7 @@ public class GoalController {
      *
      * @return Форма текущего пользователя с его целями
      */
-    @GetMapping("/my-goals")
+    @GetMapping
     public String returnMyGoalsForm(Model model) {
         var customer = customerServiceImpl.getCurentLoginedCustomer();
         var goalsCurrCustomer = goalRepository.findGoalsByCustomer_Id(customer.getId());
@@ -93,8 +94,8 @@ public class GoalController {
      */
     @GetMapping("/statistic/{goal-id}")
     public String returnStatisticOfGoal(@PathVariable("goal-id") Long goalId,
-                                @RequestParam(value = "startDateForViewStatistic", required = false) OffsetDateTime startDateForViewStatistic,
-                                @RequestParam(value = "startDateForViewStatistic", required = false) OffsetDateTime endDateForViewStatistic,
+                                @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate startDateForViewStatistic,
+                                @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate endDateForViewStatistic,
                                 Model model) {
         var statisticGoal = goalServiceImpl.getStatisticGoal(goalId, startDateForViewStatistic, endDateForViewStatistic);
         model.addAttribute("labelsDate", statisticGoal.labelsDate());

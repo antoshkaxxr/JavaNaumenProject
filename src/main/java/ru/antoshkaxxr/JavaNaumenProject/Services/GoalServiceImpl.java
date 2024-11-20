@@ -16,6 +16,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -45,7 +46,7 @@ public class GoalServiceImpl {
      * @param idGoal id цели, данные по которой мы ищем в базе
      * @return статистика по цели за запрошенный период
      */
-    public DataStatistic getStatisticGoal(Long idGoal, OffsetDateTime start, OffsetDateTime end){
+    public DataStatistic getStatisticGoal(Long idGoal, LocalDate start, LocalDate end){
         var dataCreateGoal = getDateCreateGoal(idGoal);
 
         var listAllFoodDiaries = getListAllFoodDiariesFromDateCreateGoal(idGoal);
@@ -69,7 +70,7 @@ public class GoalServiceImpl {
      * @param idGoal id цели, данные по которой мы ищем в базе
      * @return дата создания цели
      */
-    private OffsetDateTime getDateCreateGoal(Long idGoal){
+    private LocalDate getDateCreateGoal(Long idGoal){
         var currGoal = goalRepository.findById(idGoal);
         if (currGoal.isEmpty())
             throw new ResourceNotFoundException();
@@ -87,7 +88,7 @@ public class GoalServiceImpl {
             throw new ResourceNotFoundException();
         var customerId = currGoal.get().getCustomer().getId();
         var dateCreateGoal = currGoal.get().getStartDate();
-        return foodDiaryEntryRepository.findByCustomerIdAndDateFrom(customerId, dateCreateGoal.toLocalDate());
+        return foodDiaryEntryRepository.findByCustomerIdAndDateFrom(customerId, dateCreateGoal);
     }
 
     /**
@@ -95,10 +96,10 @@ public class GoalServiceImpl {
      * @param foodDiaryEntries приёмы пищи, начиная с создания цели
      * @return промежуточная структура, которая далее будет использоваться для получения статистики
      */
-    private TreeMap<OffsetDateTime, Double> getSortedDictForFoodConsumptionStatistic(List<FoodDiaryEntry> foodDiaryEntries){
-        var dict = new TreeMap <OffsetDateTime, Double>();
+    private TreeMap<LocalDate, Double> getSortedDictForFoodConsumptionStatistic(List<FoodDiaryEntry> foodDiaryEntries){
+        var dict = new TreeMap <LocalDate, Double>();
         for(var foodDiaryEntry: foodDiaryEntries){
-            var date = OffsetDateTime.from(foodDiaryEntry.getEatenProduct().getEatingDate());
+            var date = foodDiaryEntry.getEatenProduct().getEatingDate();
             var calories = foodDiaryEntry.getEatenProduct().getProduct().getCaloriesNumberHundred();
             if (dict.containsKey(date)){
                 dict.put(date, dict.get(date) + calories);
@@ -126,7 +127,8 @@ public class GoalServiceImpl {
             var consumptionInDay = goal.getCaloriesStablePerDay() + goal.getCaloriesChangeToPlanPerDay();
             statisticConsumptionFoodAccordingPlan[i] = consumptionInDay;
         }
-        var lastDayConsumption = goal.getCaloriesNeedChange() - (lengthArrayStatistic - 1) * goal.getCaloriesChangeToPlanPerDay();
+        var remainder = goal.getCaloriesNeedChange() - (lengthArrayStatistic - 1) * goal.getCaloriesChangeToPlanPerDay();
+        var lastDayConsumption = goal.getCaloriesStablePerDay() + remainder;
         statisticConsumptionFoodAccordingPlan[lengthArrayStatistic - 1] = lastDayConsumption;
         return statisticConsumptionFoodAccordingPlan;
     }
@@ -138,13 +140,14 @@ public class GoalServiceImpl {
      * @param dictForFoodConsumptionStatistic промежуточная структура для создания статистики
      * @return дто, где хранятся два массива описанных выше
      */
-    private DataStatistic getDataStatistic(TreeMap<OffsetDateTime, Double> dictForFoodConsumptionStatistic,
+    private DataStatistic getDataStatistic(TreeMap<LocalDate, Double> dictForFoodConsumptionStatistic,
                                            Double[] statisticConsumptionFoodAccordingPlan,
-                                           OffsetDateTime dataCreateGoal){
+                                           LocalDate dataCreateGoal){
 
         var startDay = convertDateInDays(dataCreateGoal);
-        var dates = new OffsetDateTime[statisticConsumptionFoodAccordingPlan.length];
+        var dates = new LocalDate[statisticConsumptionFoodAccordingPlan.length];
         var consumptionReal = new Double[statisticConsumptionFoodAccordingPlan.length];
+        Arrays.fill(consumptionReal, 0.0);
         for (var key: dictForFoodConsumptionStatistic.keySet()){
             var index = convertDateInDays(key) - startDay;
             if (index >= statisticConsumptionFoodAccordingPlan.length)
@@ -163,8 +166,8 @@ public class GoalServiceImpl {
      * @param dataCreateGoal момент с которого ведётся статистика
      * @return обрезанный массив со статистикой
      */
-    private DataStatistic trimArray(DataStatistic dataStatistic, OffsetDateTime leftBorder,
-                             OffsetDateTime rightBorder, OffsetDateTime dataCreateGoal){
+    private DataStatistic trimArray(DataStatistic dataStatistic, LocalDate leftBorder,
+                             LocalDate rightBorder, LocalDate dataCreateGoal){
         var leftIndex = convertDateInDays(leftBorder) - convertDateInDays(dataCreateGoal);
         var rightIndex = convertDateInDays(rightBorder) - convertDateInDays(dataCreateGoal);
         var labelsDate = Arrays.copyOfRange(dataStatistic.labelsDate(), leftIndex, rightIndex + 1);
@@ -178,8 +181,8 @@ public class GoalServiceImpl {
      * @param date как быстро хочется поправится
      * @return режим набора веса
      */
-    private Integer convertDateInDays(OffsetDateTime date){
-        return (int)(date.toInstant().getEpochSecond() / (24 * 60 * 60));
+    private Integer convertDateInDays(LocalDate date){
+        return (int)(date.toEpochDay());
     }
     /**
      * Основной метод, который создаёт цель,
@@ -207,7 +210,7 @@ public class GoalServiceImpl {
         );
         // customerService.getCurentLoginedCustomer()
         return new Goal(caloriesNeedChange,
-                OffsetDateTime.now(), caloriesChangeToPlanPerDay, dataOfCalculator.bounds().stable(),
+                LocalDate.now(), caloriesChangeToPlanPerDay, dataOfCalculator.bounds().stable(),
                 weightChangeMode, customer);
     }
 
@@ -219,7 +222,7 @@ public class GoalServiceImpl {
      * @return необходимое кол-во калорий, которое нужно изменить
      */
     private Double getCaloriesNeedChange(DataForCreatingGoal dataForCreatingGoal){
-        return (dataForCreatingGoal.goalWeight() - dataForCreatingGoal.currentWeight()) / 7700;
+        return (dataForCreatingGoal.goalWeight() - dataForCreatingGoal.currentWeight()) * 7700;
     }
 
     /**
@@ -229,7 +232,7 @@ public class GoalServiceImpl {
      */
     private Double getCaloriesChangeToPlanPerDay(Double stableAmountCalories,
                                                 WeightChangeMode weightChangeMode){
-        return stableAmountCalories * (weightChangeMode.ordinal() - 1);
+        return stableAmountCalories * (weightChangeMode.getCoefficient() - 1);
     }
 
     /**
