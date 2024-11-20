@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои цели</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th:first-child, td:first-child {
+            width: 20%; /* Adjust width as needed */
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <td>
+            <form th:action="@{/form}" method="get">
+                <button type="submit">Добавить цель</button>
+            </form>
+        </td>
+        <td th:each="goal : ${goals}">
+            <form th:action="@{/statistic/{goal-id}(goalId=${goal.getGoalId()})}" method="get">
+                <button type="submit" th:text="${goal.getStartDate()}">Перейти к статистике</button>
+            </form>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -4,10 +4,11 @@ package ru.antoshkaxxr.JavaNaumenProject.Enums;
  * Перечисление, представляющее режим изменения веса
  */
 public enum WeightChangeMode {
-    HARD_WEIGHT_LOSS("Хардкорный режим похудения", 0.7),
+    HARD_WEIGHT_LOSS("Хардкорный режим похудения", 0.73),
     COMFORT_WEIGHT_LOSS("Комфортный режим похудения", 0.85),
+    WEIGHT_SAVING("Режим сохранения веса", 1.0),
     COMFORT_WEIGHT_GAIN("Комфортный режим набора веса", 1.15),
-    HARD_WEIGHT_GAIN("Хардкорный режим набора веса", 1.3);
+    HARD_WEIGHT_GAIN("Хардкорный режим набора веса", 1.27);
 
     private final String russianName;
     private final Double coefficient;

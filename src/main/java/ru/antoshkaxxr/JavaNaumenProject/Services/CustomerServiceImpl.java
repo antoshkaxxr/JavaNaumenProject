@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -101,6 +102,11 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         Customer customer = findByCustomerName(username);
         return new User(customer.getName(), customer.getPassword(),
                 mapRoleToAuthority(customer.getRole()));
+    }
+
+    public Customer getCurentLoginedCustomer() throws UsernameNotFoundException {
+        var nameOfCustomer = SecurityContextHolder.getContext().getAuthentication().getName();
+        return findByCustomerName(nameOfCustomer);
     }
 
     private Collection<GrantedAuthority> mapRoleToAuthority(Role role) {

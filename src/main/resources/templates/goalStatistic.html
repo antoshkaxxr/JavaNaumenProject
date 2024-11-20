@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goal Statistic</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Goal Statistic</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Label</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="i : ${#numbers.sequence(labelsDate.size() -1)}">
+            <tr>
+                <td th:text="${labelsDate[i]}"></td>
+                <td th:text="${valuesConsumptionReal[i]}"></td>
+                <td th:text="${valuesConsumptionPlan[i]}"></td>
+            </tr>
+        </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>
