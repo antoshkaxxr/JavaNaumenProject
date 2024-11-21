@@ -22,6 +22,7 @@ public class FoodDiaryController {
 
     private static final String FOOD_DIARY_VIEW_REDIRECT = "redirect:/foodDiary";
     private static final String NEW_FOOD_DIARY_FORM = "newFoodDiary";
+    private static final String AVAILABLE_PRODUCTS = "availableProducts";
     private final CustomerServiceImpl customerServiceImpl;
     private final FoodDiaryServiceImpl foodDiaryServiceImpl;
     private final ProductServiceImpl productServiceImpl;
@@ -64,7 +65,7 @@ public class FoodDiaryController {
     @GetMapping("/addForm")
     public String getNewFoodDiaryForm(Model model, Principal principal) {
         var products = productServiceImpl.findAllProducts(principal.getName());
-        model.addAttribute("availableProducts", products);
+        model.addAttribute(AVAILABLE_PRODUCTS, products);
         return NEW_FOOD_DIARY_FORM;
     }
 
@@ -74,6 +75,7 @@ public class FoodDiaryController {
      * @param eatenProductData Данные об употреблённом продукте на основе которого создаться приём пищи
      * @param bindingResult Данные об успешности преобразование контроллером объекта из запроса в EatenProductData
      * @param model Объект Model, используемый для передачи данных на представление.
+     * @param principal Объект текущего аутентифицированного пользователя.
      * @return Форма с приёмами пищами пользователя
      */
     @PostMapping("/add")
@@ -82,7 +84,7 @@ public class FoodDiaryController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Введите некорректные данные");
             var products = productServiceImpl.findAllProducts(principal.getName());
-            model.addAttribute("availableProducts", products);
+            model.addAttribute(AVAILABLE_PRODUCTS, products);
             return NEW_FOOD_DIARY_FORM;
         }
         foodDiaryServiceImpl.save(eatenProductData);
