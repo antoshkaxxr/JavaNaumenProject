@@ -1,17 +1,15 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Models.EatenProductData;
-import ru.antoshkaxxr.JavaNaumenProject.Repositories.CustomerRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.FoodDiaryEntryRepository;
-import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
 
-import java.util.List;
 
 /**
  * Реализация сервиса для работы с приёмами пищи.
@@ -66,7 +64,7 @@ public class FoodDiaryServiceImpl {
         var customer = customerServiceImpl.getCurentLoginedCustomer();
 
         var product = productServiceImpl.getProducts(eatenProductData.getId());
-        var eatenProduct= new EatenProduct(product, eatenProductData.getData(), eatenProductData.getAmount());
+        var eatenProduct = new EatenProduct(product, eatenProductData.getData(), eatenProductData.getAmount());
         eatenProductRepository.save(eatenProduct);
 
         foodDiary.setCustomer(customer);
@@ -81,8 +79,9 @@ public class FoodDiaryServiceImpl {
      */
     public void delete(Long foodDiaryId) {
         var resultFounding = foodDiaryEntryRepository.findById(foodDiaryId);
-        if (resultFounding.isEmpty())
+        if (resultFounding.isEmpty()) {
             throw new ResourceNotFoundException("Нет такого приёма пищи");
+        }
         var currFoodDiary = resultFounding.get();
         foodDiaryEntryRepository.delete(currFoodDiary);
         eatenProductRepository.delete(currFoodDiary.getEatenProduct());

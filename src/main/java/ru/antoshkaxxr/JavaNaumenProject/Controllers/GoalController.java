@@ -1,17 +1,17 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.antoshkaxxr.JavaNaumenProject.Models.DataForCreatingGoal;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.GoalServiceImpl;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 /**
  * Контроллер для составления целей по похудению / набору веса и просмотра по ним статистики.
@@ -19,6 +19,8 @@ import java.time.OffsetDateTime;
 @Controller
 @RequestMapping("/goal")
 public class GoalController {
+
+    private static final String GOAL_VIEW_REDIRECT = "redirect:/goal";
 
     private final GoalServiceImpl goalServiceImpl;
     private final CustomerServiceImpl customerServiceImpl;
@@ -51,6 +53,7 @@ public class GoalController {
         model.addAttribute("goals", goalsCurrCustomer);
         return "myGoalsForm";
     }
+
     /**
      * Обрабатывает GET-запрос для отправки формы, в которой пользователь введёт
      * данные для составления новой цели
@@ -73,7 +76,7 @@ public class GoalController {
         var customer = customerServiceImpl.getCurentLoginedCustomer();
         var newGoal = goalServiceImpl.createGoal(data, customer);
         goalRepository.save(newGoal);
-        return "redirect:/goal";
+        return GOAL_VIEW_REDIRECT;
     }
 
     /**
@@ -84,7 +87,7 @@ public class GoalController {
     @PostMapping("/delete/{goalId}")
     public String redirectOnStatistic(@PathVariable("goalId") Long goalId) {
         goalServiceImpl.deleteGoal(goalId);
-        return "redirect:/goal";
+        return GOAL_VIEW_REDIRECT;
     }
 
     /**
@@ -102,10 +105,16 @@ public class GoalController {
      */
     @GetMapping("/statistic/{goalId}")
     public String returnStatisticOfGoal(@PathVariable("goalId") Long goalId,
-                                @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate startDateForViewStatistic,
-                                @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate endDateForViewStatistic,
+                                @RequestParam(value = "startDateForViewStatistic", required = false)
+                                LocalDate startDateForViewStatistic,
+                                @RequestParam(value = "startDateForViewStatistic", required = false)
+                                LocalDate endDateForViewStatistic,
                                 Model model) {
-        var statisticGoal = goalServiceImpl.getStatisticGoal(goalId, startDateForViewStatistic, endDateForViewStatistic);
+        var statisticGoal = goalServiceImpl.getStatisticGoal(
+                goalId,
+                startDateForViewStatistic,
+                endDateForViewStatistic
+        );
         model.addAttribute("len", statisticGoal.labelsDate().length);
         model.addAttribute("labelsDate", statisticGoal.labelsDate());
         model.addAttribute("valuesConsumptionReal", statisticGoal.valuesRealConsumption());

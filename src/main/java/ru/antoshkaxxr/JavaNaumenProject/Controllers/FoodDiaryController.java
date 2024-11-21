@@ -1,16 +1,18 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import jakarta.validation.Valid;
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.antoshkaxxr.JavaNaumenProject.Models.EatenProductData;
-import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.FoodDiaryServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.ProductServiceImpl;
-
-import java.security.Principal;
 
 /**
  * Контроллер для добавления новых приёмов пищи
@@ -19,6 +21,7 @@ import java.security.Principal;
 @RequestMapping("/foodDiary")
 public class FoodDiaryController {
 
+    private static final String FOOD_DIARY_VIEW_REDIRECT = "redirect:/foodDiary";
     private final CustomerServiceImpl customerServiceImpl;
     private final FoodDiaryServiceImpl foodDiaryServiceImpl;
     private final ProductServiceImpl productServiceImpl;
@@ -75,13 +78,19 @@ public class FoodDiaryController {
     @PostMapping("/add")
     public String saveNewFoodDiary(@Valid @ModelAttribute("eatenProduct") EatenProductData eatenProductData) {
         foodDiaryServiceImpl.save(eatenProductData);
-        return "redirect:/foodDiary";
+        return FOOD_DIARY_VIEW_REDIRECT;
     }
 
+    /**
+     * Обрабатывает Post-запрос на удаление по id цели
+     *
+     * @param foodDiaryId id цели
+     * @return Форма с приёмами пищами пользователя
+     */
     @PostMapping("/delete/{foodDiaryId}")
     public String deleteFoodDiary(@PathVariable("foodDiaryId") Long foodDiaryId) {
         foodDiaryServiceImpl.delete(foodDiaryId);
-        return "redirect:/foodDiary";
+        return FOOD_DIARY_VIEW_REDIRECT;
     }
 
 }

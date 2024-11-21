@@ -1,10 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.Repositories;
 
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Goal;
-
-import java.util.List;
 
 /**
  * Репозиторий для работы с сущностью {@link Goal}.
@@ -19,6 +18,6 @@ public interface GoalRepository extends CrudRepository<Goal, Long> {
      * @param idCustomer Айди пользователя пользователя.
      * @return Объект {@link Goal}, соответствующий целям пользователя с id = {@param idCustomer}
      */
-    List<Goal> findGoalsByCustomer_Id(Long idCustomer);
+    List<Goal> findByCustomerId(Long idCustomer);
 
 }

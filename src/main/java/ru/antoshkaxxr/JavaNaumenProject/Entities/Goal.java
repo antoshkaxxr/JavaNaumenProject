@@ -1,9 +1,15 @@
 package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
-import jakarta.persistence.*;
-import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeMode;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeMode;
 
 /**
  * Класс-сущность, представляющий цель по изменению веса.
@@ -67,7 +73,6 @@ public class Goal {
      * Конструктор по умолчанию.
      */
     public Goal() {
-        
     }
 
     /**
@@ -118,7 +123,9 @@ public class Goal {
      *
      * @return Дата создания цели
      */
-    public LocalDate getStartDate() { return startDate; }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
     /**
      * Возвращает дату создания цели
@@ -134,7 +141,9 @@ public class Goal {
      *
      * @return Кол-во калорий, которое будут сжигаться/набираться в день
      */
-    public Double getCaloriesChangeToPlanPerDay() { return caloriesChangeToPlanPerDay; }
+    public Double getCaloriesChangeToPlanPerDay() {
+        return caloriesChangeToPlanPerDay;
+    }
 
     /**
      * Возвращает кол-во калорий, которое будут сжигаться/набираться в день
@@ -150,7 +159,9 @@ public class Goal {
      *
      * @return Кол-во калорий, необходимое, чтобы вес не менялся
      */
-    public Double getCaloriesStablePerDay() { return caloriesStablePerDay; }
+    public Double getCaloriesStablePerDay() {
+        return caloriesStablePerDay;
+    }
 
     /**
      * Возвращает кол-во калорий, необходимое, чтобы вес не менялся
@@ -166,7 +177,9 @@ public class Goal {
      *
      * @return Режим изменения веса
      */
-    public WeightChangeMode getWeightChangeMode() { return weightChangeMode; }
+    public WeightChangeMode getWeightChangeMode() {
+        return weightChangeMode;
+    }
 
     /**
      * Возвращает режим изменения веса
@@ -182,7 +195,9 @@ public class Goal {
      *
      * @return Пользователь, который добавил цель
      */
-    public Customer getCustomer() { return customer; }
+    public Customer getCustomer() {
+        return customer;
+    }
 
     /**
      * Возвращает пользователя, который добавил цель

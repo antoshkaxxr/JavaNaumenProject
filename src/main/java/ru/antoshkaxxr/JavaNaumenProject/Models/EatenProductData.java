@@ -1,7 +1,6 @@
 package ru.antoshkaxxr.JavaNaumenProject.Models;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 
 /**
  * Представляет данные о съеденном продукте.
@@ -40,6 +39,7 @@ public class EatenProductData {
      */
     public EatenProductData() {
     }
+
     /**
      * Возвращает уникальный идентификатор записи о съеденном продукте.
      * @return Уникальный идентификатор записи о съеденном продукте.
