@@ -29,4 +29,12 @@ public interface EatenProductRepository extends CrudRepository<EatenProduct, Lon
      * @return Список объектов {@link EatenProduct}, соответствующих указанному интервалу дат.
      */
     List<EatenProduct> findByEatingDateBetween(LocalDate start, LocalDate end);
+
+    /**
+     * Находит все ссылки на продукт из съеденных продуктов
+     *
+     * @param productName имя продукта
+     * @return Список объектов {@link EatenProduct}, ссылающихся на продукт
+     */
+    List<EatenProduct> findByProductName(String productName);
 }

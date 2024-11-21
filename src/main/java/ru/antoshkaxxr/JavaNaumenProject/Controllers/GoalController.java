@@ -3,7 +3,6 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 import java.time.LocalDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,7 +84,7 @@ public class GoalController {
      * @param goalId id цели, которую удаляют
      * @return Имя представления для перенаправления
      */
-    @DeleteMapping("/delete/{goalId}")
+    @PostMapping("/delete/{goalId}")
     public String redirectOnStatistic(@PathVariable("goalId") Long goalId) {
         goalServiceImpl.deleteGoal(goalId);
         return GOAL_VIEW_REDIRECT;

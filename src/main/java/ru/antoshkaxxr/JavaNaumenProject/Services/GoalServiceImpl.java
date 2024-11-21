@@ -127,10 +127,11 @@ public class GoalServiceImpl {
         for (var foodDiaryEntry: foodDiaryEntries) {
             var date = foodDiaryEntry.getEatenProduct().getEatingDate();
             var calories = foodDiaryEntry.getEatenProduct().getProduct().getCaloriesNumberHundred();
+            var amount = foodDiaryEntry.getEatenProduct().getEatenAmount();
             if (dict.containsKey(date)) {
-                dict.put(date, dict.get(date) + calories);
+                dict.put(date, dict.get(date) + calories * amount);
             } else {
-                dict.put(date, calories);
+                dict.put(date, calories * amount);
             }
         }
         return dict;

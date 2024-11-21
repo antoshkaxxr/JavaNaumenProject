@@ -3,6 +3,7 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.ProductServiceImpl;
 public class FoodDiaryController {
 
     private static final String FOOD_DIARY_VIEW_REDIRECT = "redirect:/foodDiary";
+    private static final String NEW_FOOD_DIARY_FORM = "newFoodDiary";
     private final CustomerServiceImpl customerServiceImpl;
     private final FoodDiaryServiceImpl foodDiaryServiceImpl;
     private final ProductServiceImpl productServiceImpl;
@@ -63,17 +65,23 @@ public class FoodDiaryController {
     public String getNewFoodDiaryForm(Model model, Principal principal) {
         var products = productServiceImpl.findAllProducts(principal.getName());
         model.addAttribute("availableProducts", products);
-        return "newFoodDiary";
+        return NEW_FOOD_DIARY_FORM;
     }
 
     /**
      * Обрабатывает Post-запрос создание нового приёма пищи
      *
      * @param eatenProductData Данные об употреблённом продукте на основе которого создаться приём пищи
+     * @param bindingResult Данные об успешности преобразование контроллером объекта из запроса в EatenProductData
+     * @param model Объект Model, используемый для передачи данных на представление.
      * @return Форма с приёмами пищами пользователя
      */
     @PostMapping("/add")
-    public String saveNewFoodDiary(EatenProductData eatenProductData) {
+    public String saveNewFoodDiary(EatenProductData eatenProductData, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Введите некорректные данные");
+            return NEW_FOOD_DIARY_FORM;
+        }
         foodDiaryServiceImpl.save(eatenProductData);
         return FOOD_DIARY_VIEW_REDIRECT;
     }

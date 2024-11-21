@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<div th:if="${error}" class="error" th:text="${error}"></div>
+
 <form th:action="@{/foodDiary/add}" method="post">
   <label for="product">Имя продукта:</label>
   <select id="product" name="id" required>
