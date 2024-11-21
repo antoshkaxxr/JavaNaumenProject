@@ -33,6 +33,12 @@
 
     <td>
       <div>
+        <p> Кол-во употреблённых калорий </p>
+      </div>
+    </td>
+
+    <td>
+      <div>
         <p> Кол-во съеденного продукта </p>
       </div>
     </td>
@@ -57,6 +63,12 @@
     <td>
       <div>
         <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.eatenProduct.eatenAmount * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
       </div>
     </td>
 

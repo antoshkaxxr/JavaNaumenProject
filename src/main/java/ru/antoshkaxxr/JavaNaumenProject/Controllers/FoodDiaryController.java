@@ -77,9 +77,12 @@ public class FoodDiaryController {
      * @return Форма с приёмами пищами пользователя
      */
     @PostMapping("/add")
-    public String saveNewFoodDiary(EatenProductData eatenProductData, BindingResult bindingResult, Model model) {
+    public String saveNewFoodDiary(EatenProductData eatenProductData, BindingResult bindingResult,
+                                   Model model, Principal principal) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Введите некорректные данные");
+            var products = productServiceImpl.findAllProducts(principal.getName());
+            model.addAttribute("availableProducts", products);
             return NEW_FOOD_DIARY_FORM;
         }
         foodDiaryServiceImpl.save(eatenProductData);
