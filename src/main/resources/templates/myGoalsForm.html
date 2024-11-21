@@ -53,6 +53,7 @@
             </td>
             <td>
                 <form th:action="@{/goal/delete/{goalId}(goalId=${goal.getGoalId()})}" method="post">
+                    <input type="hidden" name="_method" value="delete" />
                     <button type="submit">Удалить</button>
                 </form>
             </td>

@@ -84,7 +84,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
             return false;
         }
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        customer.setRole(Role.USER);
         customerRepository.save(customer);
         return true;
     }
@@ -137,6 +136,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         return findByCustomerName(nameOfCustomer);
     }
 
+
     /**
      * Преобразовывает роль пользователя в приемлемы вид для SpringSecurity
      *
@@ -146,4 +146,5 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     private Collection<GrantedAuthority> mapRoleToAuthority(Role role) {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
+
 }

@@ -1,11 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
-import jakarta.validation.Valid;
 import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +62,6 @@ public class FoodDiaryController {
     @GetMapping("/addForm")
     public String getNewFoodDiaryForm(Model model, Principal principal) {
         var products = productServiceImpl.findAllProducts(principal.getName());
-        model.addAttribute("eatenProduct", new EatenProductData());
         model.addAttribute("availableProducts", products);
         return "newFoodDiary";
     }
@@ -76,7 +73,7 @@ public class FoodDiaryController {
      * @return Форма с приёмами пищами пользователя
      */
     @PostMapping("/add")
-    public String saveNewFoodDiary(@Valid @ModelAttribute("eatenProduct") EatenProductData eatenProductData) {
+    public String saveNewFoodDiary(EatenProductData eatenProductData) {
         foodDiaryServiceImpl.save(eatenProductData);
         return FOOD_DIARY_VIEW_REDIRECT;
     }

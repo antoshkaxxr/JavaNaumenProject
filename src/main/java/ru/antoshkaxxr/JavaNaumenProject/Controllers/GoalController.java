@@ -3,6 +3,7 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 import java.time.LocalDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,7 +50,7 @@ public class GoalController {
     @GetMapping
     public String returnMyGoalsForm(Model model) {
         var customer = customerServiceImpl.getCurentLoginedCustomer();
-        var goalsCurrCustomer = goalRepository.findGoalsByCustomer_Id(customer.getId());
+        var goalsCurrCustomer = goalRepository.findByCustomerId(customer.getId());
         model.addAttribute("goals", goalsCurrCustomer);
         return "myGoalsForm";
     }
@@ -84,7 +85,7 @@ public class GoalController {
      * @param goalId id цели, которую удаляют
      * @return Имя представления для перенаправления
      */
-    @PostMapping("/delete/{goalId}")
+    @DeleteMapping("/delete/{goalId}")
     public String redirectOnStatistic(@PathVariable("goalId") Long goalId) {
         goalServiceImpl.deleteGoal(goalId);
         return GOAL_VIEW_REDIRECT;

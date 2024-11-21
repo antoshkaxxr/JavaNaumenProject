@@ -22,6 +22,20 @@
   <form th:action="@{/calculator}" method="get">
     <button type="submit">Калькулятор</button>
   </form>
+
+  <form th:action="@{/logout}" method="get">
+    <button type="submit">Выйти</button>
+  </form>
+
+  <div th:if="${isAdmin}">
+    <form th:action="@{/swagger-ui/index.html}" method="get">
+      <button type="submit">Swagger</button>
+    </form>
+    <form th:action="@{/calculator}" method="get">
+      <button type="submit">Мониторинг типа</button>
+    </form>
+  </div>
+
 </div>
 
 </body>

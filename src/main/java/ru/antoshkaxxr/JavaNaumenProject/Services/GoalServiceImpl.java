@@ -148,7 +148,12 @@ public class GoalServiceImpl {
             throw new ResourceNotFoundException();
         }
         var goal = currGoal.get();
-        var lengthArrayStatistic = (int) Math.ceil(goal.getCaloriesNeedChange() / goal.getCaloriesChangeToPlanPerDay());
+        var lengthArrayStatistic = 0;
+        if (goal.getCaloriesChangeToPlanPerDay() == 0) {
+            lengthArrayStatistic = 30;
+        } else {
+            lengthArrayStatistic = (int) Math.ceil(goal.getCaloriesNeedChange() / goal.getCaloriesChangeToPlanPerDay());
+        }
         var statisticConsumptionFoodAccordingPlan = new Double[lengthArrayStatistic];
         for (var i = 0; i < lengthArrayStatistic - 1; i++) {
             var consumptionInDay = goal.getCaloriesStablePerDay() + goal.getCaloriesChangeToPlanPerDay();

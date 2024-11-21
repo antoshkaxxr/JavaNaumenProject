@@ -112,12 +112,7 @@ public class ProductServiceImpl implements ProductService {
      * @return продукт
      */
     public Product getProducts(Long productId) {
-        var resultFind = productRepository.findById(productId);
-        if (resultFind.isPresent()) {
-            return resultFind.get();
-        } else {
-            throw new RuntimeException("Product not found");
-        }
-
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 }

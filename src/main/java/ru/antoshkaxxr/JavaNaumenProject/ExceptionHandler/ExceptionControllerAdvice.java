@@ -40,4 +40,18 @@ public class ExceptionControllerAdvice {
     public Exception exception(ResourceNotFoundException e) {
         return Exception.create(e);
     }
+
+    /**
+     * Обрабатывает исключения типа SecurityException.
+     * Возвращает HTTP-статус 403 (Forbidden) и сообщение об ошибке.
+     *
+     * @param e Исключение типа SecurityException.
+     * @return Объект Exception с сообщением об ошибке.
+     */
+    @ExceptionHandler(SecurityException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Exception exception(SecurityException e) {
+        return Exception.create(e);
+    }
 }
