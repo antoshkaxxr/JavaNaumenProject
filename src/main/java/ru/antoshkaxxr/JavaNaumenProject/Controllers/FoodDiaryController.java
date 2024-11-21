@@ -4,14 +4,10 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
-import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Models.EatenProductData;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
-import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.FoodDiaryServiceImpl;
-import ru.antoshkaxxr.JavaNaumenProject.Services.GoalServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.ProductServiceImpl;
 
 import java.security.Principal;
@@ -20,13 +16,12 @@ import java.security.Principal;
  * Контроллер для добавления новых приёмов пищи
  */
 @Controller
-@RequestMapping("/food-diary")
+@RequestMapping("/foodDiary")
 public class FoodDiaryController {
 
     private final CustomerServiceImpl customerServiceImpl;
     private final FoodDiaryServiceImpl foodDiaryServiceImpl;
     private final ProductServiceImpl productServiceImpl;
-    private final EatenProductRepository eatenProductRepository;
 
     /**
      * Конструктор для инициализации контроллера.
@@ -34,14 +29,12 @@ public class FoodDiaryController {
      * @param customerServiceImpl Сервис для работы с пользователями
      * @param foodDiaryServiceImpl Сервис для работы с приёмами пищи
      * @param productServiceImpl Сервис для работы с продуктами
-     * @param eatenProductRepository Репозиторий для работы с продуктами
      */
     public FoodDiaryController(CustomerServiceImpl customerServiceImpl, FoodDiaryServiceImpl foodDiaryServiceImpl,
-                               ProductServiceImpl productServiceImpl, EatenProductRepository eatenProductRepository) {
+                               ProductServiceImpl productServiceImpl) {
         this.customerServiceImpl = customerServiceImpl;
         this.foodDiaryServiceImpl = foodDiaryServiceImpl;
         this.productServiceImpl = productServiceImpl;
-        this.eatenProductRepository = eatenProductRepository;
     }
 
     /**
@@ -65,7 +58,7 @@ public class FoodDiaryController {
      * @param principal Объект текущего аутентифицированного пользователя.
      * @return Форма для создания нового приёма пищи пользователем
      */
-    @GetMapping("/add-form")
+    @GetMapping("/addForm")
     public String getNewFoodDiaryForm(Model model, Principal principal) {
         var products = productServiceImpl.findAllProducts(principal.getName());
         model.addAttribute("eatenProduct", new EatenProductData());
@@ -82,7 +75,13 @@ public class FoodDiaryController {
     @PostMapping("/add")
     public String saveNewFoodDiary(@Valid @ModelAttribute("eatenProduct") EatenProductData eatenProductData) {
         foodDiaryServiceImpl.save(eatenProductData);
-        return "redirect:/food-diary";
+        return "redirect:/foodDiary";
+    }
+
+    @PostMapping("/delete/{foodDiaryId}")
+    public String deleteFoodDiary(@PathVariable("foodDiaryId") Long foodDiaryId) {
+        foodDiaryServiceImpl.delete(foodDiaryId);
+        return "redirect:/foodDiary";
     }
 
 }

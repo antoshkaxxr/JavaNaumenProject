@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form th:action="@{/food-diary/add}" th:object="${eatenProduct}" method="post">
+<form th:action="@{/foodDiary/add}" th:object="${eatenProduct}" method="post">
   <label for="product">Имя продукта:</label>
   <select id="product" th:field="*{id}">
     <option th:each="product : ${availableProducts}" th:value="${product.getId()}" th:text="${product.getName()}"></option>
@@ -28,6 +28,8 @@
 
   <button type="submit">Сохранить</button>
 </form>
-
+<form th:action="@{/}" method="get">
+  <button type="submit">На главную страницу</button>
+</form>
 </body>
 </html>

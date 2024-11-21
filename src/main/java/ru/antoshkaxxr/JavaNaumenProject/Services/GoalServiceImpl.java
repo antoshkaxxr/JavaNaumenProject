@@ -23,7 +23,8 @@ import java.util.*;
  * <p>Класс предоставляет метод createGoal,
  * который по данный от пользователя о цели
  * создаёт эту цель и возвращает её
- * Предоставляет getStatisticGoal , который возвращает статистику по цели</p>
+ * Предоставляет getStatisticGoal , который возвращает статистику по цели
+ * Предоставляет deleteGoal, который удаляет цель</p>
  */
 @Service
 @SuppressWarnings("checkstyle:MagicNumber")
@@ -37,6 +38,17 @@ public class GoalServiceImpl {
     public GoalServiceImpl(GoalRepository goalRepository, FoodDiaryEntryRepository foodDiaryEntryRepository) {
         this.goalRepository = goalRepository;
         this.foodDiaryEntryRepository = foodDiaryEntryRepository;
+    }
+
+    /**
+     * По id цели удаляет её
+     * @param idGoal id цели, которая удалится
+     */
+    public void deleteGoal(Long idGoal){
+        var currGoal = goalRepository.findById(idGoal);
+        if (currGoal.isEmpty())
+            throw new ResourceNotFoundException();
+        goalRepository.delete(currGoal.get());
     }
 
     /**
@@ -63,6 +75,7 @@ public class GoalServiceImpl {
             end = dataCreateGoal.plusDays(statisticConsumptionFoodAccordingPlan.length - 1);
         return trimArray(dataStatistic, start, end, dataCreateGoal);
     }
+
 
     /**
      * По id цели определяет дату её создания,
@@ -210,8 +223,7 @@ public class GoalServiceImpl {
                 dataOfCalculator.bounds().stable(),
                 weightChangeMode
         );
-        // customerService.getCurentLoginedCustomer()
-        return new Goal(caloriesNeedChange,
+        return new Goal(dataForCreatingGoal.name(), caloriesNeedChange,
                 LocalDate.now(), caloriesChangeToPlanPerDay, dataOfCalculator.bounds().stable(),
                 weightChangeMode, customer);
     }

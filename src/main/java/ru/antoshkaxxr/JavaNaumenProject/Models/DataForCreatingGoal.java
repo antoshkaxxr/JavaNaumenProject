@@ -17,7 +17,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeSpeed;
  * @param formula Формула для расчета калорий.
  * @param weightChangeSpeed Скорость изменения веса
  */
-public record DataForCreatingGoal(int age, Sex sex, double currentWeight, double goalWeight,
+public record DataForCreatingGoal(String name, int age, Sex sex, double currentWeight, double goalWeight,
                                   double heightInSm, PhysicalActivity physicalActivity,
                                   CalculationFormula formula, WeightChangeSpeed weightChangeSpeed) {
 }

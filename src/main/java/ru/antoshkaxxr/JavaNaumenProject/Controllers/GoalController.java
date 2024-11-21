@@ -20,7 +20,6 @@ import java.time.OffsetDateTime;
 @RequestMapping("/goal")
 public class GoalController {
 
-    //private static final String INPUT_DATA_NAME = "goalData";
     private final GoalServiceImpl goalServiceImpl;
     private final CustomerServiceImpl customerServiceImpl;
     private final GoalRepository goalRepository;
@@ -67,17 +66,25 @@ public class GoalController {
      * Обрабатывает POST-запрос отправки данных со страницы составления новой цели
      * В базе данных создаётся объект цели на основе введённых пользователем параметров
      * @param data Объект данных, введённых пользователем
-     * @param redirectAttributes Аттрибуты для редиректа на страницу со всеми целями
      * @return Имя представления для перенаправления
      */
     @PostMapping("/evaluate")
-    public String redirectOnStatistic(DataForCreatingGoal data,
-                                      RedirectAttributes redirectAttributes) {
+    public String redirectOnStatistic(DataForCreatingGoal data) {
         var customer = customerServiceImpl.getCurentLoginedCustomer();
         var newGoal = goalServiceImpl.createGoal(data, customer);
         goalRepository.save(newGoal);
-        //redirectAttributes.addFlashAttribute(INPUT_DATA_NAME, data);
-        return "redirect:/goal/statistic/" + newGoal.getGoalId();
+        return "redirect:/goal";
+    }
+
+    /**
+     * Обрабатывает POST-запрос на удаление цели по её id
+     * @param goalId id цели, которую удаляют
+     * @return Имя представления для перенаправления
+     */
+    @PostMapping("/delete/{goalId}")
+    public String redirectOnStatistic(@PathVariable("goalId") Long goalId) {
+        goalServiceImpl.deleteGoal(goalId);
+        return "redirect:/goal";
     }
 
     /**
@@ -93,8 +100,8 @@ public class GoalController {
      * @return Имя представления для отображения результатов калькулятора или перенаправление на форму калькулятора,
      *         если входные данные отсутствуют.
      */
-    @GetMapping("/statistic/{goal-id}")
-    public String returnStatisticOfGoal(@PathVariable("goal-id") Long goalId,
+    @GetMapping("/statistic/{goalId}")
+    public String returnStatisticOfGoal(@PathVariable("goalId") Long goalId,
                                 @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate startDateForViewStatistic,
                                 @RequestParam(value = "startDateForViewStatistic", required = false) LocalDate endDateForViewStatistic,
                                 Model model) {

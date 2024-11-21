@@ -1,6 +1,7 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
@@ -71,5 +72,19 @@ public class FoodDiaryServiceImpl {
         foodDiary.setCustomer(customer);
         foodDiary.setEatenProduct(eatenProduct);
         foodDiaryEntryRepository.save(foodDiary);
+    }
+
+    /**
+     * Метод, удаляющий из базы данных приём пищи
+     *
+     * @param foodDiaryId id приёма пищи
+     */
+    public void delete(Long foodDiaryId) {
+        var resultFounding = foodDiaryEntryRepository.findById(foodDiaryId);
+        if (resultFounding.isEmpty())
+            throw new ResourceNotFoundException("Нет такого приёма пищи");
+        var currFoodDiary = resultFounding.get();
+        foodDiaryEntryRepository.delete(currFoodDiary);
+        eatenProductRepository.delete(currFoodDiary.getEatenProduct());
     }
 }

@@ -23,57 +23,67 @@
 
 <table>
   <thead>
-  <tbody>
   <tr>
+
     <td>
-      <form th:action="@{/food-diary/add-form}" method="get">
+      <form th:action="@{/foodDiary/addForm}" method="get">
         <button type="submit">Добавить приём пищи</button>
       </form>
     </td>
-    <td th:each="entry : ${foodDiary}">
-      <div>
-        <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
-      </div>
-    </td>
-  </tr>
-  <tr>
+
     <td>
       <div>
         <p> Кол-во съеденного продукта </p>
       </div>
     </td>
-    <td th:each="entry : ${foodDiary}">
-      <div>
-        <p th:text="${entry.eatenProduct.eatenAmount}"></p>
-      </div>
-    </td>
-  </tr>
-  <tr>
+
     <td>
       <div>
         <p>Дата приёма пищи</p>
       </div>
     </td>
-    <td th:each="entry : ${foodDiary}">
-      <div>
-        <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
-      </div>
-    </td>
-  </tr>
-  <tr>
+
     <td>
       <div>
         <p>Удалить приём пищи</p>
       </div>
     </td>
-    <td th:each="entry : ${foodDiary}">
-      <form th:action="@{/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="entry : ${foodDiary}">
+
+    <td>
+      <div>
+        <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.eatenProduct.eatenAmount}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <form th:action="@{/foodDiary/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
         <button type="submit">Удалить</button>
       </form>
     </td>
+
   </tr>
   </tbody>
 </table>
 
+<form th:action="@{/}" method="get">
+  <button type="submit">На главную страницу</button>
+</form>
 </body>
 </html>

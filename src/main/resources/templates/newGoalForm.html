@@ -8,6 +8,12 @@
 <body>
 <form th:action="@{/goal/evaluate}" method="post">
     <div>
+        <label>
+            Название вашей цели
+            <input type="text" name="name" value="Название цели" placeholder="Введите текст" />
+        </label>
+    </div>
+    <div>
         <label for="sex">Выберите пол:</label>
         <select id="sex" name="sex">
             <option value="MALE">М</option>
@@ -20,7 +26,7 @@
     <div><label> Height: <input type="number" name="heightInSm" min="1" max = "1000" required/> </label></div>
     <div><label> Age: <input type="number" name="age" step="1" min="1" max = "1000" required></label></div>
     <div>
-        <label for="physicalActivity">Укажите уровень физической нагрузки:</label>
+        <label for="physicalActivity">Укажите уровень физической, при которой вы будете достигать цели</label>
         <select id="physicalActivity" name="physicalActivity">
             <option value="SEDENTARY">Сидячий образ жизни</option>
             <option value="LIGHT">Лёгкая активность (упражнения 1–3 раза в неделю)</option>
@@ -44,7 +50,10 @@
             <option value="HARD_SPEED">Экстремально быстро</option>
         </select>
     </div>
-    <div><input type="submit" value="Узнать результат"/></div>
+    <div><input type="submit" value="Создать цель"/></div>
 </form>
 </body>
+<form th:action="@{/}" method="get">
+    <button type="submit">На главную страницу</button>
+</form>
 </html>

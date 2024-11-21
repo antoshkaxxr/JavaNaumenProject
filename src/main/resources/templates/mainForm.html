@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+  <title>Навигация</title>
+</head>
+<body>
+
+<div>
+  <form th:action="@{/foodDiary}" method="get">
+    <button type="submit">Мои приёмы пищи</button>
+  </form>
+
+  <form th:action="@{/products}" method="get">
+    <button type="submit">Мои продукты</button>
+  </form>
+
+  <form th:action="@{/goal}" method="get">
+    <button type="submit">Мои цели</button>
+  </form>
+
+  <form th:action="@{/calculator}" method="get">
+    <button type="submit">Калькулятор</button>
+  </form>
+</div>
+
+</body>
+</html>

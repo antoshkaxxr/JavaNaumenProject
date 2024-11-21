@@ -20,6 +20,9 @@ public class Goal {
     private Long goalId;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private Double caloriesNeedChange;
 
     @Column(nullable = false)
@@ -41,6 +44,7 @@ public class Goal {
     /**
      * Конструктор для создания новой цели
      *
+     * @param name Название цели
      * @param caloriesNeedChange Кол-во калорий, которое нужно сжечь, чтобы прийти к цели
      * @param startDate Дата создания цели
      * @param caloriesChangeToPlanPerDay  Кол-во калорий, которое будут сжигаться/набираться в день
@@ -48,8 +52,9 @@ public class Goal {
      * @param weightChangeMode Режим изменения веса
      * @param customer Пользователь, который добавил цель
      */
-    public Goal(Double caloriesNeedChange, LocalDate startDate, Double caloriesChangeToPlanPerDay,
+    public Goal(String name, Double caloriesNeedChange, LocalDate startDate, Double caloriesChangeToPlanPerDay,
                 Double caloriesStablePerDay, WeightChangeMode weightChangeMode, Customer customer) {
+        this.name = name;
         this.caloriesNeedChange = caloriesNeedChange;
         this.startDate = startDate;
         this.caloriesChangeToPlanPerDay = caloriesChangeToPlanPerDay;
@@ -72,6 +77,22 @@ public class Goal {
      */
     public Long getGoalId() {
         return goalId;
+    }
+
+    /**
+     * Возвращает название цели.
+     * @return Название цели (String). Не может быть null.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Устанавливает название цели.
+     * @param name Новое название цели. Не может быть null или пустым.
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

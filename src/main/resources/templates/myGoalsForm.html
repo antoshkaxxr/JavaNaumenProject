@@ -24,22 +24,43 @@
 <table>
     <thead>
     <tr>
-        <td>
+        <th>
             <form th:action="@{/goal/form}" method="get">
                 <button type="submit">Добавить цель</button>
             </form>
-        </td>
-        <td th:each="goal : ${goals}">
-            <form th:action="@{/goal/statistic/{goal-id}(goalId=${goal.getGoalId()})}" method="get">
-                <button type="submit" th:text="${goal.getStartDate()}">Перейти к статистике</button>
-            </form>
-        </td>
+        </th>
+        <th>Имя цели</th>
+        <th>Дата создания цели</th>
+        <th>Режим диеты</th>
+        <th>Удалить цель</th>
     </tr>
     </thead>
     <tbody>
-
+        <tr th:each="goal : ${goals}">
+            <td>
+                <form th:action="@{/goal/statistic/{goalId}(goalId=${goal.getGoalId()})}" method="get">
+                    <button type="submit">Перейти к статистике</button>
+                </form>
+            </td>
+            <td>
+                <p th:text="${goal.getName()}"></p>
+            </td>
+            <td>
+                <p th:text="${goal.getStartDate()}"></p>
+            </td>
+            <td>
+                <p th:text="${goal.getWeightChangeMode().getRussianName()}"></p>
+            </td>
+            <td>
+                <form th:action="@{/goal/delete/{goalId}(goalId=${goal.getGoalId()})}" method="post">
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
     </tbody>
 </table>
-
+<form th:action="@{/}" method="get">
+    <button type="submit">На главную страницу</button>
+</form>
 </body>
 </html>
