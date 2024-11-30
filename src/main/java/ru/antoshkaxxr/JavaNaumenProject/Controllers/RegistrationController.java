@@ -1,6 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Objects;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +31,12 @@ public class RegistrationController {
      * @param customerService Сервис для работы с пользователями
      */
     @Autowired
-    public RegistrationController(CustomerServiceImpl customerService) {
+    public RegistrationController(CustomerServiceImpl customerService) throws IOException {
         this.customerService = customerService;
-        secretKey = System.getenv("SECRET_KEY");
+        var properties = new Properties();
+        var input = new FileInputStream(".env");
+        properties.load(input);
+        secretKey = properties.getProperty("SECRET_KEY");
     }
 
     /**
