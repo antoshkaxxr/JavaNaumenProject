@@ -31,12 +31,24 @@ public class RegistrationController {
      * @param customerService Сервис для работы с пользователями
      */
     @Autowired
-    public RegistrationController(CustomerServiceImpl customerService) throws IOException {
+    public RegistrationController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
+        secretKey = loadSecretKey();
+    }
+
+    /**
+     * Метод для загрузки секретного ключа
+     *
+     * @return секретный ключ
+     */
+    public static String loadSecretKey() {
         var properties = new Properties();
-        var input = new FileInputStream(".env");
-        properties.load(input);
-        secretKey = properties.getProperty("SECRET_KEY");
+        try (var input = new FileInputStream(".env")) {
+            properties.load(input);
+            return properties.getProperty("SECRET_KEY");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
