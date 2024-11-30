@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
+import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
 
 /**
@@ -16,19 +17,32 @@ import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CustomerServiceImpl customerService;
+    private final EatenProductRepository eatenProductRepository;
 
     /**
      * Конструктор для инициализации сервиса
      *
      * @param productRepository Репозиторий для работы с продуктами пользователя
      * @param customerService Сервис для работы с пользователями
+     * @param eatenProductRepository Репозиторий для работы со съеденными продуктами
      */
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, CustomerServiceImpl customerService) {
+    public ProductServiceImpl(ProductRepository productRepository, CustomerServiceImpl customerService,
+                              EatenProductRepository eatenProductRepository) {
         this.productRepository = productRepository;
         this.customerService = customerService;
+        this.eatenProductRepository = eatenProductRepository;
     }
 
+    /**
+     * Создаёт в базе данных объект продукта на основе введённых данных
+     *
+     * @param name название продукта
+     * @param category категория продукта
+     * @param caloriesNumberHundred количество калорий продукта на 100г
+     * @param username имя пользователя.
+     * @return был ли создан продукт в базе данных
+     */
     @Override
     public boolean createProduct(String name, ProductCategory category, Double caloriesNumberHundred, String username) {
         Customer customer = customerService.findByCustomerName(username);
@@ -52,7 +66,9 @@ public class ProductServiceImpl implements ProductService {
         if (customer == null) {
             return false;
         }
-
+        if (!eatenProductRepository.findByProductName(name).isEmpty()) {
+            return false;
+        }
         Optional<Product> productOptional = productRepository.findByNameAndCustomer(name, customer);
         if (productOptional.isEmpty()) {
             return false;
@@ -80,6 +96,12 @@ public class ProductServiceImpl implements ProductService {
         return true;
     }
 
+    /**
+     * Возвращает продукты, созданные пользователем с введённым именем
+     *
+     * @param username имя пользователя.
+     * @return продукты, созданные пользователем с введённым именем
+     */
     @Override
     public List<Product> findAllProducts(String username) {
         Customer customer = customerService.findByCustomerName(username);
@@ -88,5 +110,16 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return productRepository.findByCustomer(customer);
+    }
+
+    /**
+     * Возвращает продукт из базы данных по id
+     *
+     * @param productId id продукта.
+     * @return продукт
+     */
+    public Product getProducts(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 }

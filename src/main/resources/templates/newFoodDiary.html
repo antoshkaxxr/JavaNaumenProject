@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавить приём пищи</title>
+  <style>
+    label { display: block; margin-bottom: 5px; }
+    input, select { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+
+<div th:if="${error}" class="error" th:text="${error}"></div>
+
+<form th:action="@{/foodDiary/add}" method="post">
+  <label for="product">Имя продукта:</label>
+  <select id="product" name="id" required>
+    <option th:each="product : ${availableProducts}" th:value="${product.getId()}" th:text="${product.getName()}"></option>
+  </select>
+
+
+  <label for="date">Дата приёма:</label>
+  <input type="date" id="date" name="date" required/>
+
+
+  <label for="amount">Количество:</label>
+  <input type="number" id="amount" name="amount" step="0.1" min="0" required/>
+
+  <button type="submit">Сохранить</button>
+</form>
+<form th:action="@{/}" method="get">
+  <button type="submit">На главную страницу</button>
+</form>
+</body>
+</html>

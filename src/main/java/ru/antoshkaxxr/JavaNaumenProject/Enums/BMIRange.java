@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Models;
+package ru.antoshkaxxr.JavaNaumenProject.Enums;
 
 /**
  * Перечисление, представляющее диапазоны индекса массы тела (BMI) и их русские названия.

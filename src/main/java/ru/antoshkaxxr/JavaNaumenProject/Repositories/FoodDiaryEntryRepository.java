@@ -1,6 +1,8 @@
 package ru.antoshkaxxr.JavaNaumenProject.Repositories;
 
+import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
@@ -19,4 +21,14 @@ public interface FoodDiaryEntryRepository extends CrudRepository<FoodDiaryEntry,
      * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
      */
     List<FoodDiaryEntry> findByCustomerId(Long customerId);
+
+    /**
+     * Находит все записи в дневнике питания начиная с какого-то момента
+     *
+     * @param customerId Идентификатор пользователя.
+     * @param date Дата с которой идёт поиск приёмов пищи
+     * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
+     */
+    @Query("SELECT r FROM FoodDiaryEntry r WHERE r.customer.id = :customerId AND r.eatenProduct.eatingDate >= :date")
+    List<FoodDiaryEntry> findByCustomerIdAndDateFrom(Long customerId, LocalDate date);
 }

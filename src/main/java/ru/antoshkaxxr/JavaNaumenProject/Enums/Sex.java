@@ -1,4 +1,4 @@
-package ru.antoshkaxxr.JavaNaumenProject.Models;
+package ru.antoshkaxxr.JavaNaumenProject.Enums;
 
 /**
  * Перечисление, представляющее пол (мужской или женский) и их русские обозначения.

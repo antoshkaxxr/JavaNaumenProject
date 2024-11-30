@@ -1,8 +1,7 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
-
+import ru.antoshkaxxr.JavaNaumenProject.Enums.BMIRange;
 import ru.antoshkaxxr.JavaNaumenProject.Models.BMIData;
-import ru.antoshkaxxr.JavaNaumenProject.Models.BMIRange;
 import ru.antoshkaxxr.JavaNaumenProject.Models.BodyData;
 import ru.antoshkaxxr.JavaNaumenProject.Models.CalculatorData;
 import ru.antoshkaxxr.JavaNaumenProject.Models.CaloriesBounds;

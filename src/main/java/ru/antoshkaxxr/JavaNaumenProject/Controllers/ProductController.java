@@ -31,6 +31,7 @@ public class ProductController {
     private static final String PRODUCT_UPDATED_MESSAGE = "Информация о продукте успешно обновлена";
 
     private final ProductService productService;
+    private String message = null;
 
     /**
      * Конструктор для инициализации контроллера.
@@ -52,6 +53,10 @@ public class ProductController {
     @GetMapping
     public String getAllProducts(Principal principal, Model model) {
         List<Product> products = productService.findAllProducts(principal.getName());
+        if (message != null) {
+            model.addAttribute(MESSAGE_ATTRIBUTE, message);
+            message = null;
+        }
         model.addAttribute(PRODUCTS_VIEW, products);
         model.addAttribute("categories", ProductCategory.values());
         return PRODUCTS_VIEW;
@@ -104,6 +109,7 @@ public class ProductController {
         if (success) {
             model.addAttribute(MESSAGE_ATTRIBUTE, PRODUCT_DELETED_MESSAGE);
         } else {
+            message = "Не удалось удалить продукт. Возможно он содержится в ваших приёмах пищи";
             model.addAttribute(MESSAGE_ATTRIBUTE, PRODUCT_NOT_FOUND_MESSAGE);
         }
         return REDIRECT_PRODUCTS;
