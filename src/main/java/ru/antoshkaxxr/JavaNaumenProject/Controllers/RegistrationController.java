@@ -1,10 +1,8 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Objects;
-import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,8 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 @Controller
 public class RegistrationController {
     private final CustomerServiceImpl customerService;
-    private final String secretKey;
+    @Value("${app.env.secret_key}")
+    private String secretKey;
     private static final String REGISTRATION_FORM_VIEW = "registrationForm";
     private static final String REGISTRATION_FORM_ADMIN_VIEW = "registrationAdminForm";
     private static final String LOGIN_FORM_REDIRECT = "redirect:/login";
@@ -33,22 +32,6 @@ public class RegistrationController {
     @Autowired
     public RegistrationController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
-        secretKey = loadSecretKey();
-    }
-
-    /**
-     * Метод для загрузки секретного ключа
-     *
-     * @return секретный ключ
-     */
-    public static String loadSecretKey() {
-        var properties = new Properties();
-        try (var input = new FileInputStream(".env")) {
-            properties.load(input);
-            return properties.getProperty("SECRET_KEY");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
