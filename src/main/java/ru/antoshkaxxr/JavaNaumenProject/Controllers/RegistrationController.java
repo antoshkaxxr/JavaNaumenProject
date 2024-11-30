@@ -17,7 +17,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 @Controller
 public class RegistrationController {
     private final CustomerServiceImpl customerService;
-    private static final String SECRET_KEY = "beshoniyEgik";
+    private final String secretKey;
     private static final String REGISTRATION_FORM_VIEW = "registrationForm";
     private static final String REGISTRATION_FORM_ADMIN_VIEW = "registrationAdminForm";
     private static final String LOGIN_FORM_REDIRECT = "redirect:/login";
@@ -30,6 +30,7 @@ public class RegistrationController {
     @Autowired
     public RegistrationController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
+        secretKey = System.getenv("SECRET_KEY");
     }
 
     /**
@@ -80,8 +81,10 @@ public class RegistrationController {
      */
     @PostMapping("/registration/admin")
     public String addCustomerAdmin(DataForRegistrationAdmin customerData, Model model) {
-
-        if (!Objects.equals(customerData.secretKey(), SECRET_KEY)) {
+        if (secretKey == null) {
+            throw new IllegalArgumentException("Делой переменную окружения SECRET_KEY и перезагружайся");
+        }
+        if (!Objects.equals(customerData.secretKey(), secretKey)) {
             throw new SecurityException("чо нада");
         }
         var newCustomer = new Customer(customerData.name(), customerData.email(),
