@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeMode;
@@ -22,7 +24,8 @@ import ru.antoshkaxxr.JavaNaumenProject.Enums.WeightChangeMode;
 @Table
 public class Goal {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goal_seq")
+    @SequenceGenerator(name = "goal_seq", sequenceName = "goal_seq", allocationSize = 1)
     private Long goalId;
 
     @Column(nullable = false)

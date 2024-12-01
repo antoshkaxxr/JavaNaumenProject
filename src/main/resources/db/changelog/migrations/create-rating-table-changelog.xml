@@ -1,0 +1,43 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="6-create-rating-sequence" author="everlast1ngw1nter">
+        <createSequence sequenceName="rating_seq" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="6-create-rating-table" author="everlast1ngw1nter">
+        <createTable tableName="rating">
+            <column name="record_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taste_assessment" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usefulness_assessment" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="annotation" type="varchar(255)"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="rating"
+                                 baseColumnNames="customer_id"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_rating_customer"/>
+
+        <addForeignKeyConstraint baseTableName="rating"
+                                 baseColumnNames="product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_rating_product"/>
+    </changeSet>
+
+</databaseChangeLog>
