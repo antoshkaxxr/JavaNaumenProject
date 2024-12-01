@@ -1,6 +1,9 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Models.EatenProductData;
+import ru.antoshkaxxr.JavaNaumenProject.Services.BaseProductServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.FoodDiaryServiceImpl;
 import ru.antoshkaxxr.JavaNaumenProject.Services.ProductServiceImpl;
@@ -26,6 +31,7 @@ public class FoodDiaryController {
     private final CustomerServiceImpl customerServiceImpl;
     private final FoodDiaryServiceImpl foodDiaryServiceImpl;
     private final ProductServiceImpl productServiceImpl;
+    private final BaseProductServiceImpl baseProductServiceImpl;
 
     /**
      * Конструктор для инициализации контроллера.
@@ -35,10 +41,19 @@ public class FoodDiaryController {
      * @param productServiceImpl Сервис для работы с продуктами
      */
     public FoodDiaryController(CustomerServiceImpl customerServiceImpl, FoodDiaryServiceImpl foodDiaryServiceImpl,
-                               ProductServiceImpl productServiceImpl) {
+                               ProductServiceImpl productServiceImpl, BaseProductServiceImpl baseProductServiceImpl) {
         this.customerServiceImpl = customerServiceImpl;
         this.foodDiaryServiceImpl = foodDiaryServiceImpl;
         this.productServiceImpl = productServiceImpl;
+        this.baseProductServiceImpl = baseProductServiceImpl;
+    }
+
+    public List<Product> getAvailableProducts(Principal principal) {
+        List<Product> products = productServiceImpl.findAllProducts(principal.getName());
+        List<Product> baseProducts = baseProductServiceImpl.getAllBaseProducts();
+        List<Product> availableProducts = new ArrayList<>(products);
+        availableProducts.addAll(baseProducts);
+        return availableProducts;
     }
 
     /**
@@ -64,8 +79,7 @@ public class FoodDiaryController {
      */
     @GetMapping("/addForm")
     public String getNewFoodDiaryForm(Model model, Principal principal) {
-        var products = productServiceImpl.findAllProducts(principal.getName());
-        model.addAttribute(AVAILABLE_PRODUCTS, products);
+        model.addAttribute(AVAILABLE_PRODUCTS, getAvailableProducts(principal));
         return NEW_FOOD_DIARY_FORM;
     }
 
@@ -83,8 +97,7 @@ public class FoodDiaryController {
                                    Model model, Principal principal) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Введите некорректные данные");
-            var products = productServiceImpl.findAllProducts(principal.getName());
-            model.addAttribute(AVAILABLE_PRODUCTS, products);
+            model.addAttribute(AVAILABLE_PRODUCTS, getAvailableProducts(principal));
             return NEW_FOOD_DIARY_FORM;
         }
         foodDiaryServiceImpl.save(eatenProductData);

@@ -68,7 +68,7 @@
 
     <td>
       <div>
-        <p th:text="${entry.eatenProduct.eatenAmount * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
+        <p th:text="${entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
       </div>
     </td>
 
