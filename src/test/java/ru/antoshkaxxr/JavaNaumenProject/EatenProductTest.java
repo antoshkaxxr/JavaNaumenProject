@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ProductCategory;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.EatenProductRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.ProductRepository;
 
@@ -32,9 +33,9 @@ class EatenProductTest {
 	@Transactional
 	@Rollback
 	void testFindByEatingDate() {
-		Product product1 = new Product("soup", 250.0);
-		Product product2 = new Product("apple", 50.0);
-		Product product3 = new Product("banana", 100.0);
+		Product product1 = new Product("soup", ProductCategory.SOUPS,250.0);
+		Product product2 = new Product("apple", ProductCategory.FRUITS, 50.0);
+		Product product3 = new Product("banana", ProductCategory.FRUITS, 100.0);
 		productRepository.save(product1);
 		productRepository.save(product2);
 		productRepository.save(product3);
@@ -61,10 +62,10 @@ class EatenProductTest {
 	@Transactional
 	@Rollback
 	void testFindByEatingDateBetween() {
-		Product product1 = new Product("soup", 250.0);
-		Product product2 = new Product("apple", 50.0);
-		Product product3 = new Product("banana", 100.0);
-		Product product4 = new Product("bread", 70.0);
+		Product product1 = new Product("soup", ProductCategory.SOUPS, 250.0);
+		Product product2 = new Product("apple", ProductCategory.FRUITS,50.0);
+		Product product3 = new Product("banana", ProductCategory.FRUITS, 100.0);
+		Product product4 = new Product("bread", ProductCategory.FLOUR, 70.0);
 		productRepository.save(product1);
 		productRepository.save(product2);
 		productRepository.save(product3);

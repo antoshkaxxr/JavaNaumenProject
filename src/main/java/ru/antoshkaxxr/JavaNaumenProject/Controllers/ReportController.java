@@ -3,7 +3,11 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Report;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 import ru.antoshkaxxr.JavaNaumenProject.Services.ReportServiceImpl;
@@ -17,6 +21,11 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.ReportServiceImpl;
 public class ReportController {
     private final ReportServiceImpl reportService;
 
+    /**
+     * Конструктор для внедрения зависимости ReportServiceImpl.
+     *
+     * @param reportService Сервис для работы с отчетами
+     */
     @Autowired
     public ReportController(ReportServiceImpl reportService) {
         this.reportService = reportService;
@@ -52,7 +61,8 @@ public class ReportController {
                 return new ResponseEntity<>("Отчет еще не сформирован", HttpStatus.PROCESSING);
             }
             if (report.getStatus() == ReportStatus.ERROR) {
-                return new ResponseEntity<>("Формирование отчета завершилось с ошибкой", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("Формирование отчета завершилось с ошибкой",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
             }
             return new ResponseEntity<>(report.getContent(), HttpStatus.OK);
         } catch (Exception e) {

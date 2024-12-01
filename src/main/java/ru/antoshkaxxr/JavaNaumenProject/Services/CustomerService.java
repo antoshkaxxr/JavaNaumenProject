@@ -9,20 +9,25 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
  */
 public interface CustomerService {
     /**
-     * Находит пользователя по имени
-     * @param customerName имя пользователя
+     * Находит пользователя по имени.
+     *
+     * @param customerName Имя пользователя.
+     * @return Объект {@link Customer}, соответствующий указанному имени, или null, если пользователь не найден.
      */
     Customer findByCustomerName(String customerName);
 
     /**
-     * Добавляет пользователя
-     * @param customer пользователь
+     * Добавляет нового пользователя.
+     *
+     * @param customer Объект {@link Customer}, представляющий пользователя для добавления.
+     * @return true, если пользователь успешно добавлен, иначе false.
      */
     boolean addCustomer(Customer customer);
 
     /**
-     * Удаляет пользователя
-     * @param customerId имя пользователя
+     * Удаляет пользователя по его идентификатору.
+     *
+     * @param customerId Идентификатор пользователя.
      */
     void deleteByCustomerId(Long customerId);
 }

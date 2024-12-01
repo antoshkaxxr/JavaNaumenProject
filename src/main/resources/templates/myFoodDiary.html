@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои приёмы пищи</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    th:first-child, td:first-child {
+      width: 20%;
+    }
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+  <tr>
+
+    <td>
+      <form th:action="@{/foodDiary/addForm}" method="get">
+        <button type="submit">Добавить приём пищи</button>
+      </form>
+    </td>
+
+    <td>
+      <div>
+        <p> Кол-во употреблённых калорий </p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p> Кол-во съеденного продукта </p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p>Дата приёма пищи</p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p>Удалить приём пищи</p>
+      </div>
+    </td>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="entry : ${foodDiary}">
+
+    <td>
+      <div>
+        <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.eatenProduct.eatenAmount}"></p>
+      </div>
+    </td>
+
+    <td>
+      <div>
+        <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
+      </div>
+    </td>
+
+    <td>
+      <form th:action="@{/foodDiary/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+
+<form th:action="@{/}" method="get">
+  <button type="submit">На главную страницу</button>
+</form>
+</body>
+</html>
