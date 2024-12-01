@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/registration", "/login",
                                 "/logout", "/registration/admin")
                         .permitAll()
-                        .requestMatchers("/swagger-ui/index.html").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/index.html", "/monitoring").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/reports/create"));
