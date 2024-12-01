@@ -3,7 +3,9 @@ package ru.antoshkaxxr.JavaNaumenProject.Entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 
@@ -16,7 +18,8 @@ import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 @Table
 public class Report {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "report_seq")
+    @SequenceGenerator(name = "report_seq", sequenceName = "report_seq", allocationSize = 1)
     private Long reportId;
 
     @Column

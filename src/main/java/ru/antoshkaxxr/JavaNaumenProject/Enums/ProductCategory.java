@@ -5,12 +5,14 @@ package ru.antoshkaxxr.JavaNaumenProject.Enums;
  */
 public enum ProductCategory {
     MEAT("Мясо"),
+    POULTRY("Птица"),
     FISH("Рыба"),
     EGGS("Яичные продукты"),
     DAIRY("Молочные продукты"),
     SOY("Продукты, содержащие сою"),
     VEGETABLES("Овощи"),
     FRUITS("Фрукты"),
+    BERRIES("Ягоды"),
     GREENERY("Зелень"),
     MUSHROOMS("Грибы"),
     OILS("Масла"),

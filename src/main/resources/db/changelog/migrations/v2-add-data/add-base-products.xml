@@ -1,0 +1,16 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="8-add-base-products" author="everlast1ngw1nter">
+        <loadData tableName="product" file="db/data/product-data.csv"/>
+    </changeSet>
+
+    <changeSet id="9-reset-product-sequence" author="everlast1ngw1nter">
+        <sql>
+            SELECT setval('product_seq', (SELECT MAX(id) FROM product));
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

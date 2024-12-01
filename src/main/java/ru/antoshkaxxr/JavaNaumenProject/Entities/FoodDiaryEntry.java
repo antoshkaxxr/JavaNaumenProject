@@ -2,8 +2,10 @@ package ru.antoshkaxxr.JavaNaumenProject.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 /**
@@ -15,7 +17,8 @@ import jakarta.persistence.Table;
 @Table
 public class FoodDiaryEntry {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "food_diary_entry_seq")
+    @SequenceGenerator(name = "food_diary_entry_seq", sequenceName = "food_diary_entry_seq", allocationSize = 1)
     private Long recordId;
 
     @ManyToOne

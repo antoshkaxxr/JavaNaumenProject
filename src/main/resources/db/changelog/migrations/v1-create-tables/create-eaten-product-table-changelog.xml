@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2-create-eaten-product-sequence" author="everlast1ngw1nter">
+        <createSequence sequenceName="eaten_product_seq" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="2-create-eaten-product-table" author="everlast1ngw1nter">
+        <createTable tableName="eaten_product">
+            <column name="eaten_product_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eaten_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eating_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="eaten_product"
+                                 baseColumnNames="product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_eaten_product_product"/>
+    </changeSet>
+
+</databaseChangeLog>
