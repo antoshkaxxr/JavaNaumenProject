@@ -20,13 +20,4 @@ public class BaseProductServiceImpl {
     public List<Product> getAllBaseProducts() {
         return productRepository.findByCustomerIsNull();
     }
-
-    public void addBaseProduct(Product product) {
-        product.setCustomer(null);
-        if (productRepository.findByNameAndCustomerIsNull(product.getName()) != null) {
-            return;
-        }
-
-        productRepository.save(product);
-    }
 }
