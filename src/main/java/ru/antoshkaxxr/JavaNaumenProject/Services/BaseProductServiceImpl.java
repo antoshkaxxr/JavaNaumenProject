@@ -21,10 +21,6 @@ public class BaseProductServiceImpl {
         return productRepository.findByCustomerIsNull();
     }
 
-    public Product getBaseProductByName(String name) {
-        return productRepository.findByNameAndCustomerIsNull(name);
-    }
-
     public void addBaseProduct(Product product) {
         product.setCustomer(null);
         if (productRepository.findByNameAndCustomerIsNull(product.getName()) != null) {
@@ -32,10 +28,5 @@ public class BaseProductServiceImpl {
         }
 
         productRepository.save(product);
-    }
-
-    public void deleteAllBaseProducts() {
-        List<Product> baseProducts = productRepository.findByCustomerIsNull();
-        productRepository.deleteAll(baseProducts);
     }
 }
