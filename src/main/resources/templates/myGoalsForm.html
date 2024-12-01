@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои цели</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th:first-child, td:first-child {
+            width: 20%; /* Adjust width as needed */
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form th:action="@{/goal/form}" method="get">
+                <button type="submit">Добавить цель</button>
+            </form>
+        </th>
+        <th>Имя цели</th>
+        <th>Дата создания цели</th>
+        <th>Режим диеты</th>
+        <th>Удалить цель</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="goal : ${goals}">
+            <td>
+                <form th:action="@{/goal/statistic/{goalId}(goalId=${goal.getGoalId()})}" method="get">
+                    <button type="submit">Перейти к статистике</button>
+                </form>
+            </td>
+            <td>
+                <p th:text="${goal.getName()}"></p>
+            </td>
+            <td>
+                <p th:text="${goal.getStartDate()}"></p>
+            </td>
+            <td>
+                <p th:text="${goal.getWeightChangeMode().getRussianName()}"></p>
+            </td>
+            <td>
+                <form th:action="@{/goal/delete/{goalId}(goalId=${goal.getGoalId()})}" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<form th:action="@{/}" method="get">
+    <button type="submit">На главную страницу</button>
+</form>
+</body>
+</html>

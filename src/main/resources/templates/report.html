@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет</title>
+</head>
+<body>
+<h1>Отчет</h1>
+<table border="1">
+    <tr>
+        <th>Описание</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>Общее время формирования отчета</td>
+        <td th:text="${totalTime}"></td>
+    </tr>
+    <tr>
+        <td>Время, затраченное на подсчет числа пользователей</td>
+        <td th:text="${customerCountTime}"></td>
+    </tr>
+    <tr>
+        <td>Время, затраченное на получение всех записей из дневника питания</td>
+        <td th:text="${entriesTime}"></td>
+    </tr>
+    <tr>
+        <td>Число пользователей</td>
+        <td th:text="${customerCount}"></td>
+    </tr>
+    <tr>
+        <td>Список записей из дневника питания:</td>
+        <td>
+            <table border="1">
+                <tr>
+                    <th>Имя пользователя</th>
+                    <th>Продукт</th>
+                    <th>Дата</th>
+                </tr>
+                <tr th:each="entry : ${foodDiaryEntries}">
+                    <td th:text="${entry.getCustomer().getName()}"></td>
+                    <td th:text="${entry.getEatenProduct().getProduct().getName()}"></td>
+                    <td th:text="${entry.getEatenProduct().getEatingDate()}"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+

@@ -1,11 +1,10 @@
 package ru.antoshkaxxr.JavaNaumenProject.Repositories;
 
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Репозиторий для работы с сущностью {@link EatenProduct}.
@@ -16,14 +15,26 @@ import java.util.List;
 public interface EatenProductRepository extends CrudRepository<EatenProduct, Long> {
     /**
      * Находит все продукты, съеденные в определенный день.
-     * @param date требуемая дата
+     *
+     * @param date Требуемая дата.
+     * @return Список объектов {@link EatenProduct}, соответствующих указанной дате.
      */
     List<EatenProduct> findByEatingDate(LocalDate date);
 
     /**
      * Находит все продукты, съеденные в определенный интервал дат.
-     * @param start начало интервала
-     * @param end конец интервала
+     *
+     * @param start Начало интервала.
+     * @param end Конец интервала.
+     * @return Список объектов {@link EatenProduct}, соответствующих указанному интервалу дат.
      */
     List<EatenProduct> findByEatingDateBetween(LocalDate start, LocalDate end);
+
+    /**
+     * Находит все ссылки на продукт из съеденных продуктов
+     *
+     * @param productName имя продукта
+     * @return Список объектов {@link EatenProduct}, ссылающихся на продукт
+     */
+    List<EatenProduct> findByProductName(String productName);
 }

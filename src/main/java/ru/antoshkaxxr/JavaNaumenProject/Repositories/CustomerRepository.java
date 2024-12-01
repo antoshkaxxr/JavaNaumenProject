@@ -12,8 +12,17 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 @RepositoryRestResource(path = "customers")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     /**
-     * Находит пользователя по имени
-     * @param name имя пользователя
+     * Находит пользователя по имени.
+     *
+     * @param name Имя пользователя.
+     * @return Объект {@link Customer}, соответствующий указанному имени, или null, если пользователь не найден.
      */
     Customer findByName(String name);
+
+    /**
+     * Возвращает общее количество пользователей в базе данных.
+     *
+     * @return Количество пользователей.
+     */
+    long count();
 }
