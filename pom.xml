@@ -80,6 +80,11 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
     
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.6</version>
+    
 		<!--watch stats at http://localhost:8080/monitoring-->
 		<dependency>
 			<groupId>net.bull.javamelody</groupId>
