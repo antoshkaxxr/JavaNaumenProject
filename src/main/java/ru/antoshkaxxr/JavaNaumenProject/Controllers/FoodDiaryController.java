@@ -102,7 +102,7 @@ public class FoodDiaryController {
     public String saveNewFoodDiary(EatenProductData eatenProductData, BindingResult bindingResult,
                                    Model model, Principal principal) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Введите некорректные данные");
+            model.addAttribute("error", "Введены некорректные данные");
             model.addAttribute(AVAILABLE_PRODUCTS, getAvailableProducts(principal));
             return NEW_FOOD_DIARY_FORM;
         }

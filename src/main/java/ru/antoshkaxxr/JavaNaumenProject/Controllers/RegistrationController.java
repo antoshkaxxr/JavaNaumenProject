@@ -86,7 +86,7 @@ public class RegistrationController {
             throw new IllegalArgumentException("Делой переменную окружения SECRET_KEY и перезагружайся");
         }
         if (!Objects.equals(customerData.secretKey(), secretKey)) {
-            throw new SecurityException("чо нада");
+            throw new SecurityException("Доступ запрещен");
         }
         var newCustomer = new Customer(customerData.name(), customerData.email(),
                 customerData.weight(), customerData.height());
