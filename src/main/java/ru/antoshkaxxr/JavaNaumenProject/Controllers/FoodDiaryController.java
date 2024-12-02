@@ -3,7 +3,6 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +38,7 @@ public class FoodDiaryController {
      * @param customerServiceImpl Сервис для работы с пользователями
      * @param foodDiaryServiceImpl Сервис для работы с приёмами пищи
      * @param productServiceImpl Сервис для работы с продуктами
+     * @param baseProductServiceImpl Сервис для работы с базовыми продуктами
      */
     public FoodDiaryController(CustomerServiceImpl customerServiceImpl, FoodDiaryServiceImpl foodDiaryServiceImpl,
                                ProductServiceImpl productServiceImpl, BaseProductServiceImpl baseProductServiceImpl) {
@@ -48,6 +48,12 @@ public class FoodDiaryController {
         this.baseProductServiceImpl = baseProductServiceImpl;
     }
 
+    /**
+     * Объединяет продукты пользователя с базовыми продуктами
+     *
+     * @param principal Объект текущего аутентифицированного пользователя.
+     * @return Список продуктов пользователя и базовых продуктов
+     */
     public List<Product> getAvailableProducts(Principal principal) {
         List<Product> products = productServiceImpl.findAllProducts(principal.getName());
         List<Product> baseProducts = baseProductServiceImpl.getAllBaseProducts();
@@ -115,5 +121,4 @@ public class FoodDiaryController {
         foodDiaryServiceImpl.delete(foodDiaryId);
         return FOOD_DIARY_VIEW_REDIRECT;
     }
-
 }

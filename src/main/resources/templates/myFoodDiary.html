@@ -68,7 +68,7 @@
 
     <td>
       <div>
-        <p th:text="${entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
+        <p th:text="${#numbers.formatDecimal(entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred(), 1, 2)}"></p>
       </div>
     </td>
 

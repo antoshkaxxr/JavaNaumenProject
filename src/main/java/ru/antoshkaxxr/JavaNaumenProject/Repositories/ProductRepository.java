@@ -39,7 +39,10 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
      */
     List<Product> findByCustomer(Customer customer);
 
+    /**
+     * Поиск всех базовых продуктов
+     *
+     * @return Список базовых продуктов
+     */
     List<Product> findByCustomerIsNull();
-
-    Product findByNameAndCustomerIsNull(String name);
 }
