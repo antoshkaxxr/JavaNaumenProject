@@ -4,8 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Составление цели похудения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+
+<h1>Составление цели похудения</h1>
+
 <form th:action="@{/goal/evaluate}" method="post">
     <div>
         <label>
@@ -20,11 +83,18 @@
             <option value="FEMALE">Ж</option>
         </select>
     </div>
-    <div><label> Ваш текущий вес <input type="number" name="currentWeight" min="1" max = "1000" required/> </label></div>
-    <div><label> Ваш желаемый вес <input type="number" name="goalWeight" min="1" max = "1000" required/> </label></div>
-
-    <div><label> Height: <input type="number" name="heightInSm" min="1" max = "1000" required/> </label></div>
-    <div><label> Age: <input type="number" name="age" step="1" min="1" max = "1000" required></label></div>
+    <div>
+        <label> Ваш текущий вес <input type="number" name="currentWeight" min="1" max="1000" required/> </label>
+    </div>
+    <div>
+        <label> Ваш желаемый вес <input type="number" name="goalWeight" min="1" max="1000" required/> </label>
+    </div>
+    <div>
+        <label> Height: <input type="number" name="heightInSm" min="1" max="1000" required/> </label>
+    </div>
+    <div>
+        <label> Age: <input type="number" name="age" step="1" min="1" max="1000" required></label>
+    </div>
     <div>
         <label for="physicalActivity">Укажите уровень физической, при которой вы будете достигать цели</label>
         <select id="physicalActivity" name="physicalActivity">
@@ -42,7 +112,6 @@
             <option value="HARRIS_BENEDICT">Харриса-Бенедикта</option>
         </select>
     </div>
-
     <div>
         <label for="weightChangeSpeed">В каком темпе вы хотите начать достигать цели</label>
         <select id="weightChangeSpeed" name="weightChangeSpeed">
@@ -50,10 +119,14 @@
             <option value="HARD_SPEED">Экстремально быстро</option>
         </select>
     </div>
-    <div><input type="submit" value="Создать цель"/></div>
+    <div>
+        <input type="submit" value="Создать цель"/>
+    </div>
 </form>
-</body>
+
 <form th:action="@{/}" method="get">
     <button type="submit">На главную страницу</button>
 </form>
+
+</body>
 </html>

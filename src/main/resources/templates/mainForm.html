@@ -2,39 +2,92 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
-  <title>Навигация</title>
+    <title>Навигация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .navigation-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .navigation-container form {
+            margin: 10px 0;
+        }
+
+        .navigation-container button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .admin-buttons {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .app-title {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<div>
-  <form th:action="@{/foodDiary}" method="get">
-    <button type="submit">Мои приёмы пищи</button>
-  </form>
+<div class="navigation-container">
+    <div class="app-title">FoodTrack</div>
 
-  <form th:action="@{/products}" method="get">
-    <button type="submit">Мои продукты</button>
-  </form>
-
-  <form th:action="@{/goal}" method="get">
-    <button type="submit">Мои цели</button>
-  </form>
-
-  <form th:action="@{/calculator}" method="get">
-    <button type="submit">Калькулятор</button>
-  </form>
-
-  <form th:action="@{/logout}" method="get">
-    <button type="submit">Выйти</button>
-  </form>
-
-  <div th:if="${isAdmin}">
-    <form th:action="@{/swagger-ui/index.html}" method="get">
-      <button type="submit">Swagger</button>
+    <form th:action="@{/foodDiary}" method="get">
+        <button type="submit">Мои приёмы пищи</button>
     </form>
+
+    <form th:action="@{/products}" method="get">
+        <button type="submit">Мои продукты</button>
+    </form>
+
+    <form th:action="@{/goal}" method="get">
+        <button type="submit">Мои цели</button>
+    </form>
+
     <form th:action="@{/calculator}" method="get">
-      <button type="submit">Мониторинг типа</button>
+        <button type="submit">Калькулятор</button>
     </form>
-  </div>
+
+    <form th:action="@{/logout}" method="get">
+        <button type="submit">Выйти</button>
+    </form>
+
+    <div class="admin-buttons" th:if="${isAdmin}">
+        <form th:action="@{/swagger-ui/index.html}" method="get">
+            <button type="submit">Swagger</button>
+        </form>
+        <form th:action="@{/calculator}" method="get">
+            <button type="submit">Мониторинг типа</button>
+        </form>
+    </div>
 
 </div>
 

@@ -5,21 +5,76 @@
     <meta charset="UTF-8">
     <title>Мои цели</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         th, td {
-            border: 1px solid black;
-            padding: 8px;
+            border: 1px solid #ddd;
+            padding: 12px;
             text-align: center;
         }
-        th:first-child, td:first-child {
-            width: 20%; /* Adjust width as needed */
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .add-button {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+
+<h1>Мои цели</h1>
 
 <table>
     <thead>
@@ -36,32 +91,40 @@
     </tr>
     </thead>
     <tbody>
-        <tr th:each="goal : ${goals}">
-            <td>
-                <form th:action="@{/goal/statistic/{goalId}(goalId=${goal.getGoalId()})}" method="get">
-                    <button type="submit">Перейти к статистике</button>
-                </form>
-            </td>
-            <td>
-                <p th:text="${goal.getName()}"></p>
-            </td>
-            <td>
-                <p th:text="${goal.getStartDate()}"></p>
-            </td>
-            <td>
-                <p th:text="${goal.getWeightChangeMode().getRussianName()}"></p>
-            </td>
-            <td>
-                <form th:action="@{/goal/delete/{goalId}(goalId=${goal.getGoalId()})}" method="post">
-                    <input type="hidden" name="_method" value="delete" />
-                    <button type="submit">Удалить</button>
-                </form>
-            </td>
-        </tr>
+    <tr th:each="goal : ${goals}">
+        <td>
+            <form th:action="@{/goal/statistic/{goalId}(goalId=${goal.getGoalId()})}" method="get">
+                <button type="submit">Перейти к статистике</button>
+            </form>
+        </td>
+        <td>
+            <p th:text="${goal.getName()}"></p>
+        </td>
+        <td>
+            <p th:text="${goal.getStartDate()}"></p>
+        </td>
+        <td>
+            <p th:text="${goal.getWeightChangeMode().getRussianName()}"></p>
+        </td>
+        <td>
+            <form th:action="@{/goal/delete/{goalId}(goalId=${goal.getGoalId()})}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
     </tbody>
 </table>
+
+<div class="add-button">
+    <form th:action="@{/goal/form}" method="get">
+        <button type="submit">Добавить цель</button>
+    </form>
+</div>
+
 <form th:action="@{/}" method="get">
     <button type="submit">На главную страницу</button>
 </form>
+
 </body>
 </html>

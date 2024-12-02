@@ -1,19 +1,101 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">\<head>
-    <title>Spring Security Example </title>
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<div th:if="${message}">
-    <div th:text="${message}"></div>
-</div>
+
+<h1>Регистрация</h1>
+
+<div th:if="${message}" class="message" th:text="${message}"></div>
+
 <form th:action="@{/registration}" method="post">
-    <div><label> UserName : <input type="text" name="name"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><label> Email: <input type="email" name="email"/> </label></div>
-    <div><label> Weight: <input type="number" name="weight"/> </label></div>
-    <div><label> Height: <input type="number" name="height"/> </label></div>
-    <div><input type="submit" value="Зарегистрироваться"/></div>
+    <div>
+        <label>UserName: <input type="text" name="name" required/></label>
+    </div>
+    <div>
+        <label>Password: <input type="password" name="password" required/></label>
+    </div>
+    <div>
+        <label>Email: <input type="email" name="email" required/></label>
+    </div>
+    <div>
+        <label>Weight: <input type="number" name="weight" required/></label>
+    </div>
+    <div>
+        <label>Height: <input type="number" name="height" required/></label>
+    </div>
+    <div>
+        <input type="submit" value="Зарегистрироваться"/>
+    </div>
 </form>
+
 </body>
 </html>
