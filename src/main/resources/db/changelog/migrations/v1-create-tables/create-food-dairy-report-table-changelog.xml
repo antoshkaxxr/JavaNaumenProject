@@ -16,7 +16,7 @@
                 <constraints nullable="true"/>
             </column>
             <column name="type_file" type="tinyint">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="start_date" type="date">
                 <constraints nullable="true"/>
@@ -25,6 +25,9 @@
                 <constraints nullable="true"/>
             </column>
             <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="tinyint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

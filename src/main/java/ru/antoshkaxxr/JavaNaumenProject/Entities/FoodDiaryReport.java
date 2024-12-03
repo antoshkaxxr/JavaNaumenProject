@@ -9,6 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.FileType;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 
 @Entity
 @Table
@@ -29,14 +30,17 @@ public class FoodDiaryReport {
     @ManyToOne
     private Customer customer;
 
+    private ReportStatus status;
+
     public FoodDiaryReport(byte[] file, FileType typeFile,
                            LocalDate startDate, LocalDate endDate,
-                           Customer customer) {
+                           Customer customer, ReportStatus status) {
         this.file = file;
         this.typeFile = typeFile;
         this.startDate = startDate;
         this.endDate = endDate;
         this.customer = customer;
+        this.status = status;
     }
 
     public FoodDiaryReport() {
@@ -88,5 +92,13 @@ public class FoodDiaryReport {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public ReportStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReportStatus status) {
+        this.status = status;
     }
 }
