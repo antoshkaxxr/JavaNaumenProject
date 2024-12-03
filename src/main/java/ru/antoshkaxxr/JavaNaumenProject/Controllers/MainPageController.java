@@ -31,7 +31,7 @@ public class MainPageController {
      */
     @GetMapping
     public String mainPage(Model model) {
-        var role = customerService.getCurentLoginedCustomer().getRole();
+        var role = customerService.getCurrentLoggedInCustomer().getRole();
         if (role == Role.ADMIN) {
             model.addAttribute("isAdmin", "Yes");
         }
