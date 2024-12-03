@@ -3,11 +3,11 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="4-create-goal-sequence" author="everlast1ngw1nter">
+    <changeSet id="v1-4-create-goal-sequence" author="everlast1ngw1nter">
         <createSequence sequenceName="goal_seq" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="4-create-goal-table" author="everlast1ngw1nter">
+    <changeSet id="v1-4-create-goal-table" author="everlast1ngw1nter">
         <createTable tableName="goal">
             <column name="goal_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>

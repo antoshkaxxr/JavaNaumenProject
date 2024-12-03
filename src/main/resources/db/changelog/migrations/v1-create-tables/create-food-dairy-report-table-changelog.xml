@@ -1,0 +1,39 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-8-create-food-diary-report-sequence" author="everlast1ngw1nter">
+        <createSequence sequenceName="food_diary_report_seq" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="v1-8-create-food-diary-report-table" author="everlast1ngw1nter">
+        <createTable tableName="food_diary_report">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="file" type="bytea">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type_file" type="tinyint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="food_diary_report"
+                                 baseColumnNames="customer_id"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_food_diary_report_customer"/>
+    </changeSet>
+
+</databaseChangeLog>
