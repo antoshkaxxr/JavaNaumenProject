@@ -61,7 +61,7 @@ public class FoodDiaryServiceImpl {
      */
     public void save(EatenProductData eatenProductData) {
         var foodDiary = new FoodDiaryEntry();
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
+        var customer = customerServiceImpl.getCurrentLoggedInCustomer();
 
         var product = productServiceImpl.getProduct(eatenProductData.id());
         var eatenProduct = new EatenProduct(product, eatenProductData.date(), eatenProductData.amount());

@@ -70,7 +70,7 @@ public class FoodDiaryController {
      */
     @GetMapping
     public String getMyFoodDiary(Model model) {
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
+        var customer = customerServiceImpl.getCurrentLoggedInCustomer();
         var foodDiary = foodDiaryServiceImpl.getFoodDiaryEntries(customer.getId());
         model.addAttribute("foodDiary", foodDiary);
         return "myFoodDiary";
