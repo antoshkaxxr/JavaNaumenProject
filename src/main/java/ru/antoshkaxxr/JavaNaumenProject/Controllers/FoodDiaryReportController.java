@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.FileType;
+import ru.antoshkaxxr.JavaNaumenProject.Services.BaseReportFileGenerator;
 import ru.antoshkaxxr.JavaNaumenProject.Services.FoodDiaryReportServiceImpl;
 
 @Controller
@@ -23,13 +23,16 @@ import ru.antoshkaxxr.JavaNaumenProject.Services.FoodDiaryReportServiceImpl;
 public class FoodDiaryReportController {
 
     private final FoodDiaryReportServiceImpl foodDiaryReportServiceImpl;
+    private final BaseReportFileGenerator baseReportFileGenerator;
     private static final String FOOD_DIARY_REPORT_VIEW = "foodDiaryReports";
     private static final String REDIRECT_FOOD_DIARY_REPORT_VIEW = "redirect:/" + FOOD_DIARY_REPORT_VIEW;
     private static final String MESSAGE_ATTRIBUTE = "message";
     private String message = null;
     @Autowired
-    public FoodDiaryReportController(FoodDiaryReportServiceImpl foodDiaryReportServiceImpl) {
+    public FoodDiaryReportController(FoodDiaryReportServiceImpl foodDiaryReportServiceImpl,
+                                     BaseReportFileGenerator baseReportFileGenerator) {
         this.foodDiaryReportServiceImpl = foodDiaryReportServiceImpl;
+        this.baseReportFileGenerator = baseReportFileGenerator;
     }
 
     @GetMapping
@@ -50,7 +53,8 @@ public class FoodDiaryReportController {
             @RequestParam FileType type,
             Principal principal) {
 
-        foodDiaryReportServiceImpl.addNewReport(principal.getName(), new byte[0], type, LocalDate.now(), LocalDate.now());
+        var report = foodDiaryReportServiceImpl.addNewReport(principal.getName(), null, type, LocalDate.now(), LocalDate.now());
+        baseReportFileGenerator.generateFile(report);
         return REDIRECT_FOOD_DIARY_REPORT_VIEW;
     }
 
@@ -62,13 +66,22 @@ public class FoodDiaryReportController {
 
     @GetMapping("/download")
     public ResponseEntity<byte[]> getReportData(@RequestParam Long id) {
-        byte[] fileData = foodDiaryReportServiceImpl.getReport(id).getFile();
-        if (fileData == null) {
+        FoodDiaryReport report = foodDiaryReportServiceImpl.getReport(id);
+        if (report.getFile() == null) {
             return ResponseEntity.notFound().build();
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "report.pdf");
-        return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+        switch (report.getTypeFile()) {
+            case PDF -> {
+                headers.add("Content-Disposition", "attachment; filename=sample.pdf");
+                headers.add("Content-Type", "application/pdf");
+            }
+            case EXCEL -> {
+                headers.add("Content-Disposition", "attachment; filename=sample.xlsx");
+                headers.add("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }
+            default -> throw new RuntimeException();
+        }
+        return new ResponseEntity<>(report.getFile(), headers, HttpStatus.OK);
     }
 }

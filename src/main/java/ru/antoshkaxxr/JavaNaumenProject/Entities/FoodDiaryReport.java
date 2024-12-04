@@ -95,6 +95,7 @@ public class FoodDiaryReport {
     }
 
     public ReportStatus getStatus() {
+        System.out.println(status.toString());
         return status;
     }
 

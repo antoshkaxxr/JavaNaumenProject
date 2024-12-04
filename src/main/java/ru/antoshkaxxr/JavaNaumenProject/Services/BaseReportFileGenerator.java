@@ -2,9 +2,11 @@ package ru.antoshkaxxr.JavaNaumenProject.Services;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Service;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
+import ru.antoshkaxxr.JavaNaumenProject.Enums.ReportStatus;
 
 @Service
 public class BaseReportFileGenerator {
@@ -13,20 +15,32 @@ public class BaseReportFileGenerator {
     private final PdfReportFileGeneratorImpl pdfReportFileGenerator;
     private final FoodDiaryServiceImpl foodDiaryService;
 
+    private final FoodDiaryReportServiceImpl foodDiaryReportService;
+
     public BaseReportFileGenerator(ExcelReportFileGeneratorImpl excelReportFileGenerator,
                                    PdfReportFileGeneratorImpl pdfReportFileGenerator,
-                                   FoodDiaryServiceImpl foodDiaryService) {
+                                   FoodDiaryServiceImpl foodDiaryService,
+                                   FoodDiaryReportServiceImpl foodDiaryReportService) {
         this.excelReportFileGenerator = excelReportFileGenerator;
         this.pdfReportFileGenerator = pdfReportFileGenerator;
         this.foodDiaryService = foodDiaryService;
+        this.foodDiaryReportService = foodDiaryReportService;
     }
 
-    public byte[] generateFile(FoodDiaryReport report) {
-        var sortedFoodDiaryBetweenReportDates = getSortedFoodDiaryBetweenReportDates(report);
-        return switch (report.getTypeFile()) {
-            case PDF -> pdfReportFileGenerator.generateFile(report, sortedFoodDiaryBetweenReportDates);
-            case EXCEL -> excelReportFileGenerator.generateFile(report, sortedFoodDiaryBetweenReportDates);
-        };
+    public void generateFile(FoodDiaryReport report) {
+        CompletableFuture.runAsync(() -> {
+            var sortedFoodDiaryBetweenReportDates = getSortedFoodDiaryBetweenReportDates(report);
+            try {
+                var file = switch (report.getTypeFile()) {
+                    case PDF -> pdfReportFileGenerator.generateFile(report, sortedFoodDiaryBetweenReportDates);
+                    case EXCEL -> excelReportFileGenerator.generateFile(report, sortedFoodDiaryBetweenReportDates);
+                };
+                foodDiaryReportService.updateFile(report, file);
+                foodDiaryReportService.updateStatus(report, ReportStatus.COMPLETED);
+            } catch (Exception e) {
+                foodDiaryReportService.updateStatus(report, ReportStatus.ERROR);
+            }
+        });
     }
 
     private List<FoodDiaryEntry> getSortedFoodDiaryBetweenReportDates(FoodDiaryReport report) {

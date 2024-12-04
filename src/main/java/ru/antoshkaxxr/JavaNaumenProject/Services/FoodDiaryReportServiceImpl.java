@@ -26,14 +26,14 @@ public class FoodDiaryReportServiceImpl {
         return foodDiaryReportRepository.getAllByCustomerName(customerName);
     }
 
-    public void addNewReport(String customerName, byte[] file, FileType typeFile,
+    public FoodDiaryReport addNewReport(String customerName, byte[] file, FileType typeFile,
                              LocalDate startDate, LocalDate endDate) {
         var customer = customerService.findByCustomerName(customerName);
         if (customer == null) {
             throw new RuntimeException("User not found");
         }
         var report = new FoodDiaryReport(file, typeFile, startDate, endDate, customer, ReportStatus.CREATED);
-        foodDiaryReportRepository.save(report);
+        return foodDiaryReportRepository.save(report);
     }
 
     public void deleteReport(long reportId) {
@@ -43,5 +43,15 @@ public class FoodDiaryReportServiceImpl {
     public FoodDiaryReport getReport(long reportId) {
         return foodDiaryReportRepository.findById(reportId)
                 .orElseThrow();
+    }
+
+    public void updateStatus(FoodDiaryReport foodDiaryReport, ReportStatus status) {
+        foodDiaryReport.setStatus(status);
+        foodDiaryReportRepository.save(foodDiaryReport);
+    }
+
+    public void updateFile(FoodDiaryReport foodDiaryReport, byte[] file) {
+        foodDiaryReport.setFile(file);
+        foodDiaryReportRepository.save(foodDiaryReport);
     }
 }
