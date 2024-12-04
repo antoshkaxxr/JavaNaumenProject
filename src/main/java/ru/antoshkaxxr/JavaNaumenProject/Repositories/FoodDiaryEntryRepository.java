@@ -23,15 +23,23 @@ public interface FoodDiaryEntryRepository extends CrudRepository<FoodDiaryEntry,
     List<FoodDiaryEntry> findByCustomerId(Long customerId);
 
     /**
-     * Находит все записи в дневнике питания начиная с какого-то момента
+     * Находит все записи в дневнике питания, начиная с какого-то момента.
      *
      * @param customerId Идентификатор пользователя.
-     * @param date Дата с которой идёт поиск приёмов пищи
+     * @param date Дата, с которой идёт поиск приёмов пищи.
      * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
      */
     @Query("SELECT r FROM FoodDiaryEntry r WHERE r.customer.id = :customerId AND r.eatenProduct.eatingDate >= :date")
     List<FoodDiaryEntry> findByCustomerIdAndDateFrom(Long customerId, LocalDate date);
 
+    /**
+     * Находит все записи в дневнике питания в заданном промежутке.
+     *
+     * @param customerId Идентификатор пользователя.
+     * @param startDate Дата, с которой идёт поиск приёмов пищи.
+     * @param endDate Дата, до которой идёт поиск приёмов пищи.
+     * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
+     */
     List<FoodDiaryEntry> findByCustomerIdAndEatenProductEatingDateBetween(Long customerId,
                                                                           LocalDate startDate,
                                                                           LocalDate endDate);
