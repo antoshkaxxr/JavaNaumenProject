@@ -7,7 +7,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
 public interface ReportFileGenerator {
 
     List<String> TABLE_HEADERS = List.of("Название продукта", "Дата",
-            "Количество", "Калориий на 100 гр.", "Всего калорий");
+            "Количество", "Ккал на 100 гр.", "Всего ккал");
 
     byte[] generateFile(FoodDiaryReport report, List<FoodDiaryEntry> sortedFoodDiaryBetweenReportDates);
 }

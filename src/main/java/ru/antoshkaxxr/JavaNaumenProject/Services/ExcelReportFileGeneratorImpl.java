@@ -38,6 +38,7 @@ public class ExcelReportFileGeneratorImpl implements ReportFileGenerator {
         }
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     private void addEatenProductInfoInRow(Row row, EatenProduct eatenProduct) {
         addCell(row, 0, eatenProduct.getProduct().getName());
         addCell(row, 1, eatenProduct.getEatingDate().toString());

@@ -27,7 +27,12 @@ public class FoodDiaryReportController {
     private static final String FOOD_DIARY_REPORT_VIEW = "foodDiaryReports";
     private static final String REDIRECT_FOOD_DIARY_REPORT_VIEW = "redirect:/" + FOOD_DIARY_REPORT_VIEW;
     private static final String MESSAGE_ATTRIBUTE = "message";
+    private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+
+
     private String message = null;
+
     @Autowired
     public FoodDiaryReportController(FoodDiaryReportServiceImpl foodDiaryReportServiceImpl,
                                      BaseReportFileGenerator baseReportFileGenerator) {
@@ -75,12 +80,12 @@ public class FoodDiaryReportController {
         HttpHeaders headers = new HttpHeaders();
         switch (report.getTypeFile()) {
             case PDF -> {
-                headers.add("Content-Disposition", "attachment; filename=sample.pdf");
-                headers.add("Content-Type", "application/pdf");
+                headers.add(CONTENT_DISPOSITION_HEADER, "attachment; filename=sample.pdf");
+                headers.add(CONTENT_TYPE_HEADER, "application/pdf");
             }
             case EXCEL -> {
-                headers.add("Content-Disposition", "attachment; filename=sample.xlsx");
-                headers.add("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                headers.add(CONTENT_DISPOSITION_HEADER, "attachment; filename=sample.xlsx");
+                headers.add(CONTENT_TYPE_HEADER, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             }
             default -> throw new RuntimeException();
         }

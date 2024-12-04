@@ -1,6 +1,10 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
-import com.itextpdf.text.*;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -22,8 +26,9 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
         try {
             PdfWriter.getInstance(document, byteArrayOutputStream);
             document.open();
-            PdfPTable table = new PdfPTable(5);
-            BaseFont baseFont = BaseFont.createFont("fonts\\ofont.ru_Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            PdfPTable table = new PdfPTable(TABLE_HEADERS.size());
+            BaseFont baseFont = BaseFont.createFont("fonts\\ofont.ru_Arial.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             Font font = new Font(baseFont);
             addTableHeader(table, font);
             addRows(table, font, sortedFoodDiaryBetweenReportDates);
@@ -52,6 +57,7 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
         }
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     private void addEatenProductInfoInRow(PdfPTable table, Font font, EatenProduct eatenProduct) {
         addCell(table, font, eatenProduct.getProduct().getName());
         addCell(table, font, eatenProduct.getEatingDate().toString());
