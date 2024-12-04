@@ -39,6 +39,7 @@ public class BaseReportFileGenerator {
                 foodDiaryReportService.updateStatus(report, ReportStatus.COMPLETED);
             } catch (Exception e) {
                 foodDiaryReportService.updateStatus(report, ReportStatus.ERROR);
+                throw new RuntimeException(e);
             }
         });
     }
