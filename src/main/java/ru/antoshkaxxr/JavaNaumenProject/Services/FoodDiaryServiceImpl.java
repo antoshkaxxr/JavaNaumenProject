@@ -54,6 +54,14 @@ public class FoodDiaryServiceImpl {
         return foodDiaryEntryRepository.findByCustomerId(customerId);
     }
 
+    /**
+     * Метод, возвращающий все записи в дневнике питания в заданном промежутке.
+     *
+     * @param customerId Идентификатор пользователя.
+     * @param startDate Дата, с которой идёт поиск приёмов пищи.
+     * @param endDate Дата, до которой идёт поиск приёмов пищи.
+     * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
+     */
     public List<FoodDiaryEntry> getFoodDiaryEntriesBetweenDates(Long customerId,
                                                                 LocalDate startDate,
                                                                 LocalDate endDate) {

@@ -17,8 +17,19 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.EatenProduct;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
 
+/**
+ * Сервис для генерации отчетов в формате PDF.
+ */
 @Service
 public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
+
+    /**
+     * Генерирует PDF-файл для отчета по дневнику питания.
+     *
+     * @param report                        Отчет, для которого создается файл.
+     * @param sortedFoodDiaryBetweenReportDates Список записей дневника питания, отсортированных по дате.
+     * @return Байтовый массив, представляющий содержимое PDF-файла.
+     */
     @Override
     public byte[] generateFile(FoodDiaryReport report, List<FoodDiaryEntry> sortedFoodDiaryBetweenReportDates) {
         var byteArrayOutputStream = new ByteArrayOutputStream();
@@ -40,6 +51,12 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
         return byteArrayOutputStream.toByteArray();
     }
 
+    /**
+     * Добавляет заголовок таблицы в PDF-документ.
+     *
+     * @param table Таблица, в которую добавляется заголовок.
+     * @param font  Шрифт, используемый для текста заголовка.
+     */
     private void addTableHeader(PdfPTable table, Font font) {
         TABLE_HEADERS
                 .forEach(columnTitle -> {
@@ -51,12 +68,26 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
                 });
     }
 
+    /**
+     * Добавляет строки с данными в таблицу PDF-документа.
+     *
+     * @param table                           Таблица, в которую добавляются строки.
+     * @param font                            Шрифт, используемый для текста.
+     * @param sortedFoodDiaryBetweenReportDates Список записей дневника питания, отсортированных по дате.
+     */
     private void addRows(PdfPTable table, Font font, List<FoodDiaryEntry> sortedFoodDiaryBetweenReportDates) {
         for (var entry : sortedFoodDiaryBetweenReportDates) {
             addEatenProductInfoInRow(table, font, entry.getEatenProduct());
         }
     }
 
+    /**
+     * Добавляет данные о съеденном продукте в строку таблицы.
+     *
+     * @param table        Таблица, в которую добавляются данные.
+     * @param font         Шрифт, используемый для текста.
+     * @param eatenProduct Информация о съеденном продукте.
+     */
     @SuppressWarnings("checkstyle:MagicNumber")
     private void addEatenProductInfoInRow(PdfPTable table, Font font, EatenProduct eatenProduct) {
         addCell(table, font, eatenProduct.getProduct().getName());
@@ -68,6 +99,13 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
         addCell(table, font, String.valueOf(totalCalories));
     }
 
+    /**
+     * Добавляет ячейку в таблицу с указанным текстом.
+     *
+     * @param table Таблица, в которую добавляется ячейка.
+     * @param font  Шрифт, используемый для текста.
+     * @param data  Текст, который добавляется в ячейку.
+     */
     private void addCell(PdfPTable table, Font font, String data) {
         var cell = new PdfPCell();
         cell.setPhrase(new Phrase(data, font));

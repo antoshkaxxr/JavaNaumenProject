@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
+
 /**
  * Репозиторий для работы с сущностью {@link FoodDiaryReport}.
  * Позволяет выполнять основные операции CRUD (Создание, Чтение, Обновление, Удаление)
