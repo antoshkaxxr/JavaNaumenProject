@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Мои продукты</title>
+    <title>Мои отчеты о питании</title>
     <meta charset="UTF-8">
     <style>
         body {
@@ -63,6 +63,7 @@
         label {
             display: block;
             margin-bottom: 5px;
+            margin-top: 5px;
             font-weight: bold;
         }
 
@@ -88,57 +89,66 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        #startDate, #endDate{
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
-<h1>Мои продукты</h1>
+<h1>Мои отчеты о питании</h1>
 
 <div th:if="${message}" class="message" th:text="${message}"></div>
 
 <table>
     <thead>
     <tr>
-        <th>Название</th>
-        <th>Категория</th>
-        <th>Ккал на 100 граммов</th>
+        <th>Дата старта отчета</th>
+        <th>Дата конца отчета</th>
+        <th>Тип файла отчета</th>
+        <th>Этап формирования</th>
         <th>Действия</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.category}"></td>
-        <td th:text="${product.caloriesNumberHundred}"></td>
+    <tr th:each="report : ${foodDiaryReports}">
+        <td th:text="${report.getStartDate()}"></td>
+        <td th:text="${report.getEndDate()}"></td>
+        <td th:text="${report.getTypeFile()}"></td>
+        <td th:text="${report.getStatus().getRussianName()}"></td>
         <td>
-            <form th:action="@{/products/delete}" method="post">
-                <input type="hidden" name="name" th:value="${product.name}">
+            <form th:if="${report.getStatus().toString() != 'CREATED'}" th:action="@{/foodDiaryReports/delete}" method="post">
+                <input type="hidden" name="id" th:value="${report.getId()}">
                 <button type="submit">Удалить</button>
             </form>
-            <form th:action="@{/products/update}" method="post">
-                <input type="hidden" name="name" th:value="${product.name}">
-                <input type="number" name="newCaloriesNumberHundred" step="0.01" min="0" placeholder="Новое количество ккал" required>
-                <button type="submit">Обновить</button>
+            <form th:if="${report.getStatus().toString() == 'COMPLETED'}" th:action="@{/foodDiaryReports/download}" method="get">
+                <input type="hidden" name="id" th:value="${report.getId()}">
+                <button type="submit">Скачать</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
 
-<h2>Добавить новый продукт</h2>
+<h2>Создать новый отчет</h2>
 
-<form th:action="@{/products/add}" method="post">
-    <label for="name">Название:</label>
-    <input type="text" id="name" name="name" required><br>
-    <label for="category">Категория:</label>
-    <select id="category" name="category" required>
-        <option th:each="category : ${categories}"
-                th:value="${category.toString()}"
-                th:text="${category.toString()}">
+<form th:action="@{/foodDiaryReports/add}" method="post">
+    <label for="startDate">Дата начала отчёта:</label>
+    <input type="date" id="startDate" name="startDate" required/>
+    <label for="endDate">Дата окончания отчёта:</label>
+    <input type="date" id="endDate" name="endDate" required/>
+    <label for="type">Тип отчета:</label>
+    <select id="type" name="type" required>
+        <option th:each="type : ${fileTypes}"
+                th:value="${type}"
+                th:text="${type.toString()}">
         </option>
     </select><br>
-    <label for="caloriesNumberHundred">Количество ккал на 100 граммов:</label>
-    <input type="number" id="caloriesNumberHundred" name="caloriesNumberHundred" step="0.01" min="0" required><br>
     <button type="submit">Добавить</button>
 </form>
 

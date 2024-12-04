@@ -2,101 +2,131 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Мои приёмы пищи</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
-    }
-    th:first-child, td:first-child {
-      width: 20%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Мои приёмы пищи</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        form {
+            margin: 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .add-button {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
+<h1>Мои приёмы пищи</h1>
+
 <table>
-  <thead>
-  <tr>
-
-    <td>
-      <form th:action="@{/foodDiary/addForm}" method="get">
-        <button type="submit">Добавить приём пищи</button>
-      </form>
-    </td>
-
-    <td>
-      <div>
-        <p> Кол-во употреблённых калорий </p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p> Кол-во съеденного продукта </p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p>Дата приёма пищи</p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p>Удалить приём пищи</p>
-      </div>
-    </td>
-
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="entry : ${foodDiary}">
-
-    <td>
-      <div>
-        <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p th:text="${entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred()}"></p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p th:text="${entry.eatenProduct.eatenAmount}"></p>
-      </div>
-    </td>
-
-    <td>
-      <div>
-        <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
-      </div>
-    </td>
-
-    <td>
-      <form th:action="@{/foodDiary/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
-        <input type="hidden" name="_method" value="DELETE" />
-        <button type="submit">Удалить</button>
-      </form>
-    </td>
-
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th>Продукт</th>
+        <th>Кол-во употреблённых калорий</th>
+        <th>Кол-во съеденного продукта</th>
+        <th>Дата приёма пищи</th>
+        <th>Удалить приём пищи</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${foodDiary}">
+        <td>
+            <div>
+                <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
+            </div>
+        </td>
+        <td>
+            <div>
+                <p th:text="${#numbers.formatDecimal(entry.eatenProduct.eatenAmount / 100 * entry.getEatenProduct().product.getCaloriesNumberHundred(), 1, 2)}"></p>
+            </div>
+        </td>
+        <td>
+            <div>
+                <p th:text="${entry.eatenProduct.eatenAmount}"></p>
+            </div>
+        </td>
+        <td>
+            <div>
+                <p th:text="${entry.getEatenProduct().getEatingDate()}"></p>
+            </div>
+        </td>
+        <td>
+            <form th:action="@{/foodDiary/delete/{foodDiaryId}(foodDiaryId=${entry.getRecordId()})}" method="post">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
 </table>
 
+<div class="add-button">
+    <form th:action="@{/foodDiary/addForm}" method="get">
+        <button type="submit">Добавить приём пищи</button>
+    </form>
+</div>
+
 <form th:action="@{/}" method="get">
-  <button type="submit">На главную страницу</button>
+    <button type="submit">На главную страницу</button>
 </form>
+
 </body>
 </html>

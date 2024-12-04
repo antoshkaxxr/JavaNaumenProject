@@ -131,7 +131,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
      *
      * @return объект пользователя, от лица которого мы выполняем действия
      */
-    public Customer getCurentLoginedCustomer() throws UsernameNotFoundException {
+    public Customer getCurrentLoggedInCustomer() throws UsernameNotFoundException {
         var nameOfCustomer = SecurityContextHolder.getContext().getAuthentication().getName();
         return findByCustomerName(nameOfCustomer);
     }

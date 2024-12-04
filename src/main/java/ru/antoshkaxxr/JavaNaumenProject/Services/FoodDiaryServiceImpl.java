@@ -1,5 +1,6 @@
 package ru.antoshkaxxr.JavaNaumenProject.Services;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -54,6 +55,22 @@ public class FoodDiaryServiceImpl {
     }
 
     /**
+     * Метод, возвращающий все записи в дневнике питания в заданном промежутке.
+     *
+     * @param customerId Идентификатор пользователя.
+     * @param startDate Дата, с которой идёт поиск приёмов пищи.
+     * @param endDate Дата, до которой идёт поиск приёмов пищи.
+     * @return Список объектов {@link FoodDiaryEntry}, соответствующих указанному идентификатору пользователя.
+     */
+    public List<FoodDiaryEntry> getFoodDiaryEntriesBetweenDates(Long customerId,
+                                                                LocalDate startDate,
+                                                                LocalDate endDate) {
+        return foodDiaryEntryRepository
+                .findByCustomerIdAndEatenProductEatingDateBetween(customerId, startDate, endDate);
+    }
+
+
+    /**
      * Метод, создающий в базе данных объект приёма пищи на основе данных об употреблённом
      * продукте, введённых пользователем
      *
@@ -61,9 +78,9 @@ public class FoodDiaryServiceImpl {
      */
     public void save(EatenProductData eatenProductData) {
         var foodDiary = new FoodDiaryEntry();
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
+        var customer = customerServiceImpl.getCurrentLoggedInCustomer();
 
-        var product = productServiceImpl.getProducts(eatenProductData.id());
+        var product = productServiceImpl.getProduct(eatenProductData.id());
         var eatenProduct = new EatenProduct(product, eatenProductData.date(), eatenProductData.amount());
         eatenProductRepository.save(eatenProduct);
 

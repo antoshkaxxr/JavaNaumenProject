@@ -118,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
      * @param productId id продукта.
      * @return продукт
      */
-    public Product getProducts(Long productId) {
+    public Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }

@@ -48,7 +48,7 @@ public class GoalController {
      */
     @GetMapping
     public String returnMyGoalsForm(Model model) {
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
+        var customer = customerServiceImpl.getCurrentLoggedInCustomer();
         var goalsCurrCustomer = goalRepository.findByCustomerId(customer.getId());
         model.addAttribute("goals", goalsCurrCustomer);
         return "myGoalsForm";
@@ -73,7 +73,7 @@ public class GoalController {
      */
     @PostMapping("/evaluate")
     public String redirectOnStatistic(DataForCreatingGoal data) {
-        var customer = customerServiceImpl.getCurentLoginedCustomer();
+        var customer = customerServiceImpl.getCurrentLoggedInCustomer();
         var newGoal = goalServiceImpl.createGoal(data, customer);
         goalRepository.save(newGoal);
         return GOAL_VIEW_REDIRECT;
