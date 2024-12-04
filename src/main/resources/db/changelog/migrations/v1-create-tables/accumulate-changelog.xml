@@ -17,4 +17,6 @@
 
     <include file="create-report-table-changelog.xml" relativeToChangelogFile="true"/>
 
+    <include file="create-food-dairy-report-table-changelog.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

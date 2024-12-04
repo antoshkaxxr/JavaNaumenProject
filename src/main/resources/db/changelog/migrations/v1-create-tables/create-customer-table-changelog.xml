@@ -3,11 +3,11 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1-create-customer-sequence" author="everlast1ngw1nter">
+    <changeSet id="v1-1-create-customer-sequence" author="everlast1ngw1nter">
         <createSequence sequenceName="customer_seq" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="1-create-customer-table" author="everlast1ngw1nter">
+    <changeSet id="v1-1-create-customer-table" author="everlast1ngw1nter">
         <createTable tableName="customer">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>

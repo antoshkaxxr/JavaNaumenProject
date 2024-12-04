@@ -15,7 +15,7 @@ public interface GoalRepository extends CrudRepository<Goal, Long> {
     /**
      * Находит цели пользователя по его id
      *
-     * @param idCustomer Айди пользователя пользователя.
+     * @param idCustomer Айди пользователя.
      * @return Объект {@link Goal}, соответствующий целям пользователя с id = {@param idCustomer}
      */
     List<Goal> findByCustomerId(Long idCustomer);
