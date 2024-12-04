@@ -8,15 +8,30 @@ public enum ReportStatus {
     /**
      * Отчет создан.
      */
-    CREATED,
+    CREATED("Отчет формируется"),
 
     /**
      * Отчет сформирован.
      */
-    COMPLETED,
+    COMPLETED("Отчет сформирован"),
 
     /**
      * Формирование отчета завершилось с ошибкой.
      */
-    ERROR
+    ERROR("Произошла ошибка");
+
+    private final String russianName;
+
+    ReportStatus(String russianName) {
+        this.russianName = russianName;
+    }
+
+    /**
+     * Возвращает русское название стасуса.
+     *
+     * @return Русское название стасуса, соответствующее данному значению перечисления.
+     */
+    public String getRussianName() {
+        return russianName;
+    }
 }

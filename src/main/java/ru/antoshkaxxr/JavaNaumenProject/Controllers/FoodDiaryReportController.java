@@ -50,10 +50,12 @@ public class FoodDiaryReportController {
 
     @PostMapping("/add")
     public String addNewReport(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
             @RequestParam FileType type,
             Principal principal) {
 
-        var report = foodDiaryReportServiceImpl.addNewReport(principal.getName(), null, type, LocalDate.now(), LocalDate.now());
+        var report = foodDiaryReportServiceImpl.addNewReport(principal.getName(), null, type, startDate, endDate);
         baseReportFileGenerator.generateFile(report);
         return REDIRECT_FOOD_DIARY_REPORT_VIEW;
     }

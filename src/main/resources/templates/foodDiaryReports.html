@@ -102,6 +102,7 @@
         <th>Дата старта отчета</th>
         <th>Дата конца отчета</th>
         <th>Тип файла отчета</th>
+        <th>Этап формирования</th>
         <th>Действия</th>
     </tr>
     </thead>
@@ -110,8 +111,9 @@
         <td th:text="${report.getStartDate()}"></td>
         <td th:text="${report.getEndDate()}"></td>
         <td th:text="${report.getTypeFile()}"></td>
+        <td th:text="${report.getStatus().getRussianName()}"></td>
         <td>
-            <form th:if="${report.getStatus().toString() == 'COMPLETED'}" th:action="@{/foodDiaryReports/delete}" method="post">
+            <form th:if="${report.getStatus().toString() != 'CREATED'}" th:action="@{/foodDiaryReports/delete}" method="post">
                 <input type="hidden" name="id" th:value="${report.getId()}">
                 <button type="submit">Удалить</button>
             </form>
@@ -127,6 +129,10 @@
 <h2>Создать новый отчет</h2>
 
 <form th:action="@{/foodDiaryReports/add}" method="post">
+    <label for="startDate">Дата начала отчёта:</label>
+    <input type="date" id="startDate" name="startDate" required/>
+    <label for="endDate">Дата окончания отчёта:</label>
+    <input type="date" id="endDate" name="endDate" required/>
     <label for="type">Тип отчета:</label>
     <select id="type" name="type" required>
         <option th:each="type : ${fileTypes}"

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -17,27 +18,39 @@ public class ExcelReportFileGeneratorImpl implements ReportFileGenerator {
     @Override
     public byte[] generateFile(FoodDiaryReport report, List<FoodDiaryEntry> sortedFoodDiaryBetweenReportDates) {
         Workbook book = new XSSFWorkbook();
-        var sheet = book.createSheet("Answers");
-        for (var i = 0; i < sortedFoodDiaryBetweenReportDates.size(); i++) {
+        var sheet = book.createSheet("Отчёт");
+        addTableHeader(sheet, 0);
+        var startAfterHeader = 1;
+        for (var i = startAfterHeader; i < sortedFoodDiaryBetweenReportDates.size() + startAfterHeader; i++) {
             var row = sheet.createRow(i);
-            setEatenProductInfoInRow(row, sortedFoodDiaryBetweenReportDates.get(i).getEatenProduct());
+            addEatenProductInfoInRow(row,
+                    sortedFoodDiaryBetweenReportDates.get(i - startAfterHeader).getEatenProduct());
         }
 
         return getBytesOfExcelFile(book);
     }
 
-    private void setEatenProductInfoInRow(Row row, EatenProduct eatenProduct) {
-        var productCell = row.createCell(0);
-        productCell.setCellValue(eatenProduct.getProduct().getName());
-        var dateCell = row.createCell(1);
-        dateCell.setCellValue(eatenProduct.getEatingDate());
-        var amountCell = row.createCell(2);
-        amountCell.setCellValue(eatenProduct.getEatenAmount());
+    private void addTableHeader(Sheet sheet, int headedIndex) {
+        var row = sheet.createRow(headedIndex);
+        for (var i = 0; i < TABLE_HEADERS.size(); i++) {
+            var currCell = row.createCell(i);
+            currCell.setCellValue(TABLE_HEADERS.get(i));
+        }
+    }
+
+    private void addEatenProductInfoInRow(Row row, EatenProduct eatenProduct) {
+        addCell(row, 0, eatenProduct.getProduct().getName());
+        addCell(row, 1, eatenProduct.getEatingDate().toString());
+        addCell(row, 2, eatenProduct.getEatenAmount().toString());
         var perHundredCalorie = eatenProduct.getProduct().getCaloriesNumberHundred();
-        var perHundredCalorieCell = row.createCell(3);
-        perHundredCalorieCell.setCellValue(perHundredCalorie);
-        var totalCalorieCell = row.createCell(4);
-        totalCalorieCell.setCellValue(perHundredCalorie * eatenProduct.getEatenAmount() / 100);
+        addCell(row, 3, perHundredCalorie.toString());
+        var totalCalories = perHundredCalorie * eatenProduct.getEatenAmount() / 100;
+        addCell(row, 4, String.valueOf(totalCalories));
+    }
+
+    private void addCell(Row row, int cellIndex, String value) {
+        var cell = row.createCell(cellIndex);
+        cell.setCellValue(value);
     }
 
     private byte[] getBytesOfExcelFile(Workbook workbook) {
