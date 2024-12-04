@@ -7,12 +7,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -66,7 +63,9 @@
             font-weight: bold;
         }
 
-        input[type="text"], input[type="number"], select {
+        .add-form input[type="text"],
+        .add-form input[type="number"],
+        .add-form select {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -88,6 +87,20 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .add-header {
+            margin-top: 50px;
+        }
+
+        .on-main {
+            margin-top: 50px;
+        }
+
+        .no-data {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -106,7 +119,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product : ${products}">
+    <tr th:if="${#lists.isEmpty(products)}">
+        <td colspan="4" class="no-data">Данные отсутствуют</td>
+    </tr>
+    <tr th:each="product : ${products}" th:unless="${#lists.isEmpty(products)}">
         <td th:text="${product.name}"></td>
         <td th:text="${product.category}"></td>
         <td th:text="${product.caloriesNumberHundred}"></td>
@@ -117,7 +133,7 @@
             </form>
             <form th:action="@{/products/update}" method="post">
                 <input type="hidden" name="name" th:value="${product.name}">
-                <input type="number" name="newCaloriesNumberHundred" step="0.01" min="0" placeholder="Новое количество ккал" required>
+                <input class="update-calories" type="number" name="newCaloriesNumberHundred" step="0.01" min="0" placeholder="Новое количество ккал" required>
                 <button type="submit">Обновить</button>
             </form>
         </td>
@@ -125,9 +141,9 @@
     </tbody>
 </table>
 
-<h2>Добавить новый продукт</h2>
+<h2 class="add-header">Добавить новый продукт</h2>
 
-<form th:action="@{/products/add}" method="post">
+<form class="add-form" th:action="@{/products/add}" method="post">
     <label for="name">Название:</label>
     <input type="text" id="name" name="name" required><br>
     <label for="category">Категория:</label>
@@ -143,7 +159,7 @@
 </form>
 
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
 
 </body>

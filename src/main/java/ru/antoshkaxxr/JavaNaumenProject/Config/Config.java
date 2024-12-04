@@ -22,14 +22,7 @@ public class Config {
     public CommandLineRunner commandScanner() {
         return args -> {
             try {
-                LOGGER.info("Введите команду: ");
-                LOGGER.info("1) create <productName> <caloriesNumber>");
-                LOGGER.info("2) delete <productName>");
-                LOGGER.info("3) update <productName> <newCaloriesNumber>");
-                LOGGER.info("4) eat <productName> (<eatingDate>)?");
-                LOGGER.info("5) statistic <date> OR statistic <date1> <date2>");
-                LOGGER.info("6) exit");
-                LOGGER.info("* формат даты: YYYY-MM-DD");
+                LOGGER.info("Приложение успешно запущено");
             } catch (Exception e) {
                 LOGGER.error("Произошла ошибка при инициализации интерфейса командной строки", e);
             }

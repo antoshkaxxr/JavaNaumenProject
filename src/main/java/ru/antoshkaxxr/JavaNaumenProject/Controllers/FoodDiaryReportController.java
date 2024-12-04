@@ -2,7 +2,10 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.FileType;
 import ru.antoshkaxxr.JavaNaumenProject.Services.BaseReportFileGenerator;
@@ -125,5 +129,25 @@ public class FoodDiaryReportController {
             default -> throw new RuntimeException();
         }
         return new ResponseEntity<>(report.getFile(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * Обрабатывает GET-запрос для получения текущих статусов отчетов.
+     *
+     * @param principal Объект Principal для получения имени пользователя.
+     * @return Список статусов отчетов в формате JSON.
+     */
+    @GetMapping("/statuses")
+    @ResponseBody
+    public List<Map<String, Object>> getReportStatuses(Principal principal) {
+        List<FoodDiaryReport> reports = foodDiaryReportServiceImpl.getAllByCustomerName(principal.getName());
+        return reports.stream()
+                .map(report -> {
+                    Map<String, Object> statusMap = new HashMap<>();
+                    statusMap.put("id", report.getId());
+                    statusMap.put("status", report.getStatus().getRussianName());
+                    return statusMap;
+                })
+                .collect(Collectors.toList());
     }
 }

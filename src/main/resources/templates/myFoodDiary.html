@@ -8,12 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -67,8 +64,13 @@
         }
 
         .add-button {
-            margin-top: 20px;
+            margin-top: 50px;
             margin-bottom: 20px;
+        }
+
+        .no-data {
+            font-size: 18px;
+            color: #555;
         }
     </style>
 </head>
@@ -87,7 +89,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="entry : ${foodDiary}">
+    <tr th:if="${#lists.isEmpty(foodDiary)}">
+        <td colspan="5" class="no-data">Данные отсутствуют</td>
+    </tr>
+    <tr th:each="entry : ${foodDiary}" th:unless="${#lists.isEmpty(foodDiary)}">
         <td>
             <div>
                 <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
