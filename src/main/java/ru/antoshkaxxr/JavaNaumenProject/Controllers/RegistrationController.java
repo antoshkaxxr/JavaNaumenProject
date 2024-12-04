@@ -99,4 +99,14 @@ public class RegistrationController {
         model.addAttribute("messageForAdmin", "Admin exists");
         return REGISTRATION_FORM_ADMIN_VIEW;
     }
+
+    /**
+     * Метод для перенаправления на форму логина
+     *
+     * @return форма логина
+     */
+    @GetMapping("/login")
+    public String redirectLogin() {
+        return LOGIN_FORM_REDIRECT;
+    }
 }
