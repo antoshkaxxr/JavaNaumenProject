@@ -111,9 +111,13 @@
         <td th:text="${report.getEndDate()}"></td>
         <td th:text="${report.getTypeFile()}"></td>
         <td>
-            <form th:action="@{/foodDiaryReports/delete}" method="post">
+            <form th:if="${report.getStatus() == 'COMPLETED'}" th:action="@{/foodDiaryReports/delete}" method="post">
                 <input type="hidden" name="id" th:value="${report.getId()}">
                 <button type="submit">Удалить</button>
+            </form>
+            <form th:if="${report.getStatus() == 'COMPLETED'}" th:action="@{/foodDiaryReports/download}" method="get">
+                <input type="hidden" name="id" th:value="${report.getId()}">
+                <button type="submit">Скачать</button>
             </form>
         </td>
     </tr>

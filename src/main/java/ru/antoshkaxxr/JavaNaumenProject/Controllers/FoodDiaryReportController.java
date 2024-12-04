@@ -4,6 +4,10 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,5 +58,17 @@ public class FoodDiaryReportController {
     public String deleteReport(@RequestParam Long id) {
         foodDiaryReportServiceImpl.deleteReport(id);
         return REDIRECT_FOOD_DIARY_REPORT_VIEW;
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<byte[]> getReportData(@RequestParam Long id) {
+        byte[] fileData = foodDiaryReportServiceImpl.getReport(id).getFile();
+        if (fileData == null) {
+            return ResponseEntity.notFound().build();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", "report.pdf");
+        return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
     }
 }

@@ -31,4 +31,8 @@ public interface FoodDiaryEntryRepository extends CrudRepository<FoodDiaryEntry,
      */
     @Query("SELECT r FROM FoodDiaryEntry r WHERE r.customer.id = :customerId AND r.eatenProduct.eatingDate >= :date")
     List<FoodDiaryEntry> findByCustomerIdAndDateFrom(Long customerId, LocalDate date);
+
+    List<FoodDiaryEntry> findByCustomerIdAndEatenProductEatingDateBetween(Long customerId,
+                                                                          LocalDate startDate,
+                                                                          LocalDate endDate);
 }

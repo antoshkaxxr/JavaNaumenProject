@@ -39,4 +39,9 @@ public class FoodDiaryReportServiceImpl {
     public void deleteReport(long reportId) {
         foodDiaryReportRepository.deleteById(reportId);
     }
+
+    public FoodDiaryReport getReport(long reportId) {
+        return foodDiaryReportRepository.findById(reportId)
+                .orElseThrow();
+    }
 }
