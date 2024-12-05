@@ -7,12 +7,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -67,6 +64,7 @@
             font-weight: bold;
         }
 
+
         input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 8px;
@@ -97,9 +95,71 @@
             border-radius: 5px;
             font-size: 16px;
         }
+
+        .create-new {
+            margin-top: 50px;
+        }
+
+        .no-data {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .on-main {
+            margin-top: 50px;
+        }
     </style>
+    <script>
+        function updateStatuses() {
+            fetch('/foodDiaryReports/statuses')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(report => {
+                        const statusCell = document.querySelector(`#status-${report.id}`);
+                        if (statusCell) {
+                            statusCell.textContent = report.status;
+                            const deleteButton = document.querySelector(`#delete-${report.id}`);
+                            const downloadButton = document.querySelector(`#download-${report.id}`);
+                            if (report.status === 'Отчет сформирован' || report.status === 'Произошла ошибка') {
+                                if (deleteButton) deleteButton.classList.remove('hidden');
+                                if (report.status === 'Отчет сформирован') {
+                                    if (downloadButton) downloadButton.classList.remove('hidden');
+                                }
+                            } else {
+                                if (deleteButton) deleteButton.classList.add('hidden');
+                                if (downloadButton) downloadButton.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+        }
+        updateStatuses();
+        setInterval(updateStatuses, 3000);
+    </script>
 </head>
 <body>
+
+<h2 class="create-new">Создать новый отчет</h2>
+
+<form th:action="@{/foodDiaryReports/add}" method="post" onsubmit="return validateDates()">
+    <label for="startDate">Дата начала отчёта:</label>
+    <input type="date" id="startDate" name="startDate" required/>
+    <label for="endDate">Дата окончания отчёта:</label>
+    <input type="date" id="endDate" name="endDate" required/>
+    <label for="type">Тип отчета:</label>
+    <select id="type" name="type" required>
+        <option th:each="type : ${fileTypes}"
+                th:value="${type}"
+                th:text="${type.toString()}">
+        </option>
+    </select><br>
+    <button type="submit">Добавить</button>
+</form>
 
 <h1>Мои отчеты о питании</h1>
 
@@ -116,45 +176,48 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="report : ${foodDiaryReports}">
+    <tr th:if="${#lists.isEmpty(foodDiaryReports)}">
+        <td colspan="5" class="no-data">Данные отсутствуют</td>
+    </tr>
+    <tr th:each="report : ${foodDiaryReports}" th:unless="${#lists.isEmpty(foodDiaryReports)}">
         <td th:text="${report.getStartDate()}"></td>
         <td th:text="${report.getEndDate()}"></td>
         <td th:text="${report.getTypeFile()}"></td>
-        <td th:text="${report.getStatus().getRussianName()}"></td>
+        <td th:attr="id='status-' + ${report.getId()}" th:text="${report.getStatus().getRussianName()}"></td>
         <td>
-            <form th:if="${report.getStatus().toString() != 'CREATED'}" th:action="@{/foodDiaryReports/delete}" method="post">
+            <form th:action="@{/foodDiaryReports/delete}" method="post">
                 <input type="hidden" name="id" th:value="${report.getId()}">
-                <button type="submit">Удалить</button>
+                <button type="submit" th:attr="id='delete-' + ${report.getId()}" class="hidden">Удалить</button>
             </form>
-            <form th:if="${report.getStatus().toString() == 'COMPLETED'}" th:action="@{/foodDiaryReports/download}" method="get">
+            <form th:action="@{/foodDiaryReports/download}" method="get">
                 <input type="hidden" name="id" th:value="${report.getId()}">
-                <button type="submit">Скачать</button>
+                <button type="submit" th:attr="id='download-' + ${report.getId()}" class="hidden">Скачать</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
 
-<h2>Создать новый отчет</h2>
-
-<form th:action="@{/foodDiaryReports/add}" method="post">
-    <label for="startDate">Дата начала отчёта:</label>
-    <input type="date" id="startDate" name="startDate" required/>
-    <label for="endDate">Дата окончания отчёта:</label>
-    <input type="date" id="endDate" name="endDate" required/>
-    <label for="type">Тип отчета:</label>
-    <select id="type" name="type" required>
-        <option th:each="type : ${fileTypes}"
-                th:value="${type}"
-                th:text="${type.toString()}">
-        </option>
-    </select><br>
-    <button type="submit">Добавить</button>
-</form>
-
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
+
+<script>
+    function validateDates() {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        const startYear = new Date(startDate).getFullYear();
+        const endYear = new Date(endDate).getFullYear();
+
+        if (startYear > 3000 || endYear > 3000 || new Date(startDate) > new Date(endDate)) {
+            alert('Введены некорректные данные.');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </body>
 </html>
