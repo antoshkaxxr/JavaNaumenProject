@@ -2,6 +2,7 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class FoodDiaryReportController {
             model.addAttribute(MESSAGE_ATTRIBUTE, message);
             message = null;
         }
+        Collections.reverse(reports);
         model.addAttribute(FOOD_DIARY_REPORT_VIEW, reports);
         model.addAttribute("fileTypes", FileType.values());
 

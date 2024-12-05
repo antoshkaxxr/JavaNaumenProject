@@ -1,6 +1,7 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,7 @@ public class ProductController {
             model.addAttribute(MESSAGE_ATTRIBUTE, message);
             message = null;
         }
+        Collections.reverse(products);
         model.addAttribute(PRODUCTS_VIEW, products);
         model.addAttribute("categories", ProductCategory.values());
         return PRODUCTS_VIEW;
