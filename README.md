@@ -1,15 +1,33 @@
 <h1 align="center">Приложение для подсчёта калорий</h1>
 
-<h3 align="center">Габов Антон, Турмухамбетов Амир, Иванов Станислав</h3>
+<h3 align="center">Над приложением работали Габов Антон, Турмухамбетов Амир, Иванов Станислав</h3>
 
-**Запуск приложения:**
+**Рекомендуемый способ запуска - `docker-compose.yaml`:**
 
-1) Установить переменные окружения:
-   SECRET_KEY = GDFHHERA
+1) Собрать jar, используя команду `mvn clean package -DskipTests`
+
+2) Далее в директории с `docker-compose.yaml` задать файл `.env` формата:
+```text
+SECRET_KEY=secret
+SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/naumendb
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=postgres
+
+POSTGRES_DB=naumendb
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+```
+
+3) Теперь приложение готово к запуску через docker-compose.yaml. `docker compose up`
+
+4) Приложение работает на http://localhost:8080
+
+**Для запуска приложения напрямую:**
+
+1) Установить переменную окружения: `SECRET_KEY = GDFHHERA`,
+а также изменить настройки базы данных в `application.yml` и `application.properties` при необходимости
 
 2) Запустить приложение в IntelliJ IDEA, приложение будет работать по адресу http://localhost:8080
-
-3) Либо использовать docker compose (используется файл .env для задания переменных окружения)
 
 **Начало работы:**
 
@@ -36,8 +54,3 @@
 4) SLF4J
 5) PostgreSQL
 6) Swagger
-
-
-<p align="center">
-  Достигайте новых вершин и удачи!
-</p>
