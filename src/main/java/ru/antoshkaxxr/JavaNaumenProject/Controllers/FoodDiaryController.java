@@ -2,7 +2,6 @@ package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryEntry;
 import ru.antoshkaxxr.JavaNaumenProject.Entities.Product;
 import ru.antoshkaxxr.JavaNaumenProject.Models.EatenProductData;
 import ru.antoshkaxxr.JavaNaumenProject.Services.BaseProductServiceImpl;
