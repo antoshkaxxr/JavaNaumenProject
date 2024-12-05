@@ -1,8 +1,12 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.Customer;
 import ru.antoshkaxxr.JavaNaumenProject.Enums.Role;
 import ru.antoshkaxxr.JavaNaumenProject.Models.DataForRegistrationAdmin;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
+
 
 /**
  * Контроллер для обработки регистрации пользователей
@@ -22,7 +27,7 @@ public class RegistrationController {
     private String secretKey;
     private static final String REGISTRATION_FORM_VIEW = "registrationForm";
     private static final String REGISTRATION_FORM_ADMIN_VIEW = "registrationAdminForm";
-    private static final String LOGIN_FORM_REDIRECT = "redirect:/login";
+    private static final String LOGIN_FORM = "loginForm";
 
     /**
      * Конструктор для внедрения зависимости CustomerServiceImpl.
@@ -66,7 +71,7 @@ public class RegistrationController {
     public String addCustomer(Customer customer, Model model) {
         customer.setRole(Role.USER);
         if (customerService.addCustomer(customer)) {
-            return LOGIN_FORM_REDIRECT;
+            return LOGIN_FORM;
         }
 
         model.addAttribute("message", "User exists");
@@ -88,12 +93,11 @@ public class RegistrationController {
         if (!Objects.equals(customerData.secretKey(), secretKey)) {
             throw new SecurityException("Доступ запрещен");
         }
-        var newCustomer = new Customer(customerData.name(), customerData.email(),
-                customerData.weight(), customerData.height());
+        var newCustomer = new Customer(customerData.name());
         newCustomer.setPassword(customerData.password());
         newCustomer.setRole(Role.ADMIN);
         if (customerService.addCustomer(newCustomer)) {
-            return LOGIN_FORM_REDIRECT;
+            return LOGIN_FORM;
         }
 
         model.addAttribute("messageForAdmin", "Admin exists");
@@ -107,6 +111,21 @@ public class RegistrationController {
      */
     @GetMapping("/login")
     public String redirectLogin() {
-        return LOGIN_FORM_REDIRECT;
+        return LOGIN_FORM;
+    }
+
+    /**
+     * Метод для выхода из текущего аккаунта
+     * @param request запрос
+     * @param response ответ
+     * @return форма логина
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return LOGIN_FORM;
     }
 }

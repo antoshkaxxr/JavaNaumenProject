@@ -28,11 +28,14 @@
         }
 
         form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f4f4f4;
             width: 300px;
+        }
+
+        .mainAction {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
@@ -76,21 +79,12 @@
 
 <div th:if="${message}" class="message" th:text="${message}"></div>
 
-<form th:action="@{/registration}" method="post">
+<form class="mainAction" th:action="@{/registration}" method="post">
     <div>
         <label>Имя пользователя <input type="text" name="name" required/></label>
     </div>
     <div>
         <label>Пароль <input type="password" name="password" required/></label>
-    </div>
-    <div>
-        <label>Email <input type="email" name="email" required/></label>
-    </div>
-    <div>
-        <label>Вес <input type="number" name="weight" required/></label>
-    </div>
-    <div>
-        <label>Рост <input type="number" name="height" required/></label>
     </div>
     <div>
         <input type="submit" value="Зарегистрироваться"/>
@@ -102,5 +96,12 @@
         <input type="submit" value="Уже зарегистрирован"/>
     </div>
 </form>
+
+<form th:action="@{/registration/admin}" method="get">
+    <div>
+        <input type="submit" value="Зарегистрироваться как Админ"/>
+    </div>
+</form>
+
 </body>
 </html>

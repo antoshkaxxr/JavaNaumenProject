@@ -2,7 +2,6 @@ package ru.antoshkaxxr.JavaNaumenProject.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
+    private static final String LOGIN_URL = "/login";
+
     /**
      * Создает и возвращает экземпляр PasswordEncoder, использующий BCrypt для хеширования паролей.
      *
@@ -35,12 +36,15 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/registration", "/login",
+                        .requestMatchers("/registration", LOGIN_URL,
                                 "/logout", "/registration/admin")
                         .permitAll()
                         .requestMatchers("/swagger-ui/index.html", "/monitoring").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage(LOGIN_URL)
+                        .permitAll()
+                )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/reports/create"));
         return http.build();
     }

@@ -24,15 +24,6 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private Double weight;
-
-    @Column(nullable = false)
-    private Double height;
-
     private String password;
 
     private Role role;
@@ -41,15 +32,9 @@ public class Customer {
      * Конструктор для создания нового клиента с указанными параметрами.
      *
      * @param name   Имя клиента
-     * @param email  Электронная почта клиента
-     * @param weight Вес клиента
-     * @param height Рост клиента
      */
-    public Customer(String name, String email, Double weight, Double height) {
+    public Customer(String name) {
         this.name = name;
-        this.email = email;
-        this.weight = weight;
-        this.height = height;
     }
 
     /**
@@ -93,60 +78,6 @@ public class Customer {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Возвращает электронную почту клиента.
-     *
-     * @return Электронная почта клиента.
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Устанавливает электронную почту клиента.
-     *
-     * @param email Электронная почта клиента.
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Возвращает вес клиента.
-     *
-     * @return Вес клиента.
-     */
-    public Double getWeight() {
-        return weight;
-    }
-
-    /**
-     * Устанавливает вес клиента.
-     *
-     * @param weight Вес клиента.
-     */
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     * Возвращает рост клиента.
-     *
-     * @return Рост клиента.
-     */
-    public Double getHeight() {
-        return height;
-    }
-
-    /**
-     * Устанавливает рост клиента.
-     *
-     * @param height Рост клиента.
-     */
-    public void setHeight(Double height) {
-        this.height = height;
     }
 
     /**

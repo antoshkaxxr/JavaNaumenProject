@@ -71,38 +71,41 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .error-message {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
-<h1>Регистрация администратора</h1>
+<h1>Вход</h1>
 
-<div th:if="${messageForAdmin}" class="message" th:text="${messageForAdmin}"></div>
+<div th:if="${param.error}">
+    <p class="error-message">Введите правильный логин и пароль.</p>
+</div>
 
-<form class="mainAction" th:action="@{/registration/admin}" method="post">
+<form class="mainAction" th:action="@{/login}" method="post">
     <div>
-        <label>Имя пользователя <input type="text" name="name" required/></label>
+        <label>UserName: <input type="text" name="username" required/></label>
     </div>
     <div>
-        <label>Пароль <input type="password" name="password" required/></label>
+        <label>Password: <input type="password" name="password" required/></label>
     </div>
     <div>
-        <label>Ключ: <input type="text" name="secretKey" required/></label>
-    </div>
-    <div>
-        <input type="submit" value="Зарегистрироваться"/>
-    </div>
-</form>
-
-<form th:action="@{/login}" method="get">
-    <div>
-        <input type="submit" value="Уже зарегистрирован"/>
+        <input type="submit" value="Войти"/>
     </div>
 </form>
 
 <form th:action="@{/registration}" method="get">
     <div>
         <input type="submit" value="Зарегистрироваться как Пользователь"/>
+    </div>
+</form>
+
+<form th:action="@{/registration/admin}" method="get">
+    <div>
+        <input type="submit" value="Зарегистрироваться как Админ"/>
     </div>
 </form>
 
