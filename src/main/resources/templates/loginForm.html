@@ -71,13 +71,19 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .error-message {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
 <h1>Вход</h1>
 
-<div th:if="${message}" class="message" th:text="${message}"></div>
+<div th:if="${param.error}">
+    <p class="error-message">Введите правильный логин и пароль.</p>
+</div>
 
 <form class="mainAction" th:action="@{/login}" method="post">
     <div>
