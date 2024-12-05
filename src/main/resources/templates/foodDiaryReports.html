@@ -109,6 +109,10 @@
         .hidden {
             display: none;
         }
+
+        .on-main {
+            margin-top: 50px;
+        }
     </style>
     <script>
         function updateStatuses() {
@@ -139,6 +143,23 @@
     </script>
 </head>
 <body>
+
+<h2 class="create-new">Создать новый отчет</h2>
+
+<form th:action="@{/foodDiaryReports/add}" method="post" onsubmit="return validateDates()">
+    <label for="startDate">Дата начала отчёта:</label>
+    <input type="date" id="startDate" name="startDate" required/>
+    <label for="endDate">Дата окончания отчёта:</label>
+    <input type="date" id="endDate" name="endDate" required/>
+    <label for="type">Тип отчета:</label>
+    <select id="type" name="type" required>
+        <option th:each="type : ${fileTypes}"
+                th:value="${type}"
+                th:text="${type.toString()}">
+        </option>
+    </select><br>
+    <button type="submit">Добавить</button>
+</form>
 
 <h1>Мои отчеты о питании</h1>
 
@@ -177,25 +198,8 @@
     </tbody>
 </table>
 
-<h2 class="create-new">Создать новый отчет</h2>
-
-<form th:action="@{/foodDiaryReports/add}" method="post" onsubmit="return validateDates()">
-    <label for="startDate">Дата начала отчёта:</label>
-    <input type="date" id="startDate" name="startDate" required/>
-    <label for="endDate">Дата окончания отчёта:</label>
-    <input type="date" id="endDate" name="endDate" required/>
-    <label for="type">Тип отчета:</label>
-    <select id="type" name="type" required>
-        <option th:each="type : ${fileTypes}"
-                th:value="${type}"
-                th:text="${type.toString()}">
-        </option>
-    </select><br>
-    <button type="submit">Добавить</button>
-</form>
-
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
 
 <script>

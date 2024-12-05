@@ -72,9 +72,19 @@
             font-size: 18px;
             color: #555;
         }
+
+        .on-main {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
+
+<div class="add-button">
+    <form th:action="@{/foodDiary/addForm}" method="get">
+        <button type="submit">Добавить приём пищи</button>
+    </form>
+</div>
 
 <h1>Мои приёмы пищи</h1>
 
@@ -123,14 +133,8 @@
     </tbody>
 </table>
 
-<div class="add-button">
-    <form th:action="@{/foodDiary/addForm}" method="get">
-        <button type="submit">Добавить приём пищи</button>
-    </form>
-</div>
-
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
 
 </body>
