@@ -11,7 +11,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import ru.antoshkaxxr.JavaNaumenProject.Entities.FoodDiaryReport;
 @Service
 public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
 
-    private static Path fontPath = Paths.get("fonts", "ofont.ru_Arial.ttf");
+    private static final String FONT_PATH = Paths.get("fonts", "ofont.ru_Arial.ttf").toString();
 
     /**
      * Генерирует PDF-файл для отчета по дневнику питания.
@@ -42,7 +41,7 @@ public class PdfReportFileGeneratorImpl implements ReportFileGenerator {
             PdfWriter.getInstance(document, byteArrayOutputStream);
             document.open();
             PdfPTable table = new PdfPTable(TABLE_HEADERS.size());
-            BaseFont baseFont = BaseFont.createFont(fontPath.toString(),
+            BaseFont baseFont = BaseFont.createFont(FONT_PATH,
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             Font font = new Font(baseFont);
             addTableHeader(table, font);
