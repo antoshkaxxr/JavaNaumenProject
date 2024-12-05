@@ -64,6 +64,7 @@
             font-weight: bold;
         }
 
+
         input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 8px;
@@ -196,6 +197,23 @@
 <form th:action="@{/}" method="get">
     <button type="submit">На главную страницу</button>
 </form>
+
+<script>
+    function validateDates() {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        const startYear = new Date(startDate).getFullYear();
+        const endYear = new Date(endDate).getFullYear();
+
+        if (startYear > 3000 || endYear > 3000 || new Date(startDate) > new Date(endDate)) {
+            alert('Введены некорректные данные.');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </body>
 </html>
