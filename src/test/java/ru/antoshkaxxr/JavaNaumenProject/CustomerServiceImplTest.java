@@ -59,7 +59,7 @@ public class CustomerServiceImplTest {
     @Transactional
     @Rollback
     void testDeleteByCustomerIdTransactionSuccess() {
-        Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        Customer customer1 = new Customer("Lucy");
         customerRepository.save(customer1);
 
         Product product1 = new Product("apple", ProductCategory.FRUITS,50.0);
@@ -90,7 +90,7 @@ public class CustomerServiceImplTest {
     @Transactional
     @Rollback
     public void testDeleteByCustomerIdTransactionFailure() {
-        Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        Customer customer1 = new Customer("Lucy");
         Product product1 = new Product("apple", ProductCategory.FRUITS, 50.0);
         EatenProduct eatenProduct1 = new EatenProduct(product1, LocalDate.of(2024, 10, 12), 2.0);
         FoodDiaryEntry foodDiaryEntry1 = new FoodDiaryEntry(customer1, eatenProduct1);

@@ -44,8 +44,8 @@ public class FoodDiaryEntryTest {
     @Transactional
     @Rollback
     void testFindByCustomerId() {
-        Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
-        Customer customer2 = new Customer("Jack", "maxiluc@yandex.ru", 80.0, 179.0);
+        Customer customer1 = new Customer("Lucy");
+        Customer customer2 = new Customer("Jack");
         customerRepository.save(customer1);
         customerRepository.save(customer2);
 
@@ -80,7 +80,7 @@ public class FoodDiaryEntryTest {
     @Transactional
     @Rollback
     void testFindByEatingDate() {
-        Customer customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        Customer customer1 = new Customer("Lucy");
         customerRepository.save(customer1);
 
         Product product1 = new Product("apple", ProductCategory.FRUITS,50.0);

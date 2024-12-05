@@ -45,7 +45,7 @@ public class GoalTest {
     @Transactional
     @Rollback
     void testFindByCustomerId() {
-        var customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        var customer1 = new Customer("Lucy");
         customerRepository.save(customer1);
         var nameGoal1 = "Цель1";
         var goal1 = new Goal(
@@ -79,7 +79,7 @@ public class GoalTest {
     @Transactional
     @Rollback
     void testFindStatisticFoodDiary() {
-        var customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        var customer1 = new Customer("Lucy");
         customerRepository.save(customer1);
 
         var product1 = new Product("apple", ProductCategory.FRUITS, 50.0);
@@ -141,7 +141,7 @@ public class GoalTest {
     @Transactional
     @Rollback
     void testCreateNewGoal() {
-        var customer1 = new Customer("Lucy", "mililuc@yandex.ru", 70.0, 170.0);
+        var customer1 = new Customer("Lucy");
         customerRepository.save(customer1);
 
         var dataForCreatingGoal = new DataForCreatingGoal(

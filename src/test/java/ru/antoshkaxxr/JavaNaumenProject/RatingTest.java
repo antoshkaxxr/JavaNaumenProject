@@ -41,8 +41,8 @@ public class RatingTest {
         productRepository.save(product1);
         productRepository.save(product2);
 
-        Customer customer1 = new Customer("Bob", "bobgreen@internet.ru", 80.0, 185.0);
-        Customer customer2 = new Customer("Alice", "pinkycat@mail.ru", 55.0, 167.0);
+        Customer customer1 = new Customer("Bob");
+        Customer customer2 = new Customer("Alice");
         customerRepository.save(customer1);
         customerRepository.save(customer2);
 
@@ -84,8 +84,8 @@ public class RatingTest {
         productRepository.save(product2);
         productRepository.save(product3);
 
-        Customer customer1 = new Customer("Maria", "mashaaa@yandex.ru", 60.0, 170.0);
-        Customer customer2 = new Customer("Tom", "tommyme@gmail.com", 75.0, 177.0);
+        Customer customer1 = new Customer("Maria");
+        Customer customer2 = new Customer("Tom");
         customerRepository.save(customer1);
         customerRepository.save(customer2);
 
