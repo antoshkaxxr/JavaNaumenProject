@@ -8,12 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -67,12 +64,22 @@
         }
 
         .add-button {
-            margin-top: 20px;
+            margin-top: 50px;
             margin-bottom: 20px;
+        }
+
+        .on-main {
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
+
+<div class="add-button">
+    <form th:action="@{/goal/form}" method="get">
+        <button type="submit">Добавить цель</button>
+    </form>
+</div>
 
 <h1>Мои цели</h1>
 
@@ -116,14 +123,8 @@
     </tbody>
 </table>
 
-<div class="add-button">
-    <form th:action="@{/goal/form}" method="get">
-        <button type="submit">Добавить цель</button>
-    </form>
-</div>
-
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
 
 </body>

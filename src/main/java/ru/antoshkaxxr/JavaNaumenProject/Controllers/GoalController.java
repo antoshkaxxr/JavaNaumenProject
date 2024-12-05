@@ -1,6 +1,8 @@
 package ru.antoshkaxxr.JavaNaumenProject.Controllers;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.antoshkaxxr.JavaNaumenProject.Entities.Goal;
 import ru.antoshkaxxr.JavaNaumenProject.Models.DataForCreatingGoal;
 import ru.antoshkaxxr.JavaNaumenProject.Repositories.GoalRepository;
 import ru.antoshkaxxr.JavaNaumenProject.Services.CustomerServiceImpl;
@@ -50,6 +53,7 @@ public class GoalController {
     public String returnMyGoalsForm(Model model) {
         var customer = customerServiceImpl.getCurrentLoggedInCustomer();
         var goalsCurrCustomer = goalRepository.findByCustomerId(customer.getId());
+        goalsCurrCustomer.sort(Comparator.comparing(Goal::getStartDate, Comparator.reverseOrder()));
         model.addAttribute("goals", goalsCurrCustomer);
         return "myGoalsForm";
     }

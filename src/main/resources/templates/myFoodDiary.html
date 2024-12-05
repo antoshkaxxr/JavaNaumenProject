@@ -8,12 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -67,12 +64,27 @@
         }
 
         .add-button {
-            margin-top: 20px;
+            margin-top: 50px;
             margin-bottom: 20px;
+        }
+
+        .no-data {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .on-main {
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
+
+<div class="add-button">
+    <form th:action="@{/foodDiary/addForm}" method="get">
+        <button type="submit">Добавить приём пищи</button>
+    </form>
+</div>
 
 <h1>Мои приёмы пищи</h1>
 
@@ -87,7 +99,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="entry : ${foodDiary}">
+    <tr th:if="${#lists.isEmpty(foodDiary)}">
+        <td colspan="5" class="no-data">Данные отсутствуют</td>
+    </tr>
+    <tr th:each="entry : ${foodDiary}" th:unless="${#lists.isEmpty(foodDiary)}">
         <td>
             <div>
                 <p th:text="${entry.getEatenProduct().getProduct().getName()}"></p>
@@ -118,14 +133,8 @@
     </tbody>
 </table>
 
-<div class="add-button">
-    <form th:action="@{/foodDiary/addForm}" method="get">
-        <button type="submit">Добавить приём пищи</button>
-    </form>
-</div>
-
 <form th:action="@{/}" method="get">
-    <button type="submit">На главную страницу</button>
+    <button class="on-main" type="submit">На главную страницу</button>
 </form>
 
 </body>
