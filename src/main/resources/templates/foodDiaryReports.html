@@ -179,7 +179,7 @@
 
 <h2 class="create-new">Создать новый отчет</h2>
 
-<form th:action="@{/foodDiaryReports/add}" method="post">
+<form th:action="@{/foodDiaryReports/add}" method="post" onsubmit="return validateDates()">
     <label for="startDate">Дата начала отчёта:</label>
     <input type="date" id="startDate" name="startDate" required/>
     <label for="endDate">Дата окончания отчёта:</label>
